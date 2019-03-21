@@ -9,7 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SSS.Domain.Repository\SSS.Domain.Repository.csproj" />
     <ProjectReference Include="..\SSS.Domain\SSS.Domain.Core.csproj" />
   </ItemGroup>
 
