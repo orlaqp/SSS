@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>SSS.Domain.Core</AssemblyName>
+    <RootNamespace>SSS.Domain.Core</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SSS.Domain.Core\SSS.Domain.Seedwork.csproj" />
+  </ItemGroup>
+
+</Project>
