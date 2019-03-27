@@ -12,5 +12,7 @@ namespace SSS.Application.Student
         List<StudentOutputDto> GetListStudent(StudentInputDto student);
 
         bool DeleteStudent(StudentInputDto student);
+
+        StudentOutputDto GetByName(StudentInputDto student);
     }
 }

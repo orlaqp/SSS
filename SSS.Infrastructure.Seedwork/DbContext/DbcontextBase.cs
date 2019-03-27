@@ -14,7 +14,7 @@ namespace SSS.Infrastructure.Seedwork.DbContext
             _env = env;
         }
 
-        public DbSet<Student> Customers { get; set; }
+        public DbSet<Student> Student { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
