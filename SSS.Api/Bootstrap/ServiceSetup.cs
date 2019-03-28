@@ -8,9 +8,9 @@ using SSS.Infrastructure.Seedwork.UnitOfWork;
 
 namespace SSS.Api.Bootstrap
 {
-    public static class IocSetup
+    public static class ServiceSetup
     {
-        public static void AddIoc(this IServiceCollection services)
+        public static void AddService(this IServiceCollection services)
         {
             // ASP.NET HttpContext dependency
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

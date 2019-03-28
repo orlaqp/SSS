@@ -4,7 +4,7 @@ namespace SSS.Domain.Seedwork.Model
 {
     public abstract class Entity
     {
-        public Guid Id { get; protected set; }
+        public Guid Id { get; set; }
 
         public override bool Equals(object obj)
         {

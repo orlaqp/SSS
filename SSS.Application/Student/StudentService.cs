@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using SSS.Domain.Core.Student;
@@ -20,13 +21,11 @@ namespace SSS.Application.Student
         public bool DeleteStudent(StudentInputDto student) => throw new System.NotImplementedException();
         public StudentOutputDto GetByName(StudentInputDto student)
         {
-            var entity = _studentrepository.GetByName(student.name);
-            return null;
+            return _mapper.Map<StudentOutputDto>(_studentrepository.GetByName(student.name));
         }
         public List<StudentOutputDto> GetListStudent(StudentInputDto student)
         {
-            var list = _studentrepository.GetAll().ProjectTo<StudentOutputDto>(_mapper.ConfigurationProvider);
-            return null;
+            return _studentrepository.GetAll().ProjectTo<StudentOutputDto>(_mapper.ConfigurationProvider).ToList();
         }
         public bool UpdateStudent(StudentInputDto student) => throw new System.NotImplementedException();
     }
