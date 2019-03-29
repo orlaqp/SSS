@@ -16,8 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SSS.Api.Seedwork\SSS.Api.Seedwork.csproj" />
     <ProjectReference Include="..\SSS.Application.Seedwork\SSS.Application.Seedwork.csproj" />
-    <ProjectReference Include="..\SSS.Application\SSS.Application.csproj" />
-    <ProjectReference Include="..\SSS.Domain.Repository\SSS.Domain.CQRS.csproj" />
+    <ProjectReference Include="..\SSS.Application\SSS.Application.csproj" /> 
     <ProjectReference Include="..\SSS.Domain\SSS.Domain.Core.csproj" />
   </ItemGroup>
 
