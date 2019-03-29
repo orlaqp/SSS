@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SSS.Api.Seedwork;
 using SSS.Application.Student;
-using SSS.Domain.Core.Student;
+using SSS.Domain.Student.Dto;
 
 namespace SSS.Api.Controllers
 {

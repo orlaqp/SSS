@@ -1,7 +1,7 @@
 ﻿using SSS.Domain.Seedwork.Model;
 using System;
 
-namespace SSS.Domain.Core.Student
+namespace SSS.Domain.Student
 {
     public class Student : Entity
     {

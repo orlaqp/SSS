@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using SSS.Domain.Core.Student;
+using SSS.Domain.Student;
 
 namespace SSS.Infrastructure.Seedwork.DbContext
 {

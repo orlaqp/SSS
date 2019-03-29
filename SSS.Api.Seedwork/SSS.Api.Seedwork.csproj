@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SSS.Domain.Core\SSS.Domain.Seedwork.csproj" />
+    <ProjectReference Include="..\SSS.Domain.Seedwork\SSS.Domain.Seedwork.csproj" />
   </ItemGroup>
 
   <ItemGroup>

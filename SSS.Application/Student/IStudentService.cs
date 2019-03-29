@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using SSS.Domain.Core.Student;
+using SSS.Domain.Student.Dto;
 
 namespace SSS.Application.Student
 {

@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using SSS.Domain.CQRS.Student.Commands;
-using SSS.Domain.CQRS.Student.Repository;
+using SSS.Domain.CQRS.Student.Commands; 
 using SSS.Domain.Seedwork.Bus;
 using SSS.Domain.Seedwork.CommandHandlers;
 using SSS.Domain.Seedwork.Notifications;
 using SSS.Domain.Seedwork.UnitOfWork;
+using SSS.Infrastructure.Student.Repository;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -40,7 +40,7 @@ namespace SSS.Domain.CQRS.Student.CommandHandlers
                 NotifyValidationErrors(request);
                 return Task.FromResult(false);
             }
-            var student = new SSS.Domain.Core.Student.Student(request.id, request.name, request.age);
+            var student = new SSS.Domain.Student.Student(request.id, request.name, request.age);
             _studentrepository.Update(student);
             if (Commit())
             {

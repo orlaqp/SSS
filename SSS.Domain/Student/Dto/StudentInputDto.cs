@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SSS.Domain.Core.Student
+namespace SSS.Domain.Student.Dto
 {
     public class StudentInputDto
     {

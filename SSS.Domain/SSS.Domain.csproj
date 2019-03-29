@@ -5,11 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="8.0.0" />
-  </ItemGroup>
-
-  <ItemGroup> 
-    <ProjectReference Include="..\SSS.Domain.CQRS\SSS.Domain.CQRS.csproj" />
+    <ProjectReference Include="..\SSS.Domain.Seedwork\SSS.Domain.Seedwork.csproj" />
   </ItemGroup>
 
 </Project>

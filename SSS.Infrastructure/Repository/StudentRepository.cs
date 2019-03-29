@@ -3,11 +3,11 @@ using SSS.Infrastructure.Seedwork.DbContext;
 using SSS.Infrastructure.Seedwork.Repository;
 using System.Linq;
 
-namespace SSS.Domain.CQRS.Student.Repository
+namespace SSS.Infrastructure.Student.Repository
 {
-    public class StudentRepository : Repository<Core.Student.Student>, IStudentRepository
+    public class StudentRepository : Repository<SSS.Domain.Student.Student>, IStudentRepository
     {
-        public Core.Student.Student GetByName(string name)
+        public SSS.Domain.Student.Student GetByName(string name)
         {
             return DbSet.AsNoTracking().FirstOrDefault(x => x.Name.Contains(name));
         }

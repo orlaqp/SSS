@@ -2,8 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>SSS.Domain.Seedwork</AssemblyName>
-    <RootNamespace>SSS.Domain.Seedwork</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

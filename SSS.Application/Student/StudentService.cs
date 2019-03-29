@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using SSS.Domain.Core.Student;
-using SSS.Domain.CQRS.Student.Commands;
-using SSS.Domain.CQRS.Student.Repository;
+using AutoMapper.QueryableExtensions; 
+using SSS.Domain.CQRS.Student.Commands; 
 using SSS.Domain.Seedwork.Bus;
+using SSS.Domain.Student.Dto;
+using SSS.Infrastructure.Student.Repository;
 
 namespace SSS.Application.Student
 {

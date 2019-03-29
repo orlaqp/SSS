@@ -1,6 +1,6 @@
-﻿using AutoMapper;
-using SSS.Domain.Core.Student;
+﻿using AutoMapper; 
 using SSS.Domain.CQRS.Student.Commands;
+using SSS.Domain.Student.Dto;
 
 namespace SSS.Application.Seedwork.AutoMapper
 {
