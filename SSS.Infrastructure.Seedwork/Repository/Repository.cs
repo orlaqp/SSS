@@ -34,7 +34,7 @@ namespace SSS.Infrastructure.Seedwork.Repository
 
         public virtual void Update(TEntity obj)
         {
-            DbSet.Update(obj);
+            var status=DbSet.Update(obj);
         }
 
         public virtual void Remove(Guid id)

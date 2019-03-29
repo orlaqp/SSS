@@ -3,7 +3,7 @@ using SSS.Infrastructure.Seedwork.DbContext;
 using SSS.Infrastructure.Seedwork.Repository;
 using System.Linq;
 
-namespace SSS.Domain.Repository.Student
+namespace SSS.Domain.CQRS.Student.Repository
 {
     public class StudentRepository : Repository<Core.Student.Student>, IStudentRepository
     {

@@ -1,6 +1,6 @@
 ﻿using SSS.Domain.Seedwork.Repository;
 
-namespace SSS.Domain.Repository.Student
+namespace SSS.Domain.CQRS.Student.Repository
 {
     public interface IStudentRepository : IRepository<Core.Student.Student>
     {

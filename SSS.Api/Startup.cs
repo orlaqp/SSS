@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection; 
 using SSS.Api.Bootstrap;
+using MediatR;
 using SSS.Api.Seedwork;
 
 namespace SSS.Api
@@ -28,6 +29,9 @@ namespace SSS.Api
 
             //AutoMapper映射
             services.AddAutoMapperSetup();
+
+            //MediatR
+            services.AddMediatR(typeof(Startup));
 
             //集中注入
             services.AddService();

@@ -7,7 +7,7 @@ namespace SSS.Application.Student
     {
         StudentOutputDto AddStudent(StudentInputDto student);
 
-        bool UpdateStudent(StudentInputDto student);
+        void UpdateStudent(StudentInputDto student);
 
         List<StudentOutputDto> GetListStudent(StudentInputDto student);
 

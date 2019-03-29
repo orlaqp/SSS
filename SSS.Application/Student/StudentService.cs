@@ -3,18 +3,22 @@ using System.Linq;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using SSS.Domain.Core.Student;
-using SSS.Domain.Repository.Student;
+using SSS.Domain.CQRS.Student.Commands;
+using SSS.Domain.CQRS.Student.Repository;
+using SSS.Domain.Seedwork.Bus;
 
 namespace SSS.Application.Student
 {
     public class StudentService : IStudentService
     {
         private readonly IMapper _mapper;
+        private readonly IMediatorHandler _bus;
 
         private readonly IStudentRepository _studentrepository;
-        public StudentService(IMapper mapper, IStudentRepository studentrepository)
+        public StudentService(IMapper mapper, IMediatorHandler bus, IStudentRepository studentrepository)
         {
             _mapper = mapper;
+            _bus = bus;
             _studentrepository = studentrepository;
         }
         public StudentOutputDto AddStudent(StudentInputDto student) => throw new System.NotImplementedException();
@@ -27,6 +31,10 @@ namespace SSS.Application.Student
         {
             return _studentrepository.GetAll().ProjectTo<StudentOutputDto>(_mapper.ConfigurationProvider).ToList();
         }
-        public bool UpdateStudent(StudentInputDto student) => throw new System.NotImplementedException();
+        public void UpdateStudent(StudentInputDto student)
+        {
+            var cmd = _mapper.Map<StudentUpdateCommand>(student);
+            _bus.SendCommand(cmd); 
+        }
     }
 }

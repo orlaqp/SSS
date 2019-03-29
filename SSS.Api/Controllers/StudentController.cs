@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using SSS.Api.Seedwork;
 using SSS.Application.Student;
 using SSS.Domain.Core.Student;
-using System;
 
 namespace SSS.Api.Controllers
 {
@@ -24,7 +23,6 @@ namespace SSS.Api.Controllers
         [AllowAnonymous]  //匿名访问
         public IActionResult GetByName([FromQuery]StudentInputDto student)
         {
-            //Convert.ToInt32("abc");
             var result = _student.GetByName(student);
             return Response(result);
         }
@@ -33,9 +31,15 @@ namespace SSS.Api.Controllers
         public IActionResult GetList([FromQuery]StudentInputDto student)
         {
             var result = _student.GetListStudent(student);
-            if (result != null)
-                return Ok(new { success = true, data = result, code = 200 });
-            return Ok(new { success = false, data = "", code = 400, message = "数据为空" });
+            return Response(result);
+        }
+
+        [HttpPost("updateage")]
+        [AllowAnonymous]  //匿名访问
+        public IActionResult UpdateAge([FromBody]StudentInputDto student)
+        {
+            _student.UpdateStudent(student);
+            return Response(student);
         }
     }
 }
