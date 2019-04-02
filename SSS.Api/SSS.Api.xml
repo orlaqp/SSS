@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SSS.Api</name>
+    </assembly>
+    <members>
+        <member name="T:SSS.Api.Controllers.StudentController">
+            <summary>
+            StudentController
+            </summary>
+        </member>
+        <member name="M:SSS.Api.Controllers.StudentController.#ctor(SSS.Application.Student.IStudentService)">
+            <summary>
+            StudentController
+            </summary>
+            <param name="student">IStudentService</param>
+        </member>
+        <member name="M:SSS.Api.Controllers.StudentController.GetByName(SSS.Domain.Student.Dto.StudentInputDto)">
+            <summary>
+            GetByName
+            </summary>
+            <param name="student">StudentInputDto</param>
+            <returns></returns> 
+        </member>
+        <member name="M:SSS.Api.Controllers.StudentController.GetList(SSS.Domain.Student.Dto.StudentInputDto)">
+            <summary>
+            GetList
+            </summary>
+            <param name="student">StudentInputDto</param>
+            <returns></returns> 
+        </member>
+        <member name="M:SSS.Api.Controllers.StudentController.UpdateAge(SSS.Domain.Student.Dto.StudentInputDto)">
+            <summary>
+            UpdateAge
+            </summary>
+            <param name="student">StudentInputDto</param>
+            <returns></returns> 
+        </member>
+    </members>
+</doc>

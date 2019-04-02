@@ -6,19 +6,32 @@ using SSS.Domain.Student.Dto;
 
 namespace SSS.Api.Controllers
 {
+    /// <summary>
+    /// StudentController
+    /// </summary>
     [Authorize]
-    [Route("api/[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [Produces("application/json")]
     [ApiController]
     public class StudentController : ApiBaseController
     {
         private readonly IStudentService _student;
 
+        /// <summary>
+        /// StudentController
+        /// </summary>
+        /// <param name="student">IStudentService</param>
         public StudentController(IStudentService student)
         {
             _student = student;
         }
 
+        /// <summary>
+        /// GetByName
+        /// </summary>
+        /// <param name="student">StudentInputDto</param>
+        /// <returns></returns> 
         [HttpGet("getbyname")]
         [AllowAnonymous]  //匿名访问
         public IActionResult GetByName([FromQuery]StudentInputDto student)
@@ -27,13 +40,24 @@ namespace SSS.Api.Controllers
             return Response(result);
         }
 
+        /// <summary>
+        /// GetList
+        /// </summary>
+        /// <param name="student">StudentInputDto</param>
+        /// <returns></returns> 
         [HttpGet("getlist")]
+        [AllowAnonymous]  //匿名访问
         public IActionResult GetList([FromQuery]StudentInputDto student)
         {
             var result = _student.GetListStudent(student);
             return Response(result);
         }
 
+        /// <summary>
+        /// UpdateAge
+        /// </summary>
+        /// <param name="student">StudentInputDto</param>
+        /// <returns></returns> 
         [HttpPost("updateage")]
         [AllowAnonymous]  //匿名访问
         public IActionResult UpdateAge([FromBody]StudentInputDto student)
