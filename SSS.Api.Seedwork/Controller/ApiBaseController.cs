@@ -24,7 +24,7 @@ namespace SSS.Api.Seedwork
             return (!_notifications.HasNotifications());
         }
 
-        protected IActionResult Response(object data, bool status = true, string message = "", int code = 200)
+        protected new IActionResult Response(object data, bool status = true, string message = "", int code = 200)
         {
             _logger = (ILogger)HttpContextService.Current.RequestServices.GetService(typeof(ILogger<ApiBaseController>));
             _notifications = (DomainNotificationHandler)HttpContextService.Current.RequestServices.GetService(typeof(INotificationHandler<DomainNotification>));

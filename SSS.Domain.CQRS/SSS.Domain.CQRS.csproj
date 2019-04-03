@@ -8,6 +8,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.2" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SSS.Api.Seedwork\SSS.Api.Seedwork.csproj" />
     <ProjectReference Include="..\SSS.Domain.Seedwork\SSS.Domain.Seedwork.csproj" />
     <ProjectReference Include="..\SSS.Infrastructure\SSS.Infrastructure.csproj" />
   </ItemGroup>

@@ -1,10 +1,9 @@
 ﻿using MediatR;
-using SSS.Domain.Seedwork.Bus;
-using SSS.Domain.Seedwork.Commands;
+using SSS.Domain.Seedwork.Bus; 
 using SSS.Domain.Seedwork.Notifications;
 using SSS.Domain.Seedwork.UnitOfWork;
 
-namespace SSS.Domain.Seedwork.CommandHandlers
+namespace SSS.Domain.Seedwork.Command
 {
     public class CommandHandler
     {
@@ -29,10 +28,13 @@ namespace SSS.Domain.Seedwork.CommandHandlers
 
         public bool Commit()
         {
-            if (_notifications.HasNotifications()) return false;
-            if (_uow.Commit()) return true;
+            if (_notifications.HasNotifications())
+                return false;
 
-            _bus.RaiseEvent(new DomainNotification("Commit", "We had a problem during saving your data."));
+            if (_uow.Commit())
+                return true;
+
+            _bus.RaiseEvent(new DomainNotification("Commit", "事务提交失败"));
             return false;
         }
     }

@@ -1,6 +1,6 @@
-﻿using FluentValidation;
-using SSS.Domain.CQRS.Student.Commands;
+﻿using FluentValidation; 
 using System;
+using SSS.Domain.CQRS.Student.Command.Commands;
 
 namespace SSS.Domain.CQRS.Student.Validations
 {

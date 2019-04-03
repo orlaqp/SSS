@@ -1,15 +1,16 @@
 ﻿using MediatR;
-using Microsoft.Extensions.Logging;
-using SSS.Domain.CQRS.Student.Commands; 
-using SSS.Domain.Seedwork.Bus;
-using SSS.Domain.Seedwork.CommandHandlers;
+using Microsoft.Extensions.Logging; 
+using SSS.Domain.Seedwork.Bus; 
 using SSS.Domain.Seedwork.Notifications;
 using SSS.Domain.Seedwork.UnitOfWork;
 using SSS.Infrastructure.Student.Repository;
 using System.Threading;
 using System.Threading.Tasks;
+using SSS.Domain.CQRS.Student.Command.Commands;
+using SSS.Domain.CQRS.Student.Event.Events;
+using SSS.Domain.Seedwork.Command;
 
-namespace SSS.Domain.CQRS.Student.CommandHandlers
+namespace SSS.Domain.CQRS.Student.Command.Handlers
 {
     /// <summary>
     /// 
@@ -45,6 +46,7 @@ namespace SSS.Domain.CQRS.Student.CommandHandlers
             if (Commit())
             {
                 _logger.LogInformation("StudentUpdateCommand Success");
+                Bus.RaiseEvent(new StudentUpdateEvent(student.Id, student.Name, student.Age));
             }
             return Task.FromResult(true);
         }

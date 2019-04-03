@@ -1,5 +1,4 @@
-﻿using MediatR;
-using SSS.Domain.Seedwork.Commands;
+﻿using MediatR; 
 using SSS.Domain.Seedwork.Events;
 using System.Threading.Tasks;
 
@@ -14,7 +13,7 @@ namespace SSS.Domain.Seedwork.Bus
             _mediator = mediator;
         }
 
-        public Task SendCommand<T>(T command) where T : Command
+        public Task SendCommand<T>(T command) where T : Command.Command
         {
             return _mediator.Send(command);
         }

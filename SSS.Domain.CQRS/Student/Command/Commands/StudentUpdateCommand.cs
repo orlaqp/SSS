@@ -1,7 +1,7 @@
 ﻿using SSS.Domain.CQRS.Student.Validations;
 using System;
 
-namespace SSS.Domain.CQRS.Student.Commands
+namespace SSS.Domain.CQRS.Student.Command.Commands
 {
     public class StudentUpdateCommand : StudentCommand
     {
