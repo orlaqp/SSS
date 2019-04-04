@@ -36,5 +36,34 @@
             <param name="student">StudentInputDto</param>
             <returns></returns> 
         </member>
+        <member name="T:SSS.Api.Startup">
+            <summary>
+            Startup
+            </summary>
+        </member>
+        <member name="M:SSS.Api.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Startup
+            </summary>
+            <param name="configuration">IConfiguration</param>
+        </member>
+        <member name="P:SSS.Api.Startup.Configuration">
+            <summary>
+            Configuration
+            </summary>
+        </member>
+        <member name="M:SSS.Api.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            ConfigureServices
+            </summary>
+            <param name="services">IServiceCollection</param>
+        </member>
+        <member name="M:SSS.Api.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment)">
+            <summary>
+            Configure
+            </summary>
+            <param name="app">IApplicationBuilder</param>
+            <param name="env">IHostingEnvironment</param>
+        </member>
     </members>
 </doc>

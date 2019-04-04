@@ -13,7 +13,7 @@ using SSS.Domain.Seedwork.Command;
 namespace SSS.Domain.CQRS.Student.Command.Handlers
 {
     /// <summary>
-    /// 
+    /// StudentCommandHandler
     /// </summary>
     public class StudentCommandHandler : CommandHandler,
          IRequestHandler<StudentUpdateCommand, bool>
