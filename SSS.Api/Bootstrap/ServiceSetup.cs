@@ -19,7 +19,6 @@ namespace SSS.Api.Bootstrap
     {
         public static void AddService(this IServiceCollection services)
         { 
-
             // ASP.NET HttpContext dependency
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

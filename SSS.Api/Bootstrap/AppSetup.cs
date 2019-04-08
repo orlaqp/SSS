@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using SSS.Api.Seedwork;
+using SSS.Infrastructure.Seedwork.Cache.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,11 @@ namespace SSS.Api.Bootstrap
 {
     public static class AppSetup
     {
+        /// <summary>
+        /// 注入HttpContext
+        /// </summary>
+        /// <param name="app"></param>
+        /// <returns></returns>
         public static IApplicationBuilder UseHttpContext(this IApplicationBuilder app)
         {
             //获取HtppContext实例
@@ -20,6 +26,21 @@ namespace SSS.Api.Bootstrap
             var hostingEnvironment = app.ApplicationServices.GetRequiredService<IHostingEnvironment>();
             //注入实例
             HttpContextService.Configure(httpContextAccessor, hostingEnvironment);
+            return app;
+        }
+
+        /// <summary>
+        /// 注入RedisCache
+        /// </summary>
+        /// <param name="app"></param>
+        /// <returns></returns>
+        public static IApplicationBuilder UseRedisCache(this IApplicationBuilder app, Action<RedisOptions> options = null)
+        {
+            RedisOptions config = null;
+            options(config);
+            if (config == null)
+                config = new RedisOptions() { host = "localhost", port = 6379 };
+
             return app;
         }
     }

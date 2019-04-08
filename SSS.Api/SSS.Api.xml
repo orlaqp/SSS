@@ -4,12 +4,26 @@
         <name>SSS.Api</name>
     </assembly>
     <members>
+        <member name="M:SSS.Api.Bootstrap.AppSetup.UseHttpContext(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            注入HttpContext
+            </summary>
+            <param name="app"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SSS.Api.Bootstrap.AppSetup.UseRedisCache(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action{SSS.Infrastructure.Seedwork.Cache.Redis.RedisOptions})">
+            <summary>
+            注入RedisCache
+            </summary>
+            <param name="app"></param>
+            <returns></returns>
+        </member>
         <member name="T:SSS.Api.Controllers.StudentController">
             <summary>
             StudentController
             </summary>
         </member>
-        <member name="M:SSS.Api.Controllers.StudentController.#ctor(SSS.Application.Student.IStudentService)">
+        <member name="M:SSS.Api.Controllers.StudentController.#ctor(SSS.Application.Student.IStudentService,SSS.Infrastructure.Seedwork.Cache.Redis.RedisCache)">
             <summary>
             StudentController
             </summary>

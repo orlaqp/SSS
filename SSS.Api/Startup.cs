@@ -10,6 +10,7 @@ using SSS.Api.Bootstrap;
 using MediatR;
 using SSS.Api.Seedwork;
 using Swashbuckle.AspNetCore.Swagger;
+using SSS.Infrastructure.Seedwork.Cache.Redis;
 
 namespace SSS.Api
 {
@@ -55,6 +56,10 @@ namespace SSS.Api
 
             //Session
             services.AddSession();
+
+            //Redis
+            services.AddRedisCache(Configuration.GetSection("Redis"));
+            //services.AddRedisCache();
 
             //Swagger
             services.AddSwaggerGen(options =>
@@ -103,6 +108,13 @@ namespace SSS.Api
 
             //http上下文
             app.UseHttpContext();
+
+            ////RedisCahce
+            //app.UseRedisCache(options =>
+            //{
+            //    options.host = Configuration.GetSection("Redis:host").Value;
+            //    options.port = Convert.ToInt32(Configuration.GetSection("Redis:port").Value);
+            //});
 
             //Swagger
             app.UseSwagger();
