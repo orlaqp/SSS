@@ -6,10 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SSS.Api.Bootstrap;
 using SSS.Api.Seedwork;
-using Swashbuckle.AspNetCore.Swagger;
-using System;
-using System.IO;
-using System.Reflection;
 
 namespace SSS.Api
 {
@@ -57,8 +53,13 @@ namespace SSS.Api
             services.AddSession();
 
             //Redis
-            services.AddRedisCache(Configuration.GetSection("Redis"));
-            //services.AddRedisCache();
+            //services.AddRedisCache(Configuration.GetSection("Redis"));    //方式一
+            //services.AddRedisCache();                                     //方式二
+            services.AddRedisCache(options =>                          //方式三
+            {
+                options.host = "192.168.1.148";
+                options.port = 6379;
+            });
 
             //MemCache
             services.AddMemCached(Configuration.GetSection("MemCache"));
@@ -69,6 +70,9 @@ namespace SSS.Api
 
             //Swagger
             services.AddSwagger();
+
+            //ApiVersion
+            services.AddApiVersion();
         }
         /// <summary>
         /// Configure

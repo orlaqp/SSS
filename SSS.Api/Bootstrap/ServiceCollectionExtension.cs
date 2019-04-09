@@ -14,7 +14,7 @@ using SSS.Infrastructure.Seedwork.UnitOfWork;
 using SSS.Infrastructure.Student.Repository;
 using SSS.Infrastructure.Seedwork.Cache.Redis;
 using Microsoft.Extensions.Configuration;
-using System; 
+using System;
 using SSS.Application.Seedwork.AutoMapper;
 using SSS.Infrastructure.Seedwork.Cache.Memcached;
 using AutoMapper;
@@ -28,7 +28,7 @@ namespace SSS.Api.Bootstrap
     public static class ServiceCollectionExtension
     {
         /// <summary>
-        /// Service
+        /// Service Base
         /// </summary>
         /// <param name="services"></param>
         public static void AddService(this IServiceCollection services)
@@ -88,9 +88,12 @@ namespace SSS.Api.Bootstrap
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 options.IncludeXmlComments(xmlPath);
-            });
+            }); 
+        }
 
-            //ApiVersion
+        //ApiVersion
+        public static void AddApiVersion(this IServiceCollection services)
+        {
             services.AddApiVersioning(options =>
             {
                 options.ReportApiVersions = true;
@@ -98,6 +101,8 @@ namespace SSS.Api.Bootstrap
                 options.DefaultApiVersion = new ApiVersion(1, 0);
             });
         }
+
+        #region Redis
 
         /// <summary>
         /// 配置Redis链接
@@ -111,6 +116,17 @@ namespace SSS.Api.Bootstrap
         }
 
         /// <summary>
+        /// 配置Redis链接
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="options"></param>
+        public static void AddRedisCache(this IServiceCollection services, Action<RedisOptions> options)
+        {
+            services.Configure<RedisOptions>(options);
+            services.AddTransient<RedisCache>();
+        }
+
+        /// <summary>
         /// 默认Redis链接
         /// </summary>
         /// <param name="services"></param>
@@ -118,6 +134,10 @@ namespace SSS.Api.Bootstrap
         {
             services.AddTransient<RedisCache>();
         }
+
+        #endregion
+
+        #region Memcached
 
         /// <summary>
         /// 配置Memcached链接
@@ -138,5 +158,18 @@ namespace SSS.Api.Bootstrap
         {
             services.AddTransient<MemCached>();
         }
+
+        /// <summary>
+        /// 配置Memcached链接
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="options"></param>
+        public static void AddMemcached(this IServiceCollection services, Action<MemCachedOptions> options)
+        {
+            services.Configure<MemCachedOptions>(options);
+            services.AddTransient<RedisCache>();
+        }
+
+        #endregion 
     }
 }

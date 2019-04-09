@@ -18,6 +18,13 @@
             <param name="app"></param>
             <returns></returns>
         </member>
+        <member name="M:SSS.Api.Bootstrap.ApplicationBuilderExtension.UseMemCached(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action{SSS.Infrastructure.Seedwork.Cache.Redis.MemCachedOptions})">
+            <summary>
+            注入Memcached
+            </summary>
+            <param name="app"></param>
+            <returns></returns>
+        </member>
         <member name="M:SSS.Api.Bootstrap.ServiceCollectionExtension.AddService(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
             Service
@@ -42,6 +49,13 @@
             </summary>
             <param name="services"></param>
             <param name="section"></param>
+        </member>
+        <member name="M:SSS.Api.Bootstrap.ServiceCollectionExtension.AddRedisCache(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{SSS.Infrastructure.Seedwork.Cache.Redis.RedisOptions})">
+            <summary>
+            配置Redis链接
+            </summary>
+            <param name="services"></param>
+            <param name="options"></param>
         </member>
         <member name="M:SSS.Api.Bootstrap.ServiceCollectionExtension.AddRedisCache(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
