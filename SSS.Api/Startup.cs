@@ -1,16 +1,15 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
+﻿using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SSS.Api.Bootstrap;
-using MediatR;
 using SSS.Api.Seedwork;
 using Swashbuckle.AspNetCore.Swagger;
-using SSS.Infrastructure.Seedwork.Cache.Redis;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace SSS.Api
 {
@@ -46,7 +45,7 @@ namespace SSS.Api
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             //AutoMapper映射
-            services.AddAutoMapperSetup();
+            services.AddAutoMapperSupport();
 
             //MediatR
             services.AddMediatR(typeof(Startup));
@@ -61,30 +60,15 @@ namespace SSS.Api
             services.AddRedisCache(Configuration.GetSection("Redis"));
             //services.AddRedisCache();
 
+            //MemCache
+            services.AddMemCached(Configuration.GetSection("MemCache"));
+            //services.AddMemCached();
+
+            //MemoryCache
+            services.AddMemoryCache();
+
             //Swagger
-            services.AddSwaggerGen(options =>
-            {
-                options.SwaggerDoc("v1", new Info
-                {
-                    Version = "v1",
-                    Title = "SSS Project V1",
-                    Description = "SSS API Swagger docs",
-                    Contact = new Contact { Name = "wbs", Email = "512742341@qq.com", Url = "https://github.com/wangboshun" },
-                    License = new License { Name = "MIT", Url = "https://github.com/wangboshun/SSS" }
-                });
-
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                options.IncludeXmlComments(xmlPath);
-            });
-
-            //ApiVersion
-            services.AddApiVersioning(options =>
-            {
-                options.ReportApiVersions = true;
-                options.AssumeDefaultVersionWhenUnspecified = false;
-                options.DefaultApiVersion = new ApiVersion(1, 0);
-            });
+            services.AddSwagger();
         }
         /// <summary>
         /// Configure

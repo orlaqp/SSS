@@ -4,26 +4,70 @@
         <name>SSS.Api</name>
     </assembly>
     <members>
-        <member name="M:SSS.Api.Bootstrap.AppSetup.UseHttpContext(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+        <member name="M:SSS.Api.Bootstrap.ApplicationBuilderExtension.UseHttpContext(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
             <summary>
             注入HttpContext
             </summary>
             <param name="app"></param>
             <returns></returns>
         </member>
-        <member name="M:SSS.Api.Bootstrap.AppSetup.UseRedisCache(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action{SSS.Infrastructure.Seedwork.Cache.Redis.RedisOptions})">
+        <member name="M:SSS.Api.Bootstrap.ApplicationBuilderExtension.UseRedisCache(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action{SSS.Infrastructure.Seedwork.Cache.Redis.RedisOptions})">
             <summary>
             注入RedisCache
             </summary>
             <param name="app"></param>
             <returns></returns>
         </member>
+        <member name="M:SSS.Api.Bootstrap.ServiceCollectionExtension.AddService(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Service
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:SSS.Api.Bootstrap.ServiceCollectionExtension.AddAutoMapperSupport(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            AutoMapper
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:SSS.Api.Bootstrap.ServiceCollectionExtension.AddSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Swagger
+            </summary>
+            <param name="services"></param> 
+        </member>
+        <member name="M:SSS.Api.Bootstrap.ServiceCollectionExtension.AddRedisCache(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationSection)">
+            <summary>
+            配置Redis链接
+            </summary>
+            <param name="services"></param>
+            <param name="section"></param>
+        </member>
+        <member name="M:SSS.Api.Bootstrap.ServiceCollectionExtension.AddRedisCache(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            默认Redis链接
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:SSS.Api.Bootstrap.ServiceCollectionExtension.AddMemCached(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationSection)">
+            <summary>
+            配置Memcached链接
+            </summary>
+            <param name="services"></param>
+            <param name="section"></param>
+        </member>
+        <member name="M:SSS.Api.Bootstrap.ServiceCollectionExtension.AddMemcached(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            默认Memcached链接
+            </summary>
+            <param name="services"></param>
+        </member>
         <member name="T:SSS.Api.Controllers.StudentController">
             <summary>
             StudentController
             </summary>
         </member>
-        <member name="M:SSS.Api.Controllers.StudentController.#ctor(SSS.Application.Student.IStudentService,SSS.Infrastructure.Seedwork.Cache.Redis.RedisCache)">
+        <member name="M:SSS.Api.Controllers.StudentController.#ctor(SSS.Application.Student.IStudentService,SSS.Infrastructure.Seedwork.Cache.Redis.RedisCache,SSS.Infrastructure.Seedwork.Cache.Memcached.MemCached)">
             <summary>
             StudentController
             </summary>

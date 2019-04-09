@@ -4,14 +4,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using SSS.Api.Seedwork;
 using SSS.Infrastructure.Seedwork.Cache.Redis;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System; 
 
 namespace SSS.Api.Bootstrap
 {
-    public static class AppSetup
+    public static class ApplicationBuilderExtension
     {
         /// <summary>
         /// 注入HttpContext
@@ -40,6 +37,21 @@ namespace SSS.Api.Bootstrap
             options(config);
             if (config == null)
                 config = new RedisOptions() { host = "localhost", port = 6379 };
+            
+            return app;
+        }
+
+        /// <summary>
+        /// 注入Memcached
+        /// </summary>
+        /// <param name="app"></param>
+        /// <returns></returns>
+        public static IApplicationBuilder UseMemCached(this IApplicationBuilder app, Action<MemCachedOptions> options = null)
+        {
+            MemCachedOptions config = null;
+            options(config);
+            if (config == null)
+                config = new MemCachedOptions() { host = "localhost", port = 11211 };
 
             return app;
         }

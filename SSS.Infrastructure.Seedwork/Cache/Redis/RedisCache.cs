@@ -2,12 +2,13 @@
 using Microsoft.Extensions.Options;
 using StackExchange.Redis;
 using System;
+using System.Collections.Generic;
 
 namespace SSS.Infrastructure.Seedwork.Cache.Redis
 {
     public class RedisCache
     {
-        private readonly ConnectionMultiplexer _redis;
+        private readonly ConnectionMultiplexer _connect;
 
         private readonly ILogger _logger;
 
@@ -20,13 +21,13 @@ namespace SSS.Infrastructure.Seedwork.Cache.Redis
             try
             {
                 if (!string.IsNullOrWhiteSpace(options.Value.host))
-                    _redis = ConnectionMultiplexer.Connect(new ConfigurationOptions { EndPoints = { { options.Value.host, options.Value.port } } });
+                    _connect = ConnectionMultiplexer.Connect(new ConfigurationOptions { EndPoints = { { options.Value.host, options.Value.port } } });
 
                 else
-                    _redis = ConnectionMultiplexer.Connect(new ConfigurationOptions { EndPoints = { { "localhost", 6379 } } });
+                    _connect = ConnectionMultiplexer.Connect(new ConfigurationOptions { EndPoints = { { "localhost", 6379 } } });
 
-                if (_redis.IsConnected)
-                    _db = _redis.GetDatabase();
+                if (_connect.IsConnected)
+                    _db = _connect.GetDatabase();
             }
             catch (Exception ex)
             {
@@ -34,9 +35,77 @@ namespace SSS.Infrastructure.Seedwork.Cache.Redis
             }
         }
 
-        public void Set(string key, string value)
+        /// <summary>
+        /// 根据Key删除缓存
+        /// </summary>
+        /// <param name="key"></param>
+        public void Remove(string key)
+        {
+            _db.KeyDelete(key);
+        }
+
+        /// <summary>
+        /// 统计Key数量
+        /// </summary>
+        /// <returns></returns>
+        public int Count()
+        {
+            return Convert.ToInt32(_db.Execute("DBSIZE").ToString());
+        }
+
+        #region String操作        
+
+        public void StringSet(string key, string value)
         {
             _db.StringSet(key, value);
         }
+
+        /// <summary>
+        /// 设置缓存时间，分钟为单位
+        /// </summary>
+        /// <param name="key">key</param>
+        /// <param name="value">value</param>
+        /// <param name="minute">minute</param>
+        public void StringSet(string key, string value, double minute)
+        {
+            TimeSpan time = TimeSpan.FromMinutes(minute);
+            _db.StringSet(key, value, time);
+        }
+
+        public string StringGet(string key)
+        {
+            return _db.StringGet(key);
+        }
+
+        #endregion
+
+        #region List操作        
+
+        public void ListSet<T>(string key, List<T> value)
+        {
+            foreach (var item in value)
+                _db.ListRightPush(key, Newtonsoft.Json.JsonConvert.SerializeObject(item));
+        }
+
+        public List<T> ListGet<T>(string key)
+        {
+            var data = _db.ListRange(key);
+            if (data == null || data.Length < 1)
+                return null;
+
+            List<T> result = new List<T>();
+            foreach (var item in data)
+                result.Add(Newtonsoft.Json.JsonConvert.DeserializeObject<T>(item));
+
+            return result;
+        }
+
+        public T ListGetByIndex<T>(string key, int index)
+        {
+            var data = _db.ListGetByIndex(key, index);
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(data);
+        }
+
+        #endregion
     }
 }

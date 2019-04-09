@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using SSS.Api.Seedwork;
 using SSS.Application.Student;
 using SSS.Domain.Student.Dto;
+using SSS.Infrastructure.Seedwork.Cache.Memcached;
 using SSS.Infrastructure.Seedwork.Cache.Redis;
+using System.Collections.Generic;
 
 namespace SSS.Api.Controllers
 {
@@ -21,14 +23,17 @@ namespace SSS.Api.Controllers
 
         private readonly RedisCache _redis;
 
+        private readonly MemCached _memcached;
+
         /// <summary>
         /// StudentController
         /// </summary>
         /// <param name="student">IStudentService</param>
-        public StudentController(IStudentService student, RedisCache redis)
+        public StudentController(IStudentService student, RedisCache redis, MemCached memcached)
         {
             _student = student;
             _redis = redis;
+            _memcached = memcached;
         }
 
         /// <summary>
@@ -40,7 +45,6 @@ namespace SSS.Api.Controllers
         [AllowAnonymous]  //匿名访问
         public IActionResult GetByName([FromQuery]StudentInputDto student)
         {
-            _redis.Set("abc","123");
             var result = _student.GetByName(student);
             return Response(result);
         }
@@ -54,6 +58,7 @@ namespace SSS.Api.Controllers
         [AllowAnonymous]  //匿名访问
         public IActionResult GetList([FromQuery]StudentInputDto student)
         {
+            _redis.Count();
             var result = _student.GetListStudent(student);
             return Response(result);
         }
