@@ -27,7 +27,7 @@
         </member>
         <member name="M:SSS.Api.Bootstrap.ServiceCollectionExtension.AddService(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
-            Service
+            Service Base
             </summary>
             <param name="services"></param>
         </member>
@@ -75,6 +75,13 @@
             默认Memcached链接
             </summary>
             <param name="services"></param>
+        </member>
+        <member name="M:SSS.Api.Bootstrap.ServiceCollectionExtension.AddMemcached(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{SSS.Infrastructure.Seedwork.Cache.Redis.MemCachedOptions})">
+            <summary>
+            配置Memcached链接
+            </summary>
+            <param name="services"></param>
+            <param name="options"></param>
         </member>
         <member name="T:SSS.Api.Controllers.StudentController">
             <summary>

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SSS.Api.Bootstrap;
+using SSS.Api.Middware;
 using SSS.Api.Seedwork;
 
 namespace SSS.Api
@@ -39,6 +40,19 @@ namespace SSS.Api
                 //全局Action Exception Result过滤器
                 options.Filters.Add<MvcFilter>();
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            //设置授权 Api
+            services.AddAuthorization();
+
+            //设置认证 Api
+            services.AddAuthentication("Bearer")
+                .AddJwtBearer("Bearer", options =>
+                {
+                    options.Authority = "http://localhost:456";  
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
+                    options.Audience = "api_test1";
+                });
 
             //AutoMapper映射
             services.AddAutoMapperSupport();
@@ -82,14 +96,15 @@ namespace SSS.Api
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
-            {
                 app.UseDeveloperExceptionPage();
-            }
             else
-            {
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
-            }
+             
+            ////认证中间件
+            app.UseAuthentication();
+
+            //IdentityServer中间件
+            app.UseMiddleware<IdentityServerMiddleware>(); 
 
             //Session缓存
             app.UseSession();

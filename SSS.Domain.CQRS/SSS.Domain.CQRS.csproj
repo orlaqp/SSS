@@ -5,7 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="8.2.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SSS.Api.Seedwork\SSS.Api.Seedwork.csproj" />

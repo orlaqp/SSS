@@ -57,8 +57,7 @@ namespace SSS.Api.Controllers
         [HttpGet("getlist")]
         [AllowAnonymous]  //匿名访问
         public IActionResult GetList([FromQuery]StudentInputDto student)
-        {
-            _redis.Count();
+        { 
             var result = _student.GetListStudent(student);
             return Response(result);
         }
