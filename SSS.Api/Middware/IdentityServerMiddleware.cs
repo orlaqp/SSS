@@ -37,6 +37,9 @@ namespace SSS.Api.Middware
 
                 context.Request.Headers.Add("Authorization", "Bearer " + tokenResponse.AccessToken);
             }
+            else
+                foreach (var item in context.User.Claims)
+                    _logger.LogInformation("Claims :【" + item.Issuer + "】" + "【" + item.Type + "】" + "  【" + item.Value + "】");
 
             await _next.Invoke(context);
         }

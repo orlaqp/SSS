@@ -20,7 +20,7 @@ namespace SSS.Api.Seedwork
         {
             foreach (var item in context.HttpContext.Request.Headers)
             {
-                _logger.LogInformation("【" + item.Key + "】" + "  【" + item.Value + "】");
+                _logger.LogInformation("Headers :【" + item.Key + "】" + "  【" + item.Value + "】");
             }
         }
 
