@@ -5,7 +5,6 @@ using SSS.Application.Student;
 using SSS.Domain.Student.Dto;
 using SSS.Infrastructure.Seedwork.Cache.Memcached;
 using SSS.Infrastructure.Seedwork.Cache.Redis;
-using System.Collections.Generic;
 
 namespace SSS.Api.Controllers
 {
@@ -57,7 +56,7 @@ namespace SSS.Api.Controllers
         [HttpGet("getlist")]
         [AllowAnonymous]  //匿名访问
         public IActionResult GetList([FromQuery]StudentInputDto student)
-        { 
+        {
             var result = _student.GetListStudent(student);
             return Response(result);
         }
