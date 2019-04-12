@@ -83,9 +83,30 @@
             <param name="services"></param>
             <param name="options"></param>
         </member>
+        <member name="M:SSS.Api.Bootstrap.ServiceCollectionExtension.AddMongoDB(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfigurationSection)">
+            <summary>
+            配置MongoDB链接
+            </summary>
+            <param name="services"></param>
+            <param name="section"></param>
+        </member>
+        <member name="M:SSS.Api.Bootstrap.ServiceCollectionExtension.AddMongoDB(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{SSS.Infrastructure.Seedwork.DataBase.MongoDB.MongoOptions})">
+            <summary>
+            配置MongoDB链接
+            </summary>
+            <param name="services"></param>
+            <param name="options"></param>
+        </member>
+        <member name="M:SSS.Api.Bootstrap.ServiceCollectionExtension.AddMongoDB(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            默认MongoDB链接
+            </summary>
+            <param name="services"></param>
+        </member>
         <member name="T:SSS.Api.Controllers.StudentController">
             <summary>
             StudentController
+            使用IdentityServer授权，放开IdentityMiddleware中间件注释，并放开Authorize注解
             </summary>
         </member>
         <member name="M:SSS.Api.Controllers.StudentController.#ctor(SSS.Application.Student.IStudentService,SSS.Infrastructure.Seedwork.Cache.Redis.RedisCache,SSS.Infrastructure.Seedwork.Cache.Memcached.MemCached)">

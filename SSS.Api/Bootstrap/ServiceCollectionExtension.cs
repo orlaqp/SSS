@@ -11,7 +11,6 @@ using SSS.Domain.Seedwork.Notifications;
 using SSS.Domain.Seedwork.UnitOfWork;
 using SSS.Infrastructure.Seedwork.DbContext;
 using SSS.Infrastructure.Seedwork.UnitOfWork;
-using SSS.Infrastructure.Student.Repository;
 using SSS.Infrastructure.Seedwork.Cache.Redis;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -22,6 +21,10 @@ using Swashbuckle.AspNetCore.Swagger;
 using System.Reflection;
 using System.IO;
 using Microsoft.AspNetCore.Mvc;
+using SSS.Domain.Seedwork.Repository;
+using SSS.Infrastructure.Repository.Student;
+using SSS.Infrastructure.Seedwork.DataBase.MongoDB;
+using SSS.Infrastructure.Seedwork.Repository;
 
 namespace SSS.Api.Bootstrap
 {
@@ -43,9 +46,34 @@ namespace SSS.Api.Bootstrap
             services.AddScoped<IStudentService, StudentService>();
 
             // Infra - Data
-            services.AddScoped<IStudentRepository, StudentRepository>();
+            services.AddSingleton<StudentRepository>();
+            services.AddSingleton<MongoStudentRepository>(); 
+
+            services.AddSingleton(factory =>
+            {
+                Func<string, IStudentRepository> accesor = key =>
+                {
+                    if (key.Equals("_mongodbstudentrepository"))
+                    {
+                        services.AddSingleton(typeof(MongoDBRepository<>));
+                        return factory.GetService<MongoStudentRepository>();
+                    }
+
+                    else if (key.Equals("_studentrepository"))
+                    {
+                        services.AddSingleton(typeof(Repository<>));
+                        return factory.GetService<StudentRepository>();
+                    }
+                    else
+                    {
+                        throw new ArgumentException($"Not Support key : {key}");
+                    }
+                };
+                return accesor;
+            });
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<DbcontextBase>();
+            services.AddSingleton<DbcontextBase>();
 
             // Domain - Events
             services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
@@ -88,7 +116,7 @@ namespace SSS.Api.Bootstrap
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 options.IncludeXmlComments(xmlPath);
-            }); 
+            });
         }
 
         //ApiVersion
@@ -170,6 +198,38 @@ namespace SSS.Api.Bootstrap
             services.AddTransient<RedisCache>();
         }
 
-        #endregion 
+        #endregion
+
+        #region MongoDB
+
+        /// <summary>
+        /// 配置MongoDB链接
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="section"></param>
+        public static void AddMongoDB(this IServiceCollection services, IConfigurationSection section)
+        {
+            services.Configure<MongoOptions>(section); 
+        }
+
+        /// <summary>
+        /// 配置MongoDB链接
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="options"></param>
+        public static void AddMongoDB(this IServiceCollection services, Action<MongoOptions> options)
+        {
+            services.Configure<MongoOptions>(options); 
+        }
+
+        /// <summary>
+        /// 默认MongoDB链接
+        /// </summary>
+        /// <param name="services"></param>
+        public static void AddMongoDB(this IServiceCollection services)
+        { 
+        }
+
+        #endregion
     }
 }

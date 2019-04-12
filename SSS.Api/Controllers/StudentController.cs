@@ -10,8 +10,9 @@ namespace SSS.Api.Controllers
 {
     /// <summary>
     /// StudentController
+    /// 使用IdentityServer授权，放开IdentityMiddleware中间件注释，并放开Authorize注解
     /// </summary>
-    [Authorize]
+    //[Authorize]    
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [Produces("application/json")]
@@ -22,7 +23,7 @@ namespace SSS.Api.Controllers
 
         private readonly RedisCache _redis;
 
-        private readonly MemCached _memcached;
+        private readonly MemCached _memcached; 
 
         /// <summary>
         /// StudentController

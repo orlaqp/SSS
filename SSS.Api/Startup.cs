@@ -75,6 +75,13 @@ namespace SSS.Api
                 options.port = 6379;
             });
 
+            services.AddMongoDB(options =>                          //方式三
+            {
+                options.host = "192.168.1.148";
+                options.port = 27017;
+            });
+
+
             //MemCache
             services.AddMemCached(Configuration.GetSection("MemCache"));
             //services.AddMemCached();

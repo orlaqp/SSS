@@ -3,12 +3,12 @@ using Microsoft.Extensions.Logging;
 using SSS.Domain.Seedwork.Bus; 
 using SSS.Domain.Seedwork.Notifications;
 using SSS.Domain.Seedwork.UnitOfWork;
-using SSS.Infrastructure.Student.Repository;
 using System.Threading;
 using System.Threading.Tasks;
 using SSS.Domain.CQRS.Student.Command.Commands;
 using SSS.Domain.CQRS.Student.Event.Events;
 using SSS.Domain.Seedwork.Command;
+using SSS.Infrastructure.Repository.Student;
 
 namespace SSS.Domain.CQRS.Student.Command.Handlers
 {
