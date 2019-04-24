@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using SSS.Domain.Okex.Target;
 using SSS.Domain.Student;
 
 namespace SSS.Infrastructure.Seedwork.DbContext
@@ -15,6 +16,8 @@ namespace SSS.Infrastructure.Seedwork.DbContext
         }
 
         public DbSet<Student> Student { get; set; }
+
+        public DbSet<Ema> Ema { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

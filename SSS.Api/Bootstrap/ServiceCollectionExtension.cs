@@ -21,7 +21,8 @@ using Swashbuckle.AspNetCore.Swagger;
 using System.Reflection;
 using System.IO;
 using Microsoft.AspNetCore.Mvc;
-using SSS.Domain.Seedwork.Repository;
+using SSS.Application.Okex.Target;
+using SSS.Application.Okex.Trading;
 using SSS.Infrastructure.Repository.Student;
 using SSS.Infrastructure.Seedwork.DataBase.MongoDB;
 using SSS.Infrastructure.Seedwork.Repository;
@@ -44,10 +45,12 @@ namespace SSS.Api.Bootstrap
 
             // Application
             services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<OkexTarget>();
+            services.AddScoped<ITradingService, TradingService>();
 
             // Infra - Data
             services.AddSingleton<StudentRepository>();
-            services.AddSingleton<MongoStudentRepository>(); 
+            services.AddSingleton<MongoStudentRepository>();
 
             services.AddSingleton(factory =>
             {
@@ -209,7 +212,7 @@ namespace SSS.Api.Bootstrap
         /// <param name="section"></param>
         public static void AddMongoDB(this IServiceCollection services, IConfigurationSection section)
         {
-            services.Configure<MongoOptions>(section); 
+            services.Configure<MongoOptions>(section);
         }
 
         /// <summary>
@@ -219,7 +222,7 @@ namespace SSS.Api.Bootstrap
         /// <param name="options"></param>
         public static void AddMongoDB(this IServiceCollection services, Action<MongoOptions> options)
         {
-            services.Configure<MongoOptions>(options); 
+            services.Configure<MongoOptions>(options);
         }
 
         /// <summary>
@@ -227,7 +230,7 @@ namespace SSS.Api.Bootstrap
         /// </summary>
         /// <param name="services"></param>
         public static void AddMongoDB(this IServiceCollection services)
-        { 
+        {
         }
 
         #endregion
