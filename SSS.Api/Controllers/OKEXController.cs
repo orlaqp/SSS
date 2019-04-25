@@ -4,7 +4,7 @@ using SSS.Api.Seedwork;
 using SSS.Application.Okex.Trading;
 
 namespace SSS.Api.Controllers
-{
+{ 
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [Produces("application/json")]

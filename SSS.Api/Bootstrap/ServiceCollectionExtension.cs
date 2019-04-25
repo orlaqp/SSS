@@ -23,6 +23,7 @@ using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using SSS.Application.Okex.Target;
 using SSS.Application.Okex.Trading;
+using SSS.Infrastructure.Repository.Okex;
 using SSS.Infrastructure.Repository.Student;
 using SSS.Infrastructure.Seedwork.DataBase.MongoDB;
 using SSS.Infrastructure.Seedwork.Repository;
@@ -49,6 +50,11 @@ namespace SSS.Api.Bootstrap
             services.AddScoped<ITradingService, TradingService>();
 
             // Infra - Data
+            services.AddSingleton<IEmaRepository, EmaRepository>();
+            services.AddSingleton<IKdjRepository, KdjRepository>();
+            services.AddSingleton<IMaRepository, MaRepository>();
+            services.AddSingleton<IMacdRepository, MacdRepository>();
+
             services.AddSingleton<StudentRepository>();
             services.AddSingleton<MongoStudentRepository>();
 

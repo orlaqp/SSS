@@ -6,8 +6,9 @@ namespace SSS.Domain.Okex.Target
     public class Macd : Entity
     {
         public string instrument { set; get; }
-        public DateTime time { set; get; }
+        public int timetype { set; get; }
         public DateTime createtime { set; get; }
+        public DateTime ktime { set; get; }
 
         public double ema12 { set; get; }
         public double ema26 { set; get; }
@@ -15,5 +16,9 @@ namespace SSS.Domain.Okex.Target
         public double dif { set; get; }
         public double dea { set; get; }
         public double macd { set; get; }
+
+        public double yesday_dea { set; get; }
+        public double yesday_ema12 { set; get; }
+        public double yesday_ema26 { set; get; }
     }
 }

@@ -138,19 +138,36 @@ namespace SSS.Application.Okex.Target
         /// <param name="yesday_ema12">昨日ema12</param>
         /// <param name="yesday_ema26">昨日ema26</param>
         /// <param name="yesday_dea">昨日dea</param>
+        /// <param name="ktime">k线时间</param>
         /// <returns></returns>
         /// </summary>
-        public Macd GetMACD(string instrument, double close, double yesday_ema12, double yesday_ema26, double yesday_dea)
+        public Macd GetMACD(string instrument, double close, int timetype, double yesday_ema12, double yesday_ema26, double yesday_dea, DateTime ktime)
         {
-            double ema12 = GetEMA(12, close, yesday_ema12);
-            double ema26 = GetEMA(26, close, yesday_ema26);
+            double ema12 = GetEMA(instrument, timetype, 12, close, yesday_ema12, ktime).now_ema;
+            double ema26 = GetEMA(instrument, timetype, 26, close, yesday_ema26, ktime).now_ema;
 
             double dif = ema12 - ema26;
             double dea = yesday_dea * 8 / 10 + dif * 2 / 10;
             double macd = 2 * (dif - dea);
 
-            Macd result = new Macd() { instrument = instrument, dea = dea, macd = macd, dif = dif, ema12 = ema12, ema26 = ema26 };
-            _logger.LogInformation($"macd:{result.ToJson()} 零轴以上死叉");
+            Macd result = new Macd
+            {
+                yesday_ema12 = yesday_ema12,
+                yesday_ema26 = yesday_ema26,
+                yesday_dea = yesday_dea,
+                ktime = ktime,
+                createtime = DateTime.Now,
+                Id = Guid.NewGuid(),
+                timetype = timetype,
+                instrument = instrument,
+                dea = dea,
+                macd = macd,
+                dif = dif,
+                ema12 = ema12,
+                ema26 = ema26
+            };
+
+            _logger.LogInformation($"macd:{result.ToJson()}");
             return result;
         }
 
@@ -162,9 +179,23 @@ namespace SSS.Application.Okex.Target
         /// 获取 指数移动平均值 EMA
         /// 当日指数平均值 = 平滑系数*（当日指数值-昨日指数平均值）+昨日指数平均值；平滑系数=2/（周期单位+1）
         /// </summary>
-        public double GetEMA(double time, double close, double yesday_ema)
+        public Ema GetEMA(string instrument, int timetype, int type, double close, double yesday_ema, DateTime ktime)
         {
-            return (2.0 / (time + 1.0)) * (close - yesday_ema) + yesday_ema;
+            double value = (2.0 / (type + 1.0)) * (close - yesday_ema) + yesday_ema;
+
+            Ema ema = new Ema
+            {
+                createtime = DateTime.Now,
+                instrument = instrument,
+                timetype = timetype,
+                parameter = type,
+                yesday_ema = yesday_ema,
+                Id = Guid.NewGuid(),
+                ktime = ktime,
+                now_ema = value
+            };
+            _logger.LogInformation($"ema:{ema.ToJson()}");
+            return ema;
         }
 
         #endregion 
@@ -180,8 +211,8 @@ namespace SSS.Application.Okex.Target
         /// <returns></returns>
         public bool MaPrice_Cross_5_10(string instrument, int min = 5, int max = 10)
         {
-            double ma1 = GetMaPrice(instrument, min);
-            double ma2 = GetMaPrice(instrument, max);
+            double ma1 = GetMaPrice(instrument, min).now_ma;
+            double ma2 = GetMaPrice(instrument, max).now_ma;
             if (ma1 > ma2)
             {
                 _logger.LogInformation($"ma1:{ma1} ma2:{ma2} 均价线金叉");
@@ -194,11 +225,22 @@ namespace SSS.Application.Okex.Target
         /// <summary>
         /// 获取 均价线 MA Price  MA（N）=第1日收盘价+第2日收盘价+………………+第N日收盘价/N
         /// </summary>
-        public double GetMaPrice(string instrument, int time)
+        public Ma GetMaPrice(string instrument, int time)
         {
             var kdata = GetKLineData(instrument, time);
-            var ma = kdata.Sum(x => x.close) / kdata.Count;
-            _logger.LogInformation($"均价线 ma:{ma}");
+            var value = kdata.Sum(x => x.close) / kdata.Count;
+
+            Ma ma = new Ma
+            {
+                createtime = DateTime.Now,
+                instrument = instrument,
+                ktime = kdata[0].time,
+                now_ma = value,
+                timetype = time,
+                type = 2
+            };
+
+            _logger.LogInformation($"均价线 ma:{ma.ToJson()}");
             return ma;
         }
 
@@ -215,8 +257,8 @@ namespace SSS.Application.Okex.Target
         /// <returns></returns>
         public bool MaVolume_Cross_5_10(string instrument, int min = 5, int max = 10)
         {
-            double ma1 = GetMaVolume(instrument, min);
-            double ma2 = GetMaVolume(instrument, max);
+            double ma1 = GetMaVolume(instrument, min).now_ma;
+            double ma2 = GetMaVolume(instrument, max).now_ma;
             if (ma1 > ma2)
             {
                 _logger.LogInformation($"ma1:{ma1} ma2:{ma2} 均量线金叉");
@@ -229,11 +271,22 @@ namespace SSS.Application.Okex.Target
         /// <summary>
         /// 获取 均量线 MA Volume  MA（N）=第1日收盘量+第2日收盘量+………………+第N日收盘量/N
         /// </summary>
-        public double GetMaVolume(string instrument, int time)
+        public Ma GetMaVolume(string instrument, int time)
         {
             var kdata = GetKLineData(instrument, time);
-            var ma = kdata.Sum(x => x.volume) / kdata.Count;
-            _logger.LogInformation($"均量线 ma:{ma}");
+            var value = kdata.Sum(x => x.volume) / kdata.Count;
+
+            Ma ma = new Ma
+            {
+                createtime = DateTime.Now,
+                instrument = instrument,
+                ktime = kdata[0].time,
+                now_ma = value,
+                timetype = time,
+                type = 1
+            };
+
+            _logger.LogInformation($"均量线 ma:{ma.ToJson()}");
             return ma;
         }
 
@@ -257,7 +310,20 @@ namespace SSS.Application.Okex.Target
             double k = K(rsv, yesdayK);
             double d = D(yesdayD, k);
             double j = J(k, d);
-            Kdj kdj = new Kdj { instrument = instrument, time = time, createtime = kdata[0].time, k = k, d = d, j = j };
+
+            Kdj kdj = new Kdj
+            {
+                instrument = instrument,
+                timetype = time,
+                createtime = DateTime.Now,
+                ktime = kdata[0].time,
+                k = k,
+                d = d,
+                j = j,
+                yesday_d = yesdayD,
+                yesday_k = yesdayK
+            };
+
             _logger.LogInformation($"kdj:{kdj.ToJson()}");
             return kdj;
         }

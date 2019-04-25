@@ -19,6 +19,12 @@ namespace SSS.Infrastructure.Seedwork.DbContext
 
         public DbSet<Ema> Ema { get; set; }
 
+        public DbSet<Ma> Ma { get; set; }
+
+        public DbSet<Kdj> Kdj { get; set; }
+
+        public DbSet<Macd> Macd { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var config = new ConfigurationBuilder()
