@@ -209,7 +209,7 @@ namespace SSS.Application.Okex.Target
         /// <param name="min">5</param>
         /// <param name="max">10</param>
         /// <returns></returns>
-        public bool MaPrice_Cross_5_10(string instrument, int min = 5, int max = 10)
+        public bool MaPrice_Cross(string instrument, int min = 5, int max = 10)
         {
             double ma1 = GetMaPrice(instrument, min).now_ma;
             double ma2 = GetMaPrice(instrument, max).now_ma;
@@ -255,7 +255,7 @@ namespace SSS.Application.Okex.Target
         /// <param name="min">5</param>
         /// <param name="max">10</param>
         /// <returns></returns>
-        public bool MaVolume_Cross_5_10(string instrument, int min = 5, int max = 10)
+        public bool MaVolume_Cross(string instrument, int min = 5, int max = 10)
         {
             double ma1 = GetMaVolume(instrument, min).now_ma;
             double ma2 = GetMaVolume(instrument, max).now_ma;
@@ -336,7 +336,7 @@ namespace SSS.Application.Okex.Target
         /// <param name="ln">9日最低价</param>
         /// <param name="hn">9日最高价</param>
         /// <returns></returns>
-        public double RSV(double cn, double ln, double hn)
+        private double RSV(double cn, double ln, double hn)
         {
             return ((cn - ln) / (hn - ln)) * 100;
         }
@@ -347,7 +347,7 @@ namespace SSS.Application.Okex.Target
         /// <param name="rsv">rsv</param>
         /// <param name="yesdayK">昨日K</param>
         /// <returns></returns>
-        public double K(double rsv, double yesdayK)
+        private double K(double rsv, double yesdayK)
         {
             return (2.0 / 3.0) * yesdayK + (1.0 / 3.0) * rsv;
         }
@@ -358,7 +358,7 @@ namespace SSS.Application.Okex.Target
         /// <param name="yesdayD">昨日D</param>
         /// <param name="k">当日K值</param>
         /// <returns></returns>
-        public double D(double yesdayD, double k)
+        private double D(double yesdayD, double k)
         {
             return ((2.0 / 3.0) * yesdayD) + ((1.0 / 3.0) * k);
         }
@@ -369,7 +369,7 @@ namespace SSS.Application.Okex.Target
         /// <param name="k">当日K值</param>
         /// <param name="d">当日D值</param>
         /// <returns></returns>
-        public double J(double k, double d)
+        private double J(double k, double d)
         {
             return (3.0 * k) - (2.0 * d);
         }
