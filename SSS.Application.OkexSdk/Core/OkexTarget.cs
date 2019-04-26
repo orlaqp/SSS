@@ -284,7 +284,7 @@ namespace SSS.Application.OkexSdk.Core
             ma.now_ma = value;
             ma.timetype = time;
             ma.parameter = parameter;
-            ma.type = 2;
+            ma.type = 1;
 
             _logger.LogInformation($"均量线 ma:{JsonConvert.SerializeObject(ma)}");
             return ma;
