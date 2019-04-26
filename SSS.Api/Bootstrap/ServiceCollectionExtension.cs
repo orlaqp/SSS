@@ -20,13 +20,13 @@ using AutoMapper;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Reflection;
 using System.IO;
-using Microsoft.AspNetCore.Mvc;
-using SSS.Application.Okex.Target;
+using Microsoft.AspNetCore.Mvc; 
 using SSS.Application.Okex.Trading;
 using SSS.Infrastructure.Repository.Okex;
 using SSS.Infrastructure.Repository.Student;
 using SSS.Infrastructure.Seedwork.DataBase.MongoDB;
 using SSS.Infrastructure.Seedwork.Repository;
+using SSS.Application.OkexSdk.Core;
 
 namespace SSS.Api.Bootstrap
 {

@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using SSS.Domain.Okex.Sdk.Account;
+using SSS.Application.OkexSdk.Account;
 
 namespace SSS.Application.OkexSdk.Sdk
 {

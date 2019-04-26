@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SSS.Domain.Okex.Sdk.Swap;
+using SSS.Application.OkexSdk.Swap;
 using System;
 using System.Collections.Generic;
 using System.Linq;

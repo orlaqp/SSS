@@ -12,7 +12,7 @@
  Target Server Version : 13004001
  File Encoding         : 65001
 
- Date: 25/04/2019 17:02:28
+ Date: 26/04/2019 17:04:19
 */
 
 
@@ -203,9 +203,9 @@ CREATE TABLE [dbo].[Ma] (
   [createtime] datetime  NULL,
   [ktime] datetime  NULL,
   [now_ma] float(53)  NULL,
-  [timetype] datetime  NULL,
   [type] int  NULL,
-  [parameter] int  NULL
+  [parameter] int  NULL,
+  [timetype] int  NULL
 )
 GO
 
@@ -248,13 +248,6 @@ EXEC sp_addextendedproperty
 GO
 
 EXEC sp_addextendedproperty
-'MS_Description', N'时间线类型，秒为单位',
-'SCHEMA', N'dbo',
-'TABLE', N'Ma',
-'COLUMN', N'timetype'
-GO
-
-EXEC sp_addextendedproperty
 'MS_Description', N'1代表均量线 2代表均价线',
 'SCHEMA', N'dbo',
 'TABLE', N'Ma',
@@ -266,6 +259,13 @@ EXEC sp_addextendedproperty
 'SCHEMA', N'dbo',
 'TABLE', N'Ma',
 'COLUMN', N'parameter'
+GO
+
+EXEC sp_addextendedproperty
+'MS_Description', N'时间类型，秒为单位',
+'SCHEMA', N'dbo',
+'TABLE', N'Ma',
+'COLUMN', N'timetype'
 GO
 
 
@@ -480,12 +480,6 @@ GO
 CREATE NONCLUSTERED INDEX [ktime]
 ON [dbo].[Ma] (
   [ktime] ASC
-)
-GO
-
-CREATE NONCLUSTERED INDEX [timetype]
-ON [dbo].[Ma] (
-  [timetype] ASC
 )
 GO
 

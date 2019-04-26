@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using SSS.Domain.Okex.Sdk.General;
+using SSS.Application.OkexSdk.General;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
