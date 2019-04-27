@@ -28,30 +28,6 @@ namespace SSS.Application.Okex.Trading
             _kdj = kdj;
         }
 
-        public DateTime StartTime(DateTime time, KLineTime timetype)
-        {
-            switch (timetype)
-            {
-                case KLineTime.一分钟:
-                    return time;
-                case KLineTime.十五分钟:
-                    if (time.Minute < 15)
-                        return new DateTime(time.Year, time.Month, time.Day, time.Hour, 15, 00);
-                    if (time.Minute < 30)
-                        return new DateTime(time.Year, time.Month, time.Day, time.Hour, 30, 00);
-                    if (time.Minute < 45)
-                        return new DateTime(time.Year, time.Month, time.Day, time.Hour, 45, 00);
-                    if (time.Minute > 45)
-                        return new DateTime(time.Year, time.Month, time.Day, time.Hour, 00, 00).AddHours(1);
-                    break;
-                case KLineTime.一小时:
-                    return new DateTime(time.Year, time.Month, time.Day, time.Hour, 00, 00);
-                case KLineTime.一天:
-                    return new DateTime(time.Year, time.Month, time.Day);
-            }
-            return time;
-        }
-
         public void AddOrder()
         {
             string instrument = "BTC-USDT";
@@ -62,7 +38,7 @@ namespace SSS.Application.Okex.Trading
              
             for (int i = 0; i < 500; i++)
             {
-                DateTime starttime = StartTime(time, KLineTime.十五分钟);
+                DateTime starttime = _okextarget.StartTime(time, KLineTime.十五分钟);
 
                 starttime = starttime.AddSeconds(timetype * i);
 
@@ -72,7 +48,7 @@ namespace SSS.Application.Okex.Trading
                 var kdata = _okextarget.GetKLineData(instrument, timetype, starttime.ToString());
 
                 //macd
-                var yesyday_time = Convert.ToDateTime(starttime.AddSeconds(-timetype).GetDateTimeFormats('g')[0].ToString());
+                var yesyday_time =starttime.AddSeconds(-timetype);
 
                 Macd yesday_macd = _macd.GetAll(x => x.instrument.Equals(instrument) && x.timetype == timetype && x.ktime == yesyday_time).FirstOrDefault();
                 //Macd yesday_macd = new Macd() { dea = -23.241647, dif = -16.816302, ema12 = 5294.6, ema26 = 5311.5, macd = 12.850689 };

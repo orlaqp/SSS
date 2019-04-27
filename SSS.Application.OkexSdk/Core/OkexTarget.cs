@@ -21,7 +21,37 @@ namespace SSS.Application.OkexSdk.Core
         {
             _logger = logger;
         }
-                
+
+        /// <summary>
+        /// 当前时间的区间k线
+        /// </summary>
+        /// <param name="time"></param>
+        /// <param name="timetype"></param>
+        /// <returns></returns>
+        public DateTime StartTime(DateTime time, KLineTime timetype)
+        {
+            switch (timetype)
+            {
+                case KLineTime.一分钟:
+                    return time;
+                case KLineTime.十五分钟:
+                    if (time.Minute < 15)
+                        return new DateTime(time.Year, time.Month, time.Day, time.Hour, 15, 00);
+                    if (time.Minute < 30)
+                        return new DateTime(time.Year, time.Month, time.Day, time.Hour, 30, 00);
+                    if (time.Minute < 45)
+                        return new DateTime(time.Year, time.Month, time.Day, time.Hour, 45, 00);
+                    if (time.Minute > 45)
+                        return new DateTime(time.Year, time.Month, time.Day, time.Hour, 00, 00).AddHours(1);
+                    break;
+                case KLineTime.一小时:
+                    return new DateTime(time.Year, time.Month, time.Day, time.Hour, 00, 00);
+                case KLineTime.一天:
+                    return new DateTime(time.Year, time.Month, time.Day);
+            }
+            return time;
+        }
+
         #region K线数据
 
         /// <summary>
