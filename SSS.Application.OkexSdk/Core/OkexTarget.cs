@@ -33,54 +33,62 @@ namespace SSS.Application.OkexSdk.Core
         /// <returns></returns>
         public List<SpotCandle> GetKLineData(string instrument, int time, string begintime = "")
         {
-            SpotApi spotApi = new SpotApi("2b90783f-0e71-4a84-a767-d932b062b1fe", "260E06424BACF0AE22E6E0B8B657499E", "123456");
-
-            DateTime defaulttime = DateTime.UtcNow;
-
-            if (!string.IsNullOrWhiteSpace(begintime))
-                defaulttime = Convert.ToDateTime(begintime);
-
-            DateTime starttime = defaulttime.AddMinutes(-10 * (time / 60));
-            DateTime endtime = defaulttime;
-
-            var jcontainer = spotApi.getCandlesAsync(instrument, starttime, endtime, time).Result;
-
-            List<SpotCandle> list = new List<SpotCandle>();
-
-            for (int i = 0; i < jcontainer.Count(); i++)
+            try
             {
-                var jtoken = jcontainer[i].Values().ToList();
-                SpotCandle spot = new SpotCandle();
-                spot.instrument = instrument;
+                SpotApi spotApi = new SpotApi("", "", "");
 
-                for (int j = 0; j < jtoken.Count; j++)
+                DateTime defaulttime = DateTime.UtcNow;
+
+                if (!string.IsNullOrWhiteSpace(begintime))
+                    defaulttime = Convert.ToDateTime(begintime);
+
+                DateTime starttime = defaulttime.AddMinutes(-10 * (time / 60));
+                DateTime endtime = defaulttime;
+
+                var jcontainer = spotApi.getCandlesAsync(instrument, starttime, endtime, time).Result;
+
+                List<SpotCandle> list = new List<SpotCandle>();
+
+                for (int i = 0; i < jcontainer.Count(); i++)
                 {
-                    switch (j)
+                    var jtoken = jcontainer[i].Values().ToList();
+                    SpotCandle spot = new SpotCandle();
+                    spot.instrument = instrument;
+
+                    for (int j = 0; j < jtoken.Count; j++)
                     {
-                        case 0:
-                            spot.time = Convert.ToDateTime(jtoken[j]).AddHours(8);
-                            break;
-                        case 1:
-                            spot.open = Convert.ToDouble(jtoken[j]);
-                            break;
-                        case 2:
-                            spot.high = Convert.ToDouble(jtoken[j]);
-                            break;
-                        case 3:
-                            spot.low = Convert.ToDouble(jtoken[j]);
-                            break;
-                        case 4:
-                            spot.close = Convert.ToDouble(jtoken[j]);
-                            break;
-                        case 5:
-                            spot.volume = Convert.ToDouble(jtoken[j]);
-                            break;
+                        switch (j)
+                        {
+                            case 0:
+                                spot.time = Convert.ToDateTime(jtoken[j]).AddHours(8);
+                                break;
+                            case 1:
+                                spot.open = Convert.ToDouble(jtoken[j]);
+                                break;
+                            case 2:
+                                spot.high = Convert.ToDouble(jtoken[j]);
+                                break;
+                            case 3:
+                                spot.low = Convert.ToDouble(jtoken[j]);
+                                break;
+                            case 4:
+                                spot.close = Convert.ToDouble(jtoken[j]);
+                                break;
+                            case 5:
+                                spot.volume = Convert.ToDouble(jtoken[j]);
+                                break;
+                        }
                     }
+                    list.Add(spot);
                 }
-                list.Add(spot);
+                _logger.LogInformation($"kdata:{JsonConvert.SerializeObject(list)}");
+                return list;
             }
-            _logger.LogInformation($"kdata:{JsonConvert.SerializeObject(list)}");
-            return list;
+            catch (Exception e)
+            {
+                _logger.LogError(e, "获取K线数据异常");
+                return null;
+            }
         }
 
         #endregion
@@ -132,7 +140,7 @@ namespace SSS.Application.OkexSdk.Core
         }
 
         /// <summary>
-        /// 获取 MACD  DIFF=今日EMA（12）- 今日EMA（26） DEA=前一日DEA×8/10＋今日DIF×2/10 MACD=BAR=2×(DIFF－DEA) 
+        /// 获取MACD  DIFF=今日EMA（12）- 今日EMA（26） DEA=前一日DEA×8/10＋今日DIF×2/10 MACD=BAR=2×(DIFF－DEA) 
         /// <param name="instrument">交易对</param>
         /// <param name="close">收盘价</param>
         /// <param name="timetype">时间线</param>
@@ -144,29 +152,37 @@ namespace SSS.Application.OkexSdk.Core
         /// </summary>
         public Macd GetMACD(string instrument, double close, int timetype, double ema12, double ema26, DateTime ktime, Macd yesday_macd)
         {
-            double dif = ema12 - ema26;
-            double dea = yesday_macd.dea * 8 / 10 + dif * 2 / 10;
-            double macd = 2 * (dif - dea);
-
-            Macd result = new Macd
+            try
             {
-                yesday_ema12 = yesday_macd.ema12,
-                yesday_ema26 = yesday_macd.ema26,
-                yesday_dea = yesday_macd.dea,
-                ktime = ktime,
-                createtime = DateTime.Now,
-                Id = Guid.NewGuid(),
-                timetype = timetype,
-                instrument = instrument,
-                dea = dea,
-                macd = macd,
-                dif = dif,
-                ema12 = ema12,
-                ema26 = ema26
-            };
+                double dif = ema12 - ema26;
+                double dea = yesday_macd.dea * 8 / 10 + dif * 2 / 10;
+                double macd = 2 * (dif - dea);
 
-            _logger.LogInformation($"macd:{JsonConvert.SerializeObject(result)}");
-            return result;
+                Macd result = new Macd
+                {
+                    yesday_ema12 = yesday_macd.ema12,
+                    yesday_ema26 = yesday_macd.ema26,
+                    yesday_dea = yesday_macd.dea,
+                    ktime = ktime,
+                    createtime = DateTime.Now,
+                    Id = Guid.NewGuid(),
+                    timetype = timetype,
+                    instrument = instrument,
+                    dea = dea,
+                    macd = macd,
+                    dif = dif,
+                    ema12 = ema12,
+                    ema26 = ema26
+                };
+
+                _logger.LogInformation($"macd:{JsonConvert.SerializeObject(result)}");
+                return result;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "获取MACD异常");
+                return null;
+            }
         }
 
         #endregion
@@ -179,21 +195,29 @@ namespace SSS.Application.OkexSdk.Core
         /// </summary>
         public Ema GetEMA(string instrument, int timetype, int type, double close, double yesday_ema, DateTime ktime)
         {
-            double value = (2.0 / (type + 1.0)) * (close - yesday_ema) + yesday_ema;
-
-            Ema ema = new Ema
+            try
             {
-                createtime = DateTime.Now,
-                instrument = instrument,
-                timetype = timetype,
-                parameter = type,
-                yesday_ema = yesday_ema,
-                Id = Guid.NewGuid(),
-                ktime = ktime,
-                now_ema = value
-            };
-            _logger.LogInformation($"ema:{JsonConvert.SerializeObject(ema)}");
-            return ema;
+                double value = (2.0 / (type + 1.0)) * (close - yesday_ema) + yesday_ema;
+
+                Ema ema = new Ema
+                {
+                    createtime = DateTime.Now,
+                    instrument = instrument,
+                    timetype = timetype,
+                    parameter = type,
+                    yesday_ema = yesday_ema,
+                    Id = Guid.NewGuid(),
+                    ktime = ktime,
+                    now_ema = value
+                };
+                _logger.LogInformation($"ema:{JsonConvert.SerializeObject(ema)}");
+                return ema;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "获取EMA异常");
+                return null;
+            }
         }
 
         #endregion 
@@ -225,21 +249,35 @@ namespace SSS.Application.OkexSdk.Core
         /// </summary>
         public Ma GetMaPrice(List<SpotCandle> kdata, string instrument, int time, int parameter = 5)
         {
-            List<SpotCandle> list = new List<SpotCandle>(kdata.Skip(0).Take(parameter).ToArray());
+            try
+            {
+                if (kdata == null && kdata.Count < 0)
+                {
+                    _logger.LogError($"获取均价线失败，kdata为空");
+                    return null;
+                }
 
-            Ma ma = new Ma();
-            ma.ktime = list[0].time;
+                List<SpotCandle> list = new List<SpotCandle>(kdata.Skip(0).Take(parameter).ToArray());
 
-            var value = list.Sum(x => x.close) / list.Count;
-            ma.createtime = DateTime.Now;
-            ma.instrument = instrument;
-            ma.now_ma = value;
-            ma.timetype = time;
-            ma.parameter = parameter;
-            ma.type = 2;
+                Ma ma = new Ma();
+                ma.ktime = list[0].time;
 
-            _logger.LogInformation($"均价线 ma:{JsonConvert.SerializeObject(ma)}");
-            return ma;
+                var value = list.Sum(x => x.close) / list.Count;
+                ma.createtime = DateTime.Now;
+                ma.instrument = instrument;
+                ma.now_ma = value;
+                ma.timetype = time;
+                ma.parameter = parameter;
+                ma.type = 2;
+
+                _logger.LogInformation($"均价线 ma:{JsonConvert.SerializeObject(ma)}");
+                return ma;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "获取均价线异常");
+                return null;
+            }
         }
 
         #endregion
@@ -271,21 +309,35 @@ namespace SSS.Application.OkexSdk.Core
         /// </summary>
         public Ma GetMaVolume(List<SpotCandle> kdata, string instrument, int time, int parameter = 5)
         {
-            List<SpotCandle> list = new List<SpotCandle>(kdata.Skip(0).Take(parameter).ToArray());
+            try
+            {
+                if (kdata == null && kdata.Count < 0)
+                {
+                    _logger.LogError($"获取均量线失败，kdata为空");
+                    return null;
+                }
 
-            Ma ma = new Ma();
-            ma.ktime = list[0].time;
+                List<SpotCandle> list = new List<SpotCandle>(kdata.Skip(0).Take(parameter).ToArray());
 
-            var value = list.Sum(x => x.volume) / list.Count;
-            ma.createtime = DateTime.Now;
-            ma.instrument = instrument;
-            ma.now_ma = value;
-            ma.timetype = time;
-            ma.parameter = parameter;
-            ma.type = 1;
+                Ma ma = new Ma();
+                ma.ktime = list[0].time;
 
-            _logger.LogInformation($"均量线 ma:{JsonConvert.SerializeObject(ma)}");
-            return ma;
+                var value = list.Sum(x => x.volume) / list.Count;
+                ma.createtime = DateTime.Now;
+                ma.instrument = instrument;
+                ma.now_ma = value;
+                ma.timetype = time;
+                ma.parameter = parameter;
+                ma.type = 1;
+
+                _logger.LogInformation($"均量线 ma:{JsonConvert.SerializeObject(ma)}");
+                return ma;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "获取均量线异常");
+                return null;
+            }
         }
 
         #endregion
@@ -297,31 +349,47 @@ namespace SSS.Application.OkexSdk.Core
         /// </summary>
         /// <param name="time">时间</param>
         /// <param name="yesday_kdj">昨日KDJ</param> 
-        public Kdj GetKdj(List<SpotCandle> kdata, string instrument, int time, Kdj yesday_kdj)
+        public Kdj GetKdj(List<SpotCandle> kdata, string instrument, int time, Kdj yesday_kdj, int parameter = 9)
         {
-            var low = kdata.Min(x => x.low);
-            var high = kdata.Max(x => x.high);
-
-            double rsv = RSV(kdata[0].close, low, high);
-            double k = K(rsv, yesday_kdj.k);
-            double d = D(yesday_kdj.d, k);
-            double j = J(k, d);
-
-            Kdj kdj = new Kdj
+            try
             {
-                instrument = instrument,
-                timetype = time,
-                createtime = DateTime.Now,
-                ktime = kdata[0].time,
-                k = k,
-                d = d,
-                j = j,
-                yesday_d = yesday_kdj.d,
-                yesday_k = yesday_kdj.k
-            };
+                if (kdata == null && kdata.Count < 0)
+                {
+                    _logger.LogError($"获取KDJ失败，kdata为空");
+                    return null;
+                }
 
-            _logger.LogInformation($"kdj:{JsonConvert.SerializeObject(kdj)}");
-            return kdj;
+                List<SpotCandle> list = new List<SpotCandle>(kdata.Skip(0).Take(parameter).ToArray());
+
+                var low = list.Min(x => x.low);
+                var high = list.Max(x => x.high);
+
+                double rsv = RSV(list[0].close, low, high);
+                double k = K(rsv, yesday_kdj.k);
+                double d = D(yesday_kdj.d, k);
+                double j = J(k, d);
+
+                Kdj kdj = new Kdj
+                {
+                    instrument = instrument,
+                    timetype = time,
+                    createtime = DateTime.Now,
+                    ktime = list[0].time,
+                    k = k,
+                    d = d,
+                    j = j,
+                    yesday_d = yesday_kdj.d,
+                    yesday_k = yesday_kdj.k
+                };
+
+                _logger.LogInformation($"kdj:{JsonConvert.SerializeObject(kdj)}");
+                return kdj;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "获取KDJ异常");
+                return null;
+            }
         }
 
 

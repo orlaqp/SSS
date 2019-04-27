@@ -30,44 +30,58 @@ namespace SSS.Application.Okex.Trading
 
         public void AddOrder()
         {
-            string instrument = "BTC-USDT";
-            string starttime = "2019-04-26 15:50:10";
-            int timetype = (int)KLineTime.一分钟;
+            for (int i = 0; i < 500; i++)
+            {
+                DateTime time = new DateTime(2019, 04, 27, 08, 30, 10);
 
-            var kdata = _okextarget.GetKLineData(instrument, timetype, starttime);
+                string instrument = "BTC-USDT";
 
-            //macd
-            var yesyday_time = Convert.ToDateTime(Convert.ToDateTime(starttime).AddSeconds(-timetype).GetDateTimeFormats('g')[0].ToString());
+                int timetype = (int)KLineTime.一小时;
 
-            Macd yesday_macd = _macd.GetAll(x => x.instrument.Equals(instrument) && x.timetype == timetype && x.ktime == yesyday_time).FirstOrDefault();
+                time = time.AddSeconds(i * timetype);
 
-            Ema ema12 = _okextarget.GetEMA(instrument, timetype, 12, kdata[0].close, yesday_macd.ema12, kdata[0].time);
-            Ema ema26 = _okextarget.GetEMA(instrument, timetype, 26, kdata[0].close, yesday_macd.ema26, kdata[0].time);
-            Macd macd = _okextarget.GetMACD(instrument, kdata[0].close, timetype, ema12.now_ema, ema26.now_ema, kdata[0].time, yesday_macd);
+                if (time > DateTime.Now)
+                    return;
 
-            _ema.Add(ema12);
-            _ema.Add(ema26);
-            _ema.SaveChanges();
+                string starttime = time.ToString();
 
-            _macd.Add(macd);
-            _macd.SaveChanges();
+                var kdata = _okextarget.GetKLineData(instrument, timetype, starttime);
+
+                //macd
+                var yesyday_time = Convert.ToDateTime(Convert.ToDateTime(starttime).AddSeconds(-timetype).GetDateTimeFormats('g')[0].ToString());
+
+                Macd yesday_macd = _macd.GetAll(x => x.instrument.Equals(instrument) && x.timetype == timetype && x.ktime == yesyday_time).FirstOrDefault();
+                //Macd yesday_macd = new Macd() { dea = 1.781536, dif = -1.22468, ema12 = 5296.3, ema26 = 5297.4, macd = -5.808044 };
+
+                Ema ema12 = _okextarget.GetEMA(instrument, timetype, 12, kdata[0].close, yesday_macd.ema12, kdata[0].time);
+                Ema ema26 = _okextarget.GetEMA(instrument, timetype, 26, kdata[0].close, yesday_macd.ema26, kdata[0].time);
+                Macd macd = _okextarget.GetMACD(instrument, kdata[0].close, timetype, ema12.now_ema, ema26.now_ema, kdata[0].time, yesday_macd);
+
+                _ema.Add(ema12);
+                _ema.Add(ema26);
+                _ema.SaveChanges();
+
+                _macd.Add(macd);
+                _macd.SaveChanges();
 
 
-            //kdj
-            Kdj yesday_kdj = _kdj.GetAll(x => x.instrument.Equals(instrument) && x.timetype == timetype && x.ktime == yesyday_time).FirstOrDefault();
-            Kdj kdj = _okextarget.GetKdj(kdata, instrument, timetype, yesday_kdj);
+                //kdj
+                Kdj yesday_kdj = _kdj.GetAll(x => x.instrument.Equals(instrument) && x.timetype == timetype && x.ktime == yesyday_time).FirstOrDefault();
+                //Kdj yesday_kdj = new Kdj() { k = 23.043859, d = 28.445041, j = 12.241494 };
+                Kdj kdj = _okextarget.GetKdj(kdata, instrument, timetype, yesday_kdj);
 
-            _kdj.Add(kdj);
-            _kdj.SaveChanges();
+                _kdj.Add(kdj);
+                _kdj.SaveChanges();
 
 
-            //ma 
-            Ma ma_price = _okextarget.GetMaPrice(kdata, instrument, timetype);
-            Ma ma_volume = _okextarget.GetMaVolume(kdata, instrument, timetype);
+                //ma 
+                Ma ma_price = _okextarget.GetMaPrice(kdata, instrument, timetype);
+                Ma ma_volume = _okextarget.GetMaVolume(kdata, instrument, timetype);
 
-            _ma.Add(ma_price);
-            _ma.Add(ma_volume);
-            _ma.SaveChanges();
+                _ma.Add(ma_price);
+                _ma.Add(ma_volume);
+                _ma.SaveChanges();
+            }
         }
     }
 }
