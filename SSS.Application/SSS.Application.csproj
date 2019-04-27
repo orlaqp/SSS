@@ -10,7 +10,8 @@
 
   <ItemGroup> 
     <ProjectReference Include="..\SSS.Application.OkexSdk\SSS.Application.OkexSdk.csproj" /> 
-    <ProjectReference Include="..\SSS.Domain.CQRS\SSS.Domain.CQRS.csproj" />
+    <ProjectReference Include="..\SSS.Domain.CQRS\SSS.Domain.CQRS.csproj" /> 
+    <ProjectReference Include="..\SSS.Utils.Seedwork\SSS.Utils.Seedwork.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.Extensions.Logging;
 using SSS.Application.OkexSdk.Core;
 using SSS.Application.OkexSdk.Sdk;
 using SSS.Domain.Okex.Target;
 using SSS.Infrastructure.Repository.Okex;
+using SSS.Utils.Seedwork.Datetime;
 
 namespace SSS.Application.Okex.Trading
 {
@@ -29,43 +31,40 @@ namespace SSS.Application.Okex.Trading
         public void AddOrder()
         {
             string instrument = "BTC-USDT";
-            string starttime = "2019-04-26 15:45:10";
-            int ktime = (int)KLineTime.一分钟;
+            string starttime = "2019-04-26 15:50:10";
+            int timetype = (int)KLineTime.一分钟;
 
-            var kdata = _okextarget.GetKLineData(instrument, ktime, starttime);
-
+            var kdata = _okextarget.GetKLineData(instrument, timetype, starttime);
 
             //macd
+            var yesyday_time = Convert.ToDateTime(Convert.ToDateTime(starttime).AddSeconds(-timetype).GetDateTimeFormats('g')[0].ToString());
 
-            double yesday_ema12_3day = 5289.3;
-            double yesday_ema26_3day = 5292.2;
+            Macd yesday_macd = _macd.GetAll(x => x.instrument.Equals(instrument) && x.timetype == timetype && x.ktime == yesyday_time).FirstOrDefault();
 
-            Ema yesday_ema12 = _okextarget.GetEMA(instrument, ktime, 12, kdata[1].close, yesday_ema12_3day, kdata[1].time);
-            Ema yesday_ema26 = _okextarget.GetEMA(instrument, ktime, 26, kdata[1].close, yesday_ema26_3day, kdata[1].time);
-            double yesday_dea = -2.466058;
+            Ema ema12 = _okextarget.GetEMA(instrument, timetype, 12, kdata[0].close, yesday_macd.ema12, kdata[0].time);
+            Ema ema26 = _okextarget.GetEMA(instrument, timetype, 26, kdata[0].close, yesday_macd.ema26, kdata[0].time);
+            Macd macd = _okextarget.GetMACD(instrument, kdata[0].close, timetype, ema12.now_ema, ema26.now_ema, kdata[0].time, yesday_macd);
 
-            Macd macd = _okextarget.GetMACD(instrument, kdata[0].close, ktime, yesday_ema12.now_ema, yesday_ema26.now_ema, yesday_dea, kdata[0].time);
-
-            _ema.Add(yesday_ema12);
-            _ema.Add(yesday_ema26);
+            _ema.Add(ema12);
+            _ema.Add(ema26);
             _ema.SaveChanges();
 
             _macd.Add(macd);
             _macd.SaveChanges();
 
 
-
             //kdj
-            double yesday_k = 50.401117;
-            double yesday_d = 40.708779;
-            Kdj kdj = _okextarget.GetKdj(kdata,instrument, ktime, yesday_k, yesday_d);
+            Kdj yesday_kdj = _kdj.GetAll(x => x.instrument.Equals(instrument) && x.timetype == timetype && x.ktime == yesyday_time).FirstOrDefault();
+            Kdj kdj = _okextarget.GetKdj(kdata, instrument, timetype, yesday_kdj);
+
             _kdj.Add(kdj);
             _kdj.SaveChanges();
 
 
             //ma 
-            Ma ma_price = _okextarget.GetMaPrice(kdata,instrument, ktime);
-            Ma ma_volume= _okextarget.GetMaVolume(kdata,instrument, ktime);
+            Ma ma_price = _okextarget.GetMaPrice(kdata, instrument, timetype);
+            Ma ma_volume = _okextarget.GetMaVolume(kdata, instrument, timetype);
+
             _ma.Add(ma_price);
             _ma.Add(ma_volume);
             _ma.SaveChanges();

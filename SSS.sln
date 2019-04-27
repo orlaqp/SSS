@@ -33,7 +33,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSS.Api.IdentityServer", "S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSS.Api.IdentityClient", "SSS.Api.IdentityClient\SSS.Api.IdentityClient.csproj", "{CA110D3C-B428-4709-ABD4-0C07A2D032C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSS.Application.OkexSdk", "SSS.Application.OkexSdk\SSS.Application.OkexSdk.csproj", "{8A342F7C-AEAD-41BF-906B-82832D6AFA78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSS.Application.OkexSdk", "SSS.Application.OkexSdk\SSS.Application.OkexSdk.csproj", "{8A342F7C-AEAD-41BF-906B-82832D6AFA78}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utils", "Utils", "{EFCA2998-65BF-481D-94E0-370BE4A5AFA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSS.Utils.Seedwork", "SSS.Utils.Seedwork\SSS.Utils.Seedwork.csproj", "{77EB707C-5620-4FEE-A46A-F66AD43E25EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,6 +93,10 @@ Global
 		{8A342F7C-AEAD-41BF-906B-82832D6AFA78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A342F7C-AEAD-41BF-906B-82832D6AFA78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A342F7C-AEAD-41BF-906B-82832D6AFA78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77EB707C-5620-4FEE-A46A-F66AD43E25EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77EB707C-5620-4FEE-A46A-F66AD43E25EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77EB707C-5620-4FEE-A46A-F66AD43E25EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77EB707C-5620-4FEE-A46A-F66AD43E25EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -106,6 +114,7 @@ Global
 		{D20D58F6-E82D-49A4-8904-9360241C2CFC} = {A0555032-A407-4D7E-8066-939BA8F25573}
 		{CA110D3C-B428-4709-ABD4-0C07A2D032C4} = {A0555032-A407-4D7E-8066-939BA8F25573}
 		{8A342F7C-AEAD-41BF-906B-82832D6AFA78} = {DB1FD4E3-5CB4-451D-AEBF-564FC2CB988D}
+		{77EB707C-5620-4FEE-A46A-F66AD43E25EC} = {EFCA2998-65BF-481D-94E0-370BE4A5AFA8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B79E580D-F10B-49C2-B263-451E0C32800C}

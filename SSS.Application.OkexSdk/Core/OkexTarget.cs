@@ -33,7 +33,7 @@ namespace SSS.Application.OkexSdk.Core
         /// <returns></returns>
         public List<SpotCandle> GetKLineData(string instrument, int time, string begintime = "")
         {
-            SpotApi spotApi = new SpotApi("", "", "");
+            SpotApi spotApi = new SpotApi("2b90783f-0e71-4a84-a767-d932b062b1fe", "260E06424BACF0AE22E6E0B8B657499E", "123456");
 
             DateTime defaulttime = DateTime.UtcNow;
 
@@ -135,26 +135,24 @@ namespace SSS.Application.OkexSdk.Core
         /// 获取 MACD  DIFF=今日EMA（12）- 今日EMA（26） DEA=前一日DEA×8/10＋今日DIF×2/10 MACD=BAR=2×(DIFF－DEA) 
         /// <param name="instrument">交易对</param>
         /// <param name="close">收盘价</param>
-        /// <param name="yesday_ema12">昨日ema12</param>
-        /// <param name="yesday_ema26">昨日ema26</param>
-        /// <param name="yesday_dea">昨日dea</param>
+        /// <param name="timetype">时间线</param>
+        /// <param name="ema12">ema12</param>
+        /// <param name="ema26">ema26</param> 
         /// <param name="ktime">k线时间</param>
+        /// <param name="yesday_macd">k线时间</param>
         /// <returns></returns>
         /// </summary>
-        public Macd GetMACD(string instrument, double close, int timetype, double yesday_ema12, double yesday_ema26, double yesday_dea, DateTime ktime)
+        public Macd GetMACD(string instrument, double close, int timetype, double ema12, double ema26, DateTime ktime, Macd yesday_macd)
         {
-            double ema12 = GetEMA(instrument, timetype, 12, close, yesday_ema12, ktime).now_ema;
-            double ema26 = GetEMA(instrument, timetype, 26, close, yesday_ema26, ktime).now_ema;
-
             double dif = ema12 - ema26;
-            double dea = yesday_dea * 8 / 10 + dif * 2 / 10;
+            double dea = yesday_macd.dea * 8 / 10 + dif * 2 / 10;
             double macd = 2 * (dif - dea);
 
             Macd result = new Macd
             {
-                yesday_ema12 = yesday_ema12,
-                yesday_ema26 = yesday_ema26,
-                yesday_dea = yesday_dea,
+                yesday_ema12 = yesday_macd.ema12,
+                yesday_ema26 = yesday_macd.ema26,
+                yesday_dea = yesday_macd.dea,
                 ktime = ktime,
                 createtime = DateTime.Now,
                 Id = Guid.NewGuid(),
@@ -230,7 +228,7 @@ namespace SSS.Application.OkexSdk.Core
             List<SpotCandle> list = new List<SpotCandle>(kdata.Skip(0).Take(parameter).ToArray());
 
             Ma ma = new Ma();
-            ma.ktime = list[0].time; 
+            ma.ktime = list[0].time;
 
             var value = list.Sum(x => x.close) / list.Count;
             ma.createtime = DateTime.Now;
@@ -298,16 +296,15 @@ namespace SSS.Application.OkexSdk.Core
         /// 获取KDJ
         /// </summary>
         /// <param name="time">时间</param>
-        /// <param name="yesdayK">昨日K</param>
-        /// <param name="yesdayD">昨日D</param>
-        public Kdj GetKdj(List<SpotCandle> kdata, string instrument, int time, double yesdayK, double yesdayD)
+        /// <param name="yesday_kdj">昨日KDJ</param> 
+        public Kdj GetKdj(List<SpotCandle> kdata, string instrument, int time, Kdj yesday_kdj)
         {
             var low = kdata.Min(x => x.low);
             var high = kdata.Max(x => x.high);
 
             double rsv = RSV(kdata[0].close, low, high);
-            double k = K(rsv, yesdayK);
-            double d = D(yesdayD, k);
+            double k = K(rsv, yesday_kdj.k);
+            double d = D(yesday_kdj.d, k);
             double j = J(k, d);
 
             Kdj kdj = new Kdj
@@ -319,8 +316,8 @@ namespace SSS.Application.OkexSdk.Core
                 k = k,
                 d = d,
                 j = j,
-                yesday_d = yesdayD,
-                yesday_k = yesdayK
+                yesday_d = yesday_kdj.d,
+                yesday_k = yesday_kdj.k
             };
 
             _logger.LogInformation($"kdj:{JsonConvert.SerializeObject(kdj)}");
