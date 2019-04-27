@@ -21,7 +21,7 @@ namespace SSS.Application.OkexSdk.Core
         {
             _logger = logger;
         }
-
+                
         #region K线数据
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace SSS.Application.OkexSdk.Core
                     defaulttime = Convert.ToDateTime(begintime);
 
                 DateTime starttime = defaulttime.AddMinutes(-10 * (time / 60));
-                DateTime endtime = defaulttime;
+                DateTime endtime = defaulttime.AddMilliseconds(1);
 
                 var jcontainer = spotApi.getCandlesAsync(instrument, starttime, endtime, time).Result;
 
@@ -159,9 +159,7 @@ namespace SSS.Application.OkexSdk.Core
                 double macd = 2 * (dif - dea);
 
                 Macd result = new Macd
-                {
-                    yesday_ema12 = yesday_macd.ema12,
-                    yesday_ema26 = yesday_macd.ema26,
+                { 
                     yesday_dea = yesday_macd.dea,
                     ktime = ktime,
                     createtime = DateTime.Now,

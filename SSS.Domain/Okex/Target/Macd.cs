@@ -17,8 +17,6 @@ namespace SSS.Domain.Okex.Target
         public double dea { set; get; }
         public double macd { set; get; }
 
-        public double yesday_dea { set; get; }
-        public double yesday_ema12 { set; get; }
-        public double yesday_ema26 { set; get; }
+        public double yesday_dea { set; get; } 
     }
 }
