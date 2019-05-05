@@ -5,6 +5,6 @@ namespace SSS.Application.Okex.Service
 {
     public interface ITargetService
     {
-        void CreateTarget(DateTime time,string instrument, KLineTime timetype);
+        void CreateTarget(string instrument, KLineTime timetype);
     }
 }

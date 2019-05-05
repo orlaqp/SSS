@@ -6,16 +6,16 @@
 
   <ItemGroup>
     <PackageReference Include="EnyimMemcached" Version="2.16.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.4" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="System.Reflection.TypeExtensions" Version="4.5.1" />
-    <PackageReference Include="StackExchange.Redis" Version="2.0.593" /> 
+    <PackageReference Include="StackExchange.Redis" Version="2.0.601" /> 
     <PackageReference Include="MongoDB.Driver" Version="2.8.0" /> 
   </ItemGroup>
 

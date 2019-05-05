@@ -20,13 +20,13 @@ using AutoMapper;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Reflection;
 using System.IO;
-using Microsoft.AspNetCore.Mvc; 
-using SSS.Application.Okex.Trading;
+using Microsoft.AspNetCore.Mvc;  
 using SSS.Infrastructure.Repository.Okex;
 using SSS.Infrastructure.Repository.Student;
 using SSS.Infrastructure.Seedwork.DataBase.MongoDB;
 using SSS.Infrastructure.Seedwork.Repository;
 using SSS.Application.OkexSdk.Core;
+using SSS.Application.Okex.Service;
 
 namespace SSS.Api.Bootstrap
 {
@@ -45,9 +45,9 @@ namespace SSS.Api.Bootstrap
             services.AddScoped<IMediatorHandler, InMemoryBus>();
 
             // Application
-            services.AddScoped<IStudentService, StudentService>();
-            services.AddScoped<OkexTarget>();
-            services.AddScoped<ITradingService, TradingService>();
+            services.AddSingleton<IStudentService, StudentService>();
+            services.AddSingleton<OkexTarget>(); 
+            services.AddSingleton<ITargetService, TargetService>();
 
             // Infra - Data
             services.AddSingleton<IEmaRepository, EmaRepository>();

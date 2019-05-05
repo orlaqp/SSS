@@ -7,6 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using SSS.Api.Bootstrap;
 using SSS.Api.Middware;
 using SSS.Api.Seedwork;
+using SSS.Application.Okex.Service;
+using SSS.Application.OkexSdk.Sdk;
+using System;
 
 namespace SSS.Api
 {
@@ -48,7 +51,7 @@ namespace SSS.Api
             services.AddAuthentication("Bearer")
                 .AddJwtBearer("Bearer", options =>
                 {
-                    options.Authority = "http://localhost:456";  
+                    options.Authority = "http://localhost:456";
                     options.RequireHttpsMetadata = false;
                     options.SaveToken = true;
                     options.Audience = "api_test1";
@@ -106,12 +109,14 @@ namespace SSS.Api
                 app.UseDeveloperExceptionPage();
             else
                 app.UseHsts();
-             
+
             ////认证中间件
             app.UseAuthentication();
 
             //IdentityServer中间件
-            app.UseMiddleware<IdentityServerMiddleware>(); 
+            app.UseMiddleware<IdentityServerMiddleware>();
+
+            app.UseMiddleware<TargetJobMiddleware>();
 
             //Session缓存
             app.UseSession();
