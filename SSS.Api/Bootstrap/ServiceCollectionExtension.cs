@@ -20,7 +20,8 @@ using AutoMapper;
 using Swashbuckle.AspNetCore.Swagger;
 using System.Reflection;
 using System.IO;
-using Microsoft.AspNetCore.Mvc;  
+using Microsoft.AspNetCore.Mvc;
+using SSS.Api.Job;
 using SSS.Infrastructure.Repository.Okex;
 using SSS.Infrastructure.Repository.Student;
 using SSS.Infrastructure.Seedwork.DataBase.MongoDB;
@@ -46,7 +47,8 @@ namespace SSS.Api.Bootstrap
 
             // Application
             services.AddSingleton<IStudentService, StudentService>();
-            services.AddSingleton<OkexTarget>(); 
+            services.AddSingleton<OkexTarget>();
+            services.AddSingleton<TargetJob>();
             services.AddSingleton<ITargetService, TargetService>();
 
             // Infra - Data

@@ -1,15 +1,16 @@
-﻿using MediatR;
+﻿using System;
+using Hangfire;
+using Hangfire.SqlServer;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SSS.Api.Bootstrap;
+using SSS.Api.Job;
 using SSS.Api.Middware;
 using SSS.Api.Seedwork;
-using SSS.Application.Okex.Service;
-using SSS.Application.OkexSdk.Sdk;
-using System;
 
 namespace SSS.Api
 {
@@ -97,6 +98,22 @@ namespace SSS.Api
 
             //ApiVersion
             services.AddApiVersion();
+
+            services.AddHangfire(configuration => configuration
+                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseSqlServerStorage(Configuration.GetConnectionString("DefaultConnection"), new SqlServerStorageOptions
+                {
+                    CommandBatchMaxTimeout = TimeSpan.FromMinutes(1),
+                    SlidingInvisibilityTimeout = TimeSpan.FromMinutes(1),
+                    QueuePollInterval = TimeSpan.Zero,
+                    UseRecommendedIsolationLevel = true,
+                    UsePageLocksOnDequeue = true,
+                    DisableGlobalLocks = true
+                }));
+            services.AddHostedService<TargetJob>();
+            services.AddHangfireServer();
         }
         /// <summary>
         /// Configure
@@ -114,15 +131,16 @@ namespace SSS.Api
             app.UseAuthentication();
 
             //IdentityServer中间件
-            app.UseMiddleware<IdentityServerMiddleware>();
-
-            app.UseMiddleware<TargetJobMiddleware>();
+            app.UseMiddleware<IdentityServerMiddleware>(); 
 
             //Session缓存
             app.UseSession();
 
             //http上下文
             app.UseHttpContext();
+
+            app.UseHangfireServer();
+            app.UseHangfireDashboard();
 
             ////RedisCahce
             //app.UseRedisCache(options =>

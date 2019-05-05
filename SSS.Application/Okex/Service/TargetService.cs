@@ -30,11 +30,9 @@ namespace SSS.Application.Okex.Service
 
         public void CreateTarget(string instrument, KLineTime timetype)
         {
-            DateTime time = Convert.ToDateTime("2019-04-29 09:46:00.000");// DateTime.Now;
+            DateTime time = DateTime.Now.AddSeconds(-(int)timetype);
 
             DateTime starttime = _okextarget.StartTime(time, timetype);
-
-            starttime = starttime.AddSeconds((int)timetype);
 
             if (starttime > DateTime.Now)
                 return;

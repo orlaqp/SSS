@@ -17,6 +17,8 @@
     <PackageReference Include="AutoMapper" Version="8.1.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.0" />
     <PackageReference Include="EnyimMemcached" Version="2.16.0" />
+    <PackageReference Include="Hangfire" Version="1.7.2" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.7.2" />
     <PackageReference Include="IdentityServer4" Version="2.4.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
@@ -32,5 +34,7 @@
     <ProjectReference Include="..\SSS.Application.Seedwork\SSS.Application.Seedwork.csproj" />
     <ProjectReference Include="..\SSS.Application\SSS.Application.csproj" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

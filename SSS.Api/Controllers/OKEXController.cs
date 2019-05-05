@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SSS.Api.Seedwork;
-using SSS.Application.Okex.Service;
 
 namespace SSS.Api.Controllers
 {
@@ -14,13 +13,13 @@ namespace SSS.Api.Controllers
         private readonly ILogger _logger;
 
         public OkexController(ILogger<OkexController> logger)
-        { 
+        {
             _logger = logger;
         }
 
         [HttpGet("okex")]
         public IActionResult Index()
-        { 
+        {
             return Response("okex");
         }
 
