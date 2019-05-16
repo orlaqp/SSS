@@ -18,21 +18,15 @@ namespace SSS.Api.Controllers
     [ApiController]
     public class StudentController : ApiBaseController
     {
-        private readonly IStudentService _student;
-
-        private readonly RedisCache _redis;
-
-        private readonly MemCached _memcached;
+        private readonly IStudentService _student; 
 
         /// <summary>
         /// StudentController
         /// </summary>
         /// <param name="student">IStudentService</param>
-        public StudentController(IStudentService student, RedisCache redis, MemCached memcached)
+        public StudentController(IStudentService student)
         {
             _student = student;
-            _redis = redis;
-            _memcached = memcached;
         }
 
         /// <summary>

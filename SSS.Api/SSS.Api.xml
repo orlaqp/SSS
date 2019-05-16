@@ -88,7 +88,7 @@
             StudentController
             </summary>
         </member>
-        <member name="M:SSS.Api.Controllers.StudentController.#ctor(SSS.Application.Student.IStudentService,SSS.Infrastructure.Seedwork.Cache.Redis.RedisCache,SSS.Infrastructure.Seedwork.Cache.Memcached.MemCached)">
+        <member name="M:SSS.Api.Controllers.StudentController.#ctor(SSS.Application.Student.IStudentService)">
             <summary>
             StudentController
             </summary>

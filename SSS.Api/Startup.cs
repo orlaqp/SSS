@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using System;
+using System.Reflection;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SSS.Api.Bootstrap;
 using SSS.Api.Middware;
 using SSS.Api.Seedwork;
+using StackExchange.Profiling.Storage;
 
 namespace SSS.Api
 {
@@ -48,7 +51,7 @@ namespace SSS.Api
             services.AddAuthentication("Bearer")
                 .AddJwtBearer("Bearer", options =>
                 {
-                    options.Authority = "http://localhost:456";  
+                    options.Authority = "http://localhost:456";
                     options.RequireHttpsMetadata = false;
                     options.SaveToken = true;
                     options.Audience = "api_test1";
@@ -64,19 +67,19 @@ namespace SSS.Api
             services.AddService();
 
             //Session
-            services.AddSession();
+            //services.AddSession();
 
             //Redis
             //services.AddRedisCache(Configuration.GetSection("Redis"));    //方式一
             //services.AddRedisCache();                                     //方式二
-            services.AddRedisCache(options =>                          //方式三
-            {
-                options.host = "192.168.1.148";
-                options.port = 6379;
-            });
+            //services.AddRedisCache(options =>                          //方式三
+            //{
+            //    options.host = "192.168.1.148";
+            //    options.port = 6379;
+            //});
 
             //MemCache
-            services.AddMemCached(Configuration.GetSection("MemCache"));
+            //services.AddMemCached(Configuration.GetSection("MemCache"));
             //services.AddMemCached();
 
             //MemoryCache
@@ -87,6 +90,20 @@ namespace SSS.Api
 
             //ApiVersion
             services.AddApiVersion();
+
+            services.AddMiniProfiler(options =>
+            { 
+                // (Optional) Path to use for profiler URLs, default is /mini-profiler-resources
+                options.RouteBasePath = "/profiler";
+
+                // (Optional) Control which SQL formatter to use, InlineFormatter is the default
+                options.SqlFormatter = new StackExchange.Profiling.SqlFormatters.InlineFormatter();
+
+                // (Optional) You can disable "Connection Open()", "Connection Close()" (and async variant) tracking.
+                // (defaults to true, and connection opening/closing is tracked)
+                options.TrackConnectionOpenClose = true;
+            }).AddEntityFramework();
+
         }
         /// <summary>
         /// Configure
@@ -99,18 +116,20 @@ namespace SSS.Api
                 app.UseDeveloperExceptionPage();
             else
                 app.UseHsts();
-             
+
             ////认证中间件
             app.UseAuthentication();
 
             //IdentityServer中间件
-            app.UseMiddleware<IdentityServerMiddleware>(); 
+            app.UseMiddleware<IdentityServerMiddleware>();
 
             //Session缓存
-            app.UseSession();
+            //app.UseSession();
 
             //http上下文
             app.UseHttpContext();
+
+            app.UseMiniProfiler();
 
             ////RedisCahce
             //app.UseRedisCache(options =>
@@ -126,6 +145,7 @@ namespace SSS.Api
                 options.RoutePrefix = "docs";
                 options.DocumentTitle = "SSS Project";
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "SSS API V1");
+                options.IndexStream = () => GetType().GetTypeInfo().Assembly.GetManifestResourceStream("SSS.Api.miniprofiler.html");
             });
             app.UseCors(builder => builder.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
 
