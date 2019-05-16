@@ -2,7 +2,7 @@
 
 namespace SSS.Domain.CQRS.Student.Event.Events
 {
-    public class StudentUpdateEvent : Seedwork.Events.Event
+    public class StudentAddEvent : Seedwork.Events.Event
     {
         public Guid id { set; get; }
 
@@ -10,7 +10,7 @@ namespace SSS.Domain.CQRS.Student.Event.Events
 
         public int age { set; get; }
 
-        public StudentUpdateEvent(Domain.Student.Student student)
+        public StudentAddEvent(Domain.Student.Student student)
         {
             this.id = student.Id;
             this.name = student.Name;

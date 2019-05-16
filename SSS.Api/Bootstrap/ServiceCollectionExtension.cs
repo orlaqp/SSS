@@ -49,10 +49,12 @@ namespace SSS.Api.Bootstrap
 
             // Domain - Events
             services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
-            services.AddScoped<INotificationHandler<StudentUpdateEvent>, StudentEventHandler>();
+            services.AddScoped<INotificationHandler<StudentUpdateEvent>, StudentUpdateEventHandler>();
+            services.AddScoped<INotificationHandler<StudentAddEvent>, StudentAddEventHandler>();
 
             // Domain - Commands 
             services.AddScoped<IRequestHandler<StudentUpdateCommand, bool>, StudentCommandHandler>();
+            services.AddScoped<IRequestHandler<StudentAddCommand, bool>, StudentCommandHandler>();
         }
 
         /// <summary>

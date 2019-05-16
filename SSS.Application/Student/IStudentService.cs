@@ -1,18 +1,19 @@
 ﻿using System.Collections.Generic;
+using SSS.Domain.Seedwork.Model;
 using SSS.Domain.Student.Dto;
 
 namespace SSS.Application.Student
 {
     public interface IStudentService
     {
-        StudentOutputDto AddStudent(StudentInputDto student);
+        void AddStudent(StudentInputDto input);
 
-        void UpdateStudent(StudentInputDto student);
+        void UpdateStudent(StudentInputDto input);
 
-        List<StudentOutputDto> GetListStudent(StudentInputDto student);
+        Pages<List<StudentOutputDto>> GetListStudent(StudentInputDto input);
 
-        bool DeleteStudent(StudentInputDto student);
+        bool DeleteStudent(StudentInputDto input);
 
-        StudentOutputDto GetByName(StudentInputDto student);
+        StudentOutputDto GetByName(StudentInputDto input);
     }
 }

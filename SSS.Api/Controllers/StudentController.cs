@@ -67,5 +67,18 @@ namespace SSS.Api.Controllers
             _student.UpdateStudent(student);
             return Response(student);
         }
+
+        /// <summary>
+        /// AddStudent
+        /// </summary>
+        /// <param name="student">StudentInputDto</param>
+        /// <returns></returns> 
+        [HttpPost("addstudent")]
+        [AllowAnonymous]  //匿名访问
+        public IActionResult AddStudent([FromBody]StudentInputDto student)
+        {
+            _student.AddStudent(student);
+            return Response(student);
+        } 
     }
 }

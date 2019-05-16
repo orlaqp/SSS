@@ -9,7 +9,10 @@ namespace SSS.Application.Seedwork.AutoMapper
         public DomainInput()
         {
             CreateMap<StudentInputDto, StudentUpdateCommand>()
-               .ConstructUsing(c => new StudentUpdateCommand(c.id, c.name, c.age));
+               .ConstructUsing(input => new StudentUpdateCommand(input));
+
+            CreateMap<StudentInputDto, StudentAddCommand>()
+                .ConstructUsing(input => new StudentAddCommand(input));
         }
     }
 }

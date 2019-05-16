@@ -1,8 +1,9 @@
-﻿using System; 
-using System.Linq; 
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SSS.Domain.Seedwork.Repository;
 using SSS.Infrastructure.Seedwork.DbContext;
+using System;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace SSS.Infrastructure.Seedwork.Repository
 {
@@ -22,7 +23,7 @@ namespace SSS.Infrastructure.Seedwork.Repository
             DbSet.Add(obj);
         }
 
-        public virtual TEntity GetById(Guid id)
+        public virtual TEntity Get(Guid id)
         {
             return DbSet.Find(id);
         }
@@ -32,9 +33,26 @@ namespace SSS.Infrastructure.Seedwork.Repository
             return DbSet;
         }
 
+        public virtual IQueryable<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate)
+        {
+            return DbSet.Where(predicate);
+        }
+
+        public IQueryable<TEntity> GetPage(int index, int size, ref int count)
+        {
+            count = DbSet.Count();
+            return DbSet.Skip(size * (index > 0 ? index - 1 : 0)).Take(size);
+        }
+
+        public IQueryable<TEntity> GetPage(int index, int size, Expression<Func<TEntity, bool>> predicate, ref int count)
+        {
+            count = DbSet.Where(predicate).Count();
+            return DbSet.Where(predicate).Skip(size * (index > 0 ? index - 1 : 0)).Take(size);
+        }
+
         public virtual void Update(TEntity obj)
         {
-            var status=DbSet.Update(obj);
+            var status = DbSet.Update(obj);
         }
 
         public virtual void Remove(Guid id)
@@ -52,5 +70,6 @@ namespace SSS.Infrastructure.Seedwork.Repository
             Db.Dispose();
             GC.SuppressFinalize(this);
         }
+
     }
 }

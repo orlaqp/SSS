@@ -1,15 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Linq.Expressions;
 
 namespace SSS.Domain.Seedwork.Repository
 {
     public interface IRepository<TEntity> : IDisposable where TEntity : class
     {
         void Add(TEntity obj);
-        TEntity GetById(Guid id);
+        TEntity Get(Guid id);
         IQueryable<TEntity> GetAll();
+        IQueryable<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate);
+        IQueryable<TEntity> GetPage(int index, int size, ref int count);
+        IQueryable<TEntity> GetPage(int index, int size, Expression<Func<TEntity, bool>> predicate, ref int count);
         void Update(TEntity obj);
         void Remove(Guid id);
         int SaveChanges();

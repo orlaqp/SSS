@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using System;
+using MediatR;
 using Microsoft.Extensions.Logging; 
 using SSS.Domain.Seedwork.Bus; 
 using SSS.Domain.Seedwork.Notifications;
@@ -16,7 +17,8 @@ namespace SSS.Domain.CQRS.Student.Command.Handlers
     /// StudentCommandHandler
     /// </summary>
     public class StudentCommandHandler : CommandHandler,
-         IRequestHandler<StudentUpdateCommand, bool>
+         IRequestHandler<StudentUpdateCommand, bool>,
+         IRequestHandler<StudentAddCommand, bool>
     {
 
         private readonly IStudentRepository _studentrepository;
@@ -46,7 +48,24 @@ namespace SSS.Domain.CQRS.Student.Command.Handlers
             if (Commit())
             {
                 _logger.LogInformation("StudentUpdateCommand Success");
-                Bus.RaiseEvent(new StudentUpdateEvent(student.Id, student.Name, student.Age));
+                Bus.RaiseEvent(new StudentUpdateEvent(student));
+            }
+            return Task.FromResult(true);
+        }
+
+        public Task<bool> Handle(StudentAddCommand request, CancellationToken cancellationToken)
+        {
+            if (!request.IsValid())
+            {
+                NotifyValidationErrors(request);
+                return Task.FromResult(false);
+            }
+            var student = new SSS.Domain.Student.Student(request.id, request.name, request.age);
+            _studentrepository.Add(student);
+            if (Commit())
+            {
+                _logger.LogInformation("StudentAddCommand Success");
+                Bus.RaiseEvent(new StudentAddEvent(student));
             }
             return Task.FromResult(true);
         }

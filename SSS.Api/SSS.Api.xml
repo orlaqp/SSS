@@ -115,6 +115,13 @@
             <param name="student">StudentInputDto</param>
             <returns></returns> 
         </member>
+        <member name="M:SSS.Api.Controllers.StudentController.AddStudent(SSS.Domain.Student.Dto.StudentInputDto)">
+            <summary>
+            AddStudent
+            </summary>
+            <param name="student">StudentInputDto</param>
+            <returns></returns> 
+        </member>
         <member name="T:SSS.Api.Startup">
             <summary>
             Startup

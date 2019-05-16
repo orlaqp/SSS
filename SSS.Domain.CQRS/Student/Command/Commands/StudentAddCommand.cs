@@ -3,9 +3,9 @@ using SSS.Domain.Student.Dto;
 
 namespace SSS.Domain.CQRS.Student.Command.Commands
 {
-    public class StudentUpdateCommand : StudentCommand
+    public class StudentAddCommand : StudentCommand
     {
-        public StudentUpdateCommand(StudentInputDto input)
+        public StudentAddCommand(StudentInputDto input)
         {
             this.id = input.id;
             this.name = input.name;
@@ -14,7 +14,7 @@ namespace SSS.Domain.CQRS.Student.Command.Commands
 
         public override bool IsValid()
         {
-            ValidationResult = new StudentUpdateValidation().Validate(this);
+            ValidationResult = new StudentAddValidation().Validate(this);
             return ValidationResult.IsValid;
         }
     }

@@ -8,6 +8,6 @@ namespace SSS.Domain.Student.Dto
 
         public string name { set; get; }
 
-        public int age { set; get; }
+        public int age { set; get; } 
     }
 }
