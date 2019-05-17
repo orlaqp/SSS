@@ -7,7 +7,7 @@ using SSS.Domain.CQRS.Student.Command.Commands;
 using SSS.Domain.Seedwork.Bus;
 using SSS.Domain.Seedwork.Model;
 using SSS.Domain.Student.Dto;
-using SSS.Infrastructure.Student.Repository;
+using SSS.Infrastructure.Repository.Student;
 
 namespace SSS.Application.Student
 {
@@ -29,14 +29,14 @@ namespace SSS.Application.Student
             var cmd = _mapper.Map<StudentAddCommand>(input);
             _bus.SendCommand(cmd);
         }
-        public bool DeleteStudent(StudentInputDto student) => throw new System.NotImplementedException();
+        public void DeleteStudent(StudentInputDto student) => throw new System.NotImplementedException();
         public StudentOutputDto GetByName(StudentInputDto student)
         {
             return _mapper.Map<StudentOutputDto>(_studentrepository.GetByName(student.name));
         }
         public Pages<List<StudentOutputDto>> GetListStudent(StudentInputDto input)
         {
-            List<StudentOutputDto> list = null;
+            List<StudentOutputDto> list;
             int count = 0;
 
             if (input.pagesize == 0 && input.pagesize == 0)

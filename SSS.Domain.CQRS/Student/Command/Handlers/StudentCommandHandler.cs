@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using SSS.Domain.Seedwork.Bus; 
 using SSS.Domain.Seedwork.Notifications;
 using SSS.Domain.Seedwork.UnitOfWork;
-using SSS.Infrastructure.Student.Repository;
+using SSS.Infrastructure.Repository.Student;
 using System.Threading;
 using System.Threading.Tasks;
 using SSS.Domain.CQRS.Student.Command.Commands;

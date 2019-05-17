@@ -11,7 +11,7 @@ using SSS.Domain.Seedwork.Notifications;
 using SSS.Domain.Seedwork.UnitOfWork;
 using SSS.Infrastructure.Seedwork.DbContext;
 using SSS.Infrastructure.Seedwork.UnitOfWork;
-using SSS.Infrastructure.Student.Repository;
+using SSS.Infrastructure.Repository.Student;
 using SSS.Infrastructure.Seedwork.Cache.Redis;
 using Microsoft.Extensions.Configuration;
 using System;
