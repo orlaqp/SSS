@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SSS.Domain.Trade
+﻿namespace SSS.Domain.Trade.Response
 {
     public class MarginResponse
     {

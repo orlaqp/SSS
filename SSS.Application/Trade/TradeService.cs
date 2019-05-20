@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -7,18 +8,14 @@ using SSS.Domain.Seedwork.Bus;
 using SSS.Domain.Seedwork.Model;
 using SSS.Domain.Trade;
 using SSS.Domain.Trade.Dto;
+using SSS.Domain.Trade.Request;
 using SSS.Infrastructure.Repository.Trade;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Security.Cryptography;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace SSS.Application.Trade
 {
@@ -47,8 +44,7 @@ namespace SSS.Application.Trade
             input.id = Guid.NewGuid();
             input.price = 1;// kdata[0].close;
             input.coin = "BTC-USDT";
-            //input.trade_no = "123";
-            input.size = 1;
+            input.size = 1; //0.01
             input.trade_status = 1;
 
             //做多
@@ -56,7 +52,9 @@ namespace SSS.Application.Trade
                 input.side = "buy";
             else
                 input.side = "buy";
-            MarketOrder(input.coin, input.price, input.size, input.side, "limit");
+            string order_id = MarketOrder(input.coin, input.price, input.size, input.side, "limit");
+            if (!string.IsNullOrEmpty(order_id))
+                input.trade_no = order_id;
 
             var cmd = _mapper.Map<TradeAddCommand>(input);
             _bus.SendCommand(cmd);
@@ -68,10 +66,14 @@ namespace SSS.Application.Trade
         {
             List<TradeOutputDto> list = null;
             int count = 0;
+
+            list = _traderepository.GetPage(input.pageindex, input.pagesize, ref count).ProjectTo<TradeOutputDto>(_mapper.ConfigurationProvider).ToList();
+            _logger.LogInformation($"GetListTrade Result {JsonConvert.SerializeObject(list)}");
+
             return new Pages<List<TradeOutputDto>>(list, count);
         }
 
-        private void MarketOrder(string coin, double price, double size, string side, string type)
+        private string MarketOrder(string coin, double price, double size, string side, string type)
         {
             LimitOrder order = new LimitOrder();
             order.side = side;
@@ -87,9 +89,18 @@ namespace SSS.Application.Trade
             {
                 var res = client.PostAsync("https://www.okex.me/api/margin/v3/orders", new StringContent(postdata, Encoding.UTF8, "application/json")).Result;
                 var contentStr = res.Content.ReadAsStringAsync().Result;
-                //{"code":33017,"message":"Greater than the maximum available balance"}
-                //{"client_oid":"","error_code":"","error_message":"","order_id":"2857929499812864","result":true}
                 var result = JObject.Parse(contentStr);
+                _logger.LogInformation($"MarketOrder Result {contentStr}");
+                if (contentStr.Contains("order_id"))
+                {
+                    return result["order_id"].ToString();
+                    //{ "client_oid":"","error_code":"","error_message":"","order_id":"2857929499812864","result":true}
+                }
+                else
+                {
+                    return "";
+                    //{"code":33017,"message":"Greater than the maximum available balance"}
+                }
             }
         }
 
@@ -125,78 +136,9 @@ namespace SSS.Application.Trade
                 list.Add(data);
             }
 
+            _logger.LogInformation($"KDataLine Result {JsonConvert.SerializeObject(list)}");
+
             return list;
-        }
-    }
-
-    public class HttpInterceptor : DelegatingHandler
-    {
-        private string _apiKey;
-        private string _passPhrase;
-        private string _secret;
-        private string _bodyStr;
-        public HttpInterceptor(string apiKey, string secret, string passPhrase, string bodyStr)
-        {
-            this._apiKey = apiKey;
-            this._passPhrase = passPhrase;
-            this._secret = secret;
-            this._bodyStr = bodyStr;
-            InnerHandler = new HttpClientHandler();
-        }
-
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-        {
-            var method = request.Method.Method;
-            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            request.Headers.Add("OK-ACCESS-KEY", this._apiKey);
-
-            var now = DateTime.Now;
-            var timeStamp = TimeZoneInfo.ConvertTimeToUtc(now).ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
-            var requestUrl = request.RequestUri.PathAndQuery;
-            string sign = "";
-            if (!String.IsNullOrEmpty(this._bodyStr))
-            {
-                sign = Encryptor.HmacSHA256($"{timeStamp}{method}{requestUrl}{this._bodyStr}", this._secret);
-            }
-            else
-            {
-                sign = Encryptor.HmacSHA256($"{timeStamp}{method}{requestUrl}", this._secret);
-            }
-
-            request.Headers.Add("OK-ACCESS-SIGN", sign);
-            request.Headers.Add("OK-ACCESS-TIMESTAMP", timeStamp.ToString());
-            request.Headers.Add("OK-ACCESS-PASSPHRASE", this._passPhrase);
-
-            return base.SendAsync(request, cancellationToken);
-        }
-    }
-
-    static class Encryptor
-    {
-        public static string HmacSHA256(string infoStr, string secret)
-        {
-            byte[] sha256Data = Encoding.UTF8.GetBytes(infoStr);
-            byte[] secretData = Encoding.UTF8.GetBytes(secret);
-            using (var hmacsha256 = new HMACSHA256(secretData))
-            {
-                byte[] buffer = hmacsha256.ComputeHash(sha256Data);
-                return Convert.ToBase64String(buffer);
-            }
-        }
-
-        public static string MakeSign(string apiKey, string secret, string phrase)
-        {
-            var timeStamp = (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds;
-            var sign = Encryptor.HmacSHA256($"{timeStamp}GET/users/self/verify", secret);
-            var info = new
-            {
-                op = "login",
-                args = new List<string>()
-                {
-                    apiKey,phrase,timeStamp.ToString(),sign
-                }
-            };
-            return JsonConvert.SerializeObject(info);
         }
     }
 }

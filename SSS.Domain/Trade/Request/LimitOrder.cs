@@ -1,9 +1,9 @@
-﻿namespace SSS.Domain.Trade
+﻿namespace SSS.Domain.Trade.Request
 {
-    public class MarketOrder
+    public class LimitOrder
     {
         /// <summary>
-        /// market 
+        /// limit
         /// </summary>
         public string type { get; set; }
         /// <summary>
@@ -18,6 +18,10 @@
         /// 买入或卖出的数量
         /// </summary>
         public string size { get; set; }
+        /// <summary>
+        /// 价格
+        /// </summary>
+        public string price { get; set; }
         /// <summary>
         /// 下单类型(当前为币币杠杆交易，请求值为2)
         /// </summary>
