@@ -61,6 +61,9 @@ namespace SSS.Domain.CQRS.Student.Command.Handlers
                 return Task.FromResult(false);
             }
             var student = new SSS.Domain.Student.Student(request.id, request.name, request.age);
+            student.CreateTime = DateTime.Now;
+            student.IsDelete = 0;
+
             _studentrepository.Add(student);
             if (Commit())
             {

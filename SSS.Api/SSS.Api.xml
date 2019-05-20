@@ -122,6 +122,25 @@
             <param name="student">StudentInputDto</param>
             <returns></returns> 
         </member>
+        <member name="T:SSS.Api.Controllers.TradeController">
+            <summary>
+            TradeController
+            </summary>
+        </member>
+        <member name="M:SSS.Api.Controllers.TradeController.GetList(SSS.Domain.Trade.Dto.TradeInputDto)">
+            <summary>
+            GetList
+            </summary>
+            <param name="trade">StudentInputDto</param>
+            <returns></returns> 
+        </member>
+        <member name="M:SSS.Api.Controllers.TradeController.AddTrade(SSS.Domain.Trade.Dto.TradeInputDto)">
+            <summary>
+            AddStudent
+            </summary>
+            <param name="trade">StudentInputDto</param>
+            <returns></returns> 
+        </member>
         <member name="T:SSS.Api.Startup">
             <summary>
             Startup

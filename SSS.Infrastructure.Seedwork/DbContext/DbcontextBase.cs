@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using SSS.Domain.Student;
+using SSS.Domain.Trade;
 
 namespace SSS.Infrastructure.Seedwork.DbContext
 {
@@ -15,6 +16,8 @@ namespace SSS.Infrastructure.Seedwork.DbContext
         }
 
         public DbSet<Student> Student { get; set; }
+
+        public DbSet<Trade> Trade { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

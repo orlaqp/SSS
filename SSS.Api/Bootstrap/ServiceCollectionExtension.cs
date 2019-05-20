@@ -22,6 +22,12 @@ using Swashbuckle.AspNetCore.Swagger;
 using System.Reflection;
 using System.IO;
 using Microsoft.AspNetCore.Mvc;
+using SSS.Application.Trade;
+using SSS.Infrastructure.Repository.Trade;
+using SSS.Domain.CQRS.Trade.Event.Events;
+using SSS.Domain.CQRS.Trade.Event.Handlers;
+using SSS.Domain.CQRS.Trade.Command.Handlers;
+using SSS.Domain.CQRS.Trade.Command.Commands;
 
 namespace SSS.Api.Bootstrap
 {
@@ -41,20 +47,24 @@ namespace SSS.Api.Bootstrap
 
             // Application
             services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<ITradeService, TradeService>();
 
             // Infra - Data
             services.AddScoped<IStudentRepository, StudentRepository>();
+            services.AddScoped<ITradeRepository, TradeRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<DbcontextBase>();
 
             // Domain - Events
             services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
             services.AddScoped<INotificationHandler<StudentUpdateEvent>, StudentUpdateEventHandler>();
-            services.AddScoped<INotificationHandler<StudentAddEvent>, StudentAddEventHandler>();
+            services.AddScoped<INotificationHandler<StudentAddEvent>, StudentAddEventHandler>(); 
+            services.AddScoped<INotificationHandler<TradeAddEvent>, TradeAddEventHandler>();
 
             // Domain - Commands 
             services.AddScoped<IRequestHandler<StudentUpdateCommand, bool>, StudentCommandHandler>();
-            services.AddScoped<IRequestHandler<StudentAddCommand, bool>, StudentCommandHandler>();
+            services.AddScoped<IRequestHandler<StudentAddCommand, bool>, StudentCommandHandler>(); 
+            services.AddScoped<IRequestHandler<TradeAddCommand, bool>, TradeCommandHandler>(); 
         }
 
         /// <summary>
