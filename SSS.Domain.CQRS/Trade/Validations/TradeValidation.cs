@@ -17,10 +17,16 @@ namespace SSS.Domain.CQRS.Trade.Validations
             RuleFor(c => c.coin).NotEmpty().WithMessage("请输入币对");
         }
 
-        protected void ValidatePrice()
+        protected void ValidateFristPrice()
         {
-            RuleFor(c => c.price).NotEmpty().WithMessage("请输入价格");
-            RuleFor(c => c.price).GreaterThan(0).WithMessage("请输入正确价格，必须大于0");
+            RuleFor(c => c.first_price).NotEmpty().WithMessage("请输入开单价格");
+            RuleFor(c => c.first_price).GreaterThan(0).WithMessage("请输入正确开单价格，必须大于0");
+        }
+
+        protected void ValidateLastPrice()
+        {
+            RuleFor(c => c.last_price).NotEmpty().WithMessage("请输入平单价格");
+            RuleFor(c => c.last_price).GreaterThan(0).WithMessage("请输入平单正确价格，必须大于0");
         }
 
         protected void ValidateSize()
@@ -31,12 +37,16 @@ namespace SSS.Domain.CQRS.Trade.Validations
 
         protected void ValidateSide()
         {
-            RuleFor(c => c.side).NotNull().WithMessage("请输入开单方向");
+            RuleFor(c => c.side).NotEmpty().WithMessage("请输入开单方向");
         }
 
-        protected void ValidateTradeNo()
+        protected void ValidateLastTradeNo()
         {
-            RuleFor(c => c.trade_no).NotEmpty().WithMessage("请输入交易单号");
+            RuleFor(c => c.last_trade_no).NotEmpty().WithMessage("请输入平单交易单号");
+        }
+        protected void ValidateFirstTradeNo()
+        {
+            RuleFor(c => c.first_trade_no).NotEmpty().WithMessage("请输入开单交易单号");
         }
     }
 }

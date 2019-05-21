@@ -6,7 +6,7 @@ namespace SSS.Application.Trade
 {
     public interface ITradeService
     {
-        void AddTrade(TradeInputDto input); 
+        void OperateTrade(TradeInputDto input); 
         Pages<List<TradeOutputDto>> GetListTrade(TradeInputDto input); 
     }
 }

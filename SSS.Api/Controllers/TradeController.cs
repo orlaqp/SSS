@@ -45,7 +45,7 @@ namespace SSS.Api.Controllers
         [AllowAnonymous]  //匿名访问
         public IActionResult AddTrade([FromBody]TradeInputDto trade)
         {
-            _trade.AddTrade(trade);
+            _trade.OperateTrade(trade);
             return Response(trade);
         }
     }

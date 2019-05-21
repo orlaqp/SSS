@@ -5,26 +5,34 @@ namespace SSS.Domain.Trade
 {
     public class Trade : Entity
     {
-        public Trade(Guid id, string coin, double size, double price, int side,int Trade_Status, string Trade_No)
+        public Trade(Guid id, string coin, double size, double First_Price, double? Last_Price, string side,
+            int First_Trade_Status, int? Last_Trade_Status, string First_Trade_No, string Last_Trade_No)
         {
             this.Id = id;
-            this.Trade_Status = Trade_Status;
+            this.First_Trade_Status = First_Trade_Status;
+            this.Last_Trade_Status = Last_Trade_Status;
             this.Coin = coin;
             this.Size = size;
-            this.Price = price;
+            this.First_Price = First_Price;
+            this.Last_Price = Last_Price;
             this.Side = side;
-            this.Trade_No = Trade_No;
+            this.First_Trade_No = First_Trade_No;
+            this.Last_Trade_No = Last_Trade_No;
         }
         public string Coin { set; get; }
 
         public double Size { set; get; }
 
-        public double Price { set; get; }
+        public double First_Price { set; get; }
+        public double? Last_Price { set; get; }
 
-        public int Side { set; get; }
+        public string Side { set; get; }
 
-        public string Trade_No { set; get; }
+        public string First_Trade_No { set; get; }
 
-        public int Trade_Status { set; get; }
+        public string Last_Trade_No { set; get; }
+
+        public int First_Trade_Status { set; get; }
+        public int? Last_Trade_Status { set; get; }
     }
 }

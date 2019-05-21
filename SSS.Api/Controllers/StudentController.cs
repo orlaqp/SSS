@@ -18,7 +18,7 @@ namespace SSS.Api.Controllers
     [ApiController]
     public class StudentController : ApiBaseController
     {
-        private readonly IStudentService _student; 
+        private readonly IStudentService _student;
 
         /// <summary>
         /// StudentController
@@ -28,7 +28,7 @@ namespace SSS.Api.Controllers
         {
             _student = student;
         }
-
+         
         /// <summary>
         /// GetByName
         /// </summary>
@@ -79,6 +79,6 @@ namespace SSS.Api.Controllers
         {
             _student.AddStudent(student);
             return Response(student);
-        } 
+        }
     }
 }

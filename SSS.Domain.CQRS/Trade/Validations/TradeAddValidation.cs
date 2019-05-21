@@ -8,10 +8,10 @@ namespace SSS.Domain.CQRS.Trade.Validations
         {
             ValidateId();
             ValidateCoin();
-            ValidatePrice();
+            ValidateFristPrice();
             ValidateSize();
             ValidateSide();
-            ValidateTradeNo();
+            ValidateFirstTradeNo();
         }
     }
 }

@@ -150,6 +150,7 @@ namespace SSS.Api
             app.UseCors(builder => builder.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
 
             app.UseHttpsRedirection();
+             
             app.UseStaticFiles();
             app.UseMvc();
         }

@@ -2,7 +2,7 @@
 
 namespace SSS.Domain.CQRS.Trade.Event.Events
 {
-    public class TradeAddEvent : Seedwork.Events.Event
+    public class TradeUpdateEvent : Seedwork.Events.Event
     {
         public Guid id { set; get; }
 
@@ -18,15 +18,15 @@ namespace SSS.Domain.CQRS.Trade.Event.Events
 
         public string side { set; get; }
 
-        public TradeAddEvent(Domain.Trade.Trade trade)
+        public TradeUpdateEvent(Domain.Trade.Trade trade)
         {
             this.id = trade.Id;
             this.coin = trade.Coin;
-            this.trade_no = trade.First_Trade_No;
-            this.trade_status = trade.First_Trade_Status;
+            this.trade_no = trade.Last_Trade_No;
+            this.trade_status =(int) trade.Last_Trade_Status;
             this.side = trade.Side;
             this.size = trade.Size;
-            this.price = trade.First_Price;
+            this.price = (double)trade.Last_Price;
         }
     }
 }
