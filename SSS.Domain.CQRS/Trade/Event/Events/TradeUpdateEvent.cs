@@ -18,6 +18,8 @@ namespace SSS.Domain.CQRS.Trade.Event.Events
 
         public string side { set; get; }
 
+        public DateTime time { set; get; }
+
         public TradeUpdateEvent(Domain.Trade.Trade trade)
         {
             this.id = trade.Id;
@@ -27,6 +29,7 @@ namespace SSS.Domain.CQRS.Trade.Event.Events
             this.side = trade.Side;
             this.size = trade.Size;
             this.price = (double)trade.Last_Price;
+            this.time = (DateTime)trade.Last_Time;
         }
     }
 }

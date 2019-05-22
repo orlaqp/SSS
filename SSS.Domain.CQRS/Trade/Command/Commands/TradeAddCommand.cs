@@ -9,10 +9,12 @@ namespace SSS.Domain.CQRS.Trade.Command.Commands
         {
             this.id = input.id;
             this.coin = input.coin;
+            this.ktime = input.ktime;
             this.first_trade_no = input.first_trade_no;
             this.first_trade_status = input.first_trade_status;
             this.side = input.side;
             this.size = input.size;
+            this.first_time = input.first_time;
             this.first_price = input.first_price;
         }
 

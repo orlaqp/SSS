@@ -131,14 +131,14 @@
             <summary>
             GetList
             </summary>
-            <param name="trade">StudentInputDto</param>
+            <param name="trade">TradeInputDto</param>
             <returns></returns> 
         </member>
         <member name="M:SSS.Api.Controllers.TradeController.AddTrade(SSS.Domain.Trade.Dto.TradeInputDto)">
             <summary>
-            AddStudent
+            AddTrade
             </summary>
-            <param name="trade">StudentInputDto</param>
+            <param name="trade">TradeInputDto</param>
             <returns></returns> 
         </member>
         <member name="T:SSS.Api.Startup">

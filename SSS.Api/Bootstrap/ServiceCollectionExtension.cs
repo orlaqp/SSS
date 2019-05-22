@@ -64,7 +64,9 @@ namespace SSS.Api.Bootstrap
             // Domain - Commands 
             services.AddScoped<IRequestHandler<StudentUpdateCommand, bool>, StudentCommandHandler>();
             services.AddScoped<IRequestHandler<StudentAddCommand, bool>, StudentCommandHandler>(); 
-            services.AddScoped<IRequestHandler<TradeAddCommand, bool>, TradeCommandHandler>(); 
+            services.AddScoped<IRequestHandler<TradeAddCommand, bool>, TradeCommandHandler>();
+            services.AddScoped<IRequestHandler<TradeUpdateCommand, bool>, TradeCommandHandler>();
+            services.AddScoped<IRequestHandler<TradeNullCommand, bool>, TradeCommandHandler>();
         }
 
         /// <summary>

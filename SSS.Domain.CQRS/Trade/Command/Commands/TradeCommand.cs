@@ -14,6 +14,10 @@ namespace SSS.Domain.CQRS.Trade.Command.Commands
 
         public double last_price { set; get; }
 
+        public DateTime last_time { set; get; }
+
+        public DateTime first_time { set; get; }
+
         public string side { set; get; }
 
         public string first_trade_no { set; get; }
@@ -21,6 +25,9 @@ namespace SSS.Domain.CQRS.Trade.Command.Commands
         public string last_trade_no { set; get; }
 
         public int first_trade_status { set; get; }
+
         public int last_trade_status { set; get; }
+
+        public int ktime { set; get; }
     }
 }

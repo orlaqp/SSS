@@ -7,13 +7,10 @@ namespace SSS.Domain.CQRS.Trade.Command.Commands
     {
         public TradeUpdateCommand(TradeInputDto input)
         {
-            this.id = input.id;
-            this.coin = input.coin;
             this.first_trade_no = input.first_trade_no;
             this.last_trade_no = input.last_trade_no;
             this.last_trade_status = input.last_trade_status;
-            this.side = input.side;
-            this.size = input.size;
+            this.last_time = input.last_time;
             this.last_price = input.last_price;
         }
 

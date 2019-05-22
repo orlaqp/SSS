@@ -18,6 +18,13 @@ namespace SSS.Application.Seedwork.AutoMapper
 
             CreateMap<TradeInputDto, TradeAddCommand>()
               .ConstructUsing(input => new TradeAddCommand(input));
+
+            CreateMap<TradeInputDto, TradeUpdateCommand>()
+            .ConstructUsing(input => new TradeUpdateCommand(input));
+
+
+            CreateMap<TradeInputDto, TradeNullCommand>()
+           .ConstructUsing(input => new TradeNullCommand(input));
         }
     }
 }

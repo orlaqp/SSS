@@ -14,10 +14,12 @@ using System.Threading.Tasks;
 namespace SSS.Domain.CQRS.Trade.Command.Handlers
 {
     /// <summary>
-    /// StudentCommandHandler
+    /// TradeCommandHandler
     /// </summary>
     public class TradeCommandHandler : CommandHandler,
-         IRequestHandler<TradeAddCommand, bool>
+         IRequestHandler<TradeAddCommand, bool>,
+         IRequestHandler<TradeUpdateCommand, bool>,
+         IRequestHandler<TradeNullCommand, bool>
     {
 
         private readonly ITradeRepository _traderepository;
@@ -47,7 +49,7 @@ namespace SSS.Domain.CQRS.Trade.Command.Handlers
                 request.id, request.coin,
                 request.size, request.first_price, 0,
                 request.side, request.first_trade_status, 0,
-                request.first_trade_no, "");
+                request.first_trade_no, "", request.first_time, null, request.ktime);
             trade.CreateTime = DateTime.Now;
             trade.IsDelete = 0;
             _traderepository.Add(trade);
@@ -73,18 +75,34 @@ namespace SSS.Domain.CQRS.Trade.Command.Handlers
             {
                 _logger.LogInformation("TradeUpdateCommand Error Trade Is Null");
                 return Task.FromResult(false);
-            } 
+            }
 
             trade.Last_Price = request.last_price;
             trade.Last_Trade_No = request.last_trade_no;
             trade.Last_Trade_Status = request.last_trade_status;
+            trade.Last_Time = request.last_time;
             _traderepository.Update(trade);
 
             if (Commit())
             {
                 _logger.LogInformation("TradeUpdateCommand Success");
-                Bus.RaiseEvent(new TradeAddEvent(trade));
+                Bus.RaiseEvent(new TradeUpdateEvent(trade));
             }
+            return Task.FromResult(true);
+        }
+
+        public Task<bool> Handle(TradeNullCommand request, CancellationToken cancellationToken)
+        {
+            var trade = _traderepository.GetByTradeNo(request.first_trade_no);
+            if (trade == null)
+            {
+                _logger.LogInformation("TradeNullCommand Error Because Is Null");
+                return Task.FromResult(false);
+            }
+            trade.Last_Price = request.last_price;
+            trade.Last_Time = DateTime.Now;
+            _logger.LogInformation("TradeNullCommand Success");
+            Bus.RaiseEvent(new TradeNullEvent(trade));
             return Task.FromResult(true);
         }
     }

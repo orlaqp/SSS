@@ -26,7 +26,7 @@ namespace SSS.Api.Controllers
         /// <summary>
         /// GetList
         /// </summary>
-        /// <param name="trade">StudentInputDto</param>
+        /// <param name="trade">TradeInputDto</param>
         /// <returns></returns> 
         [HttpGet("getlist")]
         [AllowAnonymous]  //匿名访问
@@ -37,9 +37,9 @@ namespace SSS.Api.Controllers
         }
 
         /// <summary>
-        /// AddStudent
+        /// AddTrade
         /// </summary>
-        /// <param name="trade">StudentInputDto</param>
+        /// <param name="trade">TradeInputDto</param>
         /// <returns></returns> 
         [HttpPost("addtrade")]
         [AllowAnonymous]  //匿名访问
