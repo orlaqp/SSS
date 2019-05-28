@@ -64,19 +64,21 @@ namespace SSS.Application.Trade
 
                 //【4.查看持有单子,是否满足平单要求】
                 //查看是否【持有且需要】平多平空订单，检查是否能够盈利且平单 
-                StopTrade(order_list, input, curruent_price);
+                if (StopTrade(order_list, input, curruent_price))
+                    return;
             }
             //【5.开单】新建订单
             else
             {
                 input.first_price = curruent_price;
-                CreateTrade(input);
+                if (CreateTrade(input))
+                    return;
             }
-        
+
             input.id = Guid.NewGuid();
             input.last_time = DateTime.Now;
             input.last_price = curruent_price;
-            input.first_trade_no = order_list[0].first_trade_no; 
+            input.first_trade_no = order_list[0].first_trade_no;
             var null_cmd = _mapper.Map<TradeNullCommand>(input);
             _bus.SendCommand(null_cmd);
             _logger.LogInformation($"无符合的交易规则  input:{JsonConvert.SerializeObject(input)}");
@@ -152,13 +154,13 @@ namespace SSS.Application.Trade
         /// </summary>
         /// <param name="input"></param> 
         /// <param name="curruent_price">当前价格</param>
-        public void StopTrade(List<TradeOutputDto> order_list, TradeInputDto input, double curruent_price)
+        public bool StopTrade(List<TradeOutputDto> order_list, TradeInputDto input, double curruent_price)
         {
             var current_order = order_list.Where(x => !x.side.Equals(input.side)).FirstOrDefault();
             if (current_order == null)
             {
                 _logger.LogInformation($"检查订单是否满足平单要求，没有单子");
-                return;
+                return false;
             }
 
             //【1 平空】
@@ -169,7 +171,7 @@ namespace SSS.Application.Trade
                 if (curruent_price > current_order.first_price)
                 {
                     _logger.LogInformation($"检查订单是否满足平单要求，平空失败，价格太高 {JsonConvert.SerializeObject(current_order)}");
-                    return;
+                    return false;
                 }
                 else
                 {
@@ -181,7 +183,7 @@ namespace SSS.Application.Trade
                     input.last_time = DateTime.Now;
                     input.last_price = curruent_price;
                     UpdateTrade(input);
-                    return;
+                    return true;
                 }
             }
             //【2 平多】
@@ -192,7 +194,7 @@ namespace SSS.Application.Trade
                 if (curruent_price < current_order.first_price)
                 {
                     _logger.LogInformation($"检查订单是否满足平单要求，平多失败，价格太低 {JsonConvert.SerializeObject(current_order)}");
-                    return;
+                    return false;
                 }
                 else
                 {
@@ -204,25 +206,25 @@ namespace SSS.Application.Trade
                     input.last_time = DateTime.Now;
                     input.last_price = curruent_price;
                     UpdateTrade(input);
-                    return;
+                    return true;
                 }
             }
             _logger.LogInformation($"检查订单是否满足平单要求，异常单子,非buy、sell {JsonConvert.SerializeObject(current_order)}");
-            return;
+            return false;
         }
 
         /// <summary>
         /// 开单
         /// </summary>
         /// <param name="input"></param>
-        private void CreateTrade(TradeInputDto input)
+        private bool CreateTrade(TradeInputDto input)
         {
             //【1 开单,获取订单号】
             string order_id = MarketOrder(input.coin, input.first_price, input.size, input.side);
             if (order_id == null)
             {
                 _logger.LogError("开单，下单失败");
-                return;
+                return false;
             }
             input.first_trade_no = order_id;
 
@@ -231,21 +233,21 @@ namespace SSS.Application.Trade
             if (orderinfo == null)
             {
                 _logger.LogError("开单，查询订单详情失败");
-                return;
+                return false;
             }
 
             input.id = Guid.NewGuid();
             input.first_trade_status = Convert.ToInt32(orderinfo.state);
-            input.first_price = Convert.ToDouble(orderinfo.notional);
+            input.first_price = Convert.ToDouble(orderinfo.filled_notional);
             input.side = orderinfo.side;
-            input.size = Convert.ToDouble(orderinfo.size);
+            input.size = Convert.ToDouble(orderinfo.filled_size);
             input.first_time = Convert.ToDateTime(orderinfo.timestamp);
 
             //【3 增加一条订单】
             var add_cmd = _mapper.Map<TradeAddCommand>(input);
             _bus.SendCommand(add_cmd);
             _logger.LogInformation($"开单  input:{JsonConvert.SerializeObject(input)}");
-
+            return true;
         }
 
         /// <summary>
