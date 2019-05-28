@@ -5,7 +5,7 @@ namespace SSS.Domain.CQRS.Trade.Validations
     public class TradeNullValidation : TradeValidation<TradeNullCommand>
     {
         public TradeNullValidation()
-        { 
+        {
         }
     }
 }

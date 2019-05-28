@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using SSS.Api.Seedwork;
 using SSS.Domain.CQRS.Student.Event.Events;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SSS.Domain.CQRS.Student.Event.Handlers
 {

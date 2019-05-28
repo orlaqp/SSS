@@ -1,4 +1,4 @@
-﻿using MediatR; 
+﻿using MediatR;
 using SSS.Domain.Seedwork.Events;
 using System.Threading.Tasks;
 

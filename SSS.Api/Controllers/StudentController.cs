@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using SSS.Api.Seedwork;
 using SSS.Application.Student;
 using SSS.Domain.Student.Dto;
-using SSS.Infrastructure.Seedwork.Cache.Memcached;
-using SSS.Infrastructure.Seedwork.Cache.Redis;
 
 namespace SSS.Api.Controllers
 {
@@ -28,7 +26,7 @@ namespace SSS.Api.Controllers
         {
             _student = student;
         }
-         
+
         /// <summary>
         /// GetByName
         /// </summary>

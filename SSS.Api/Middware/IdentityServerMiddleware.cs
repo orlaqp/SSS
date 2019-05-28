@@ -1,8 +1,8 @@
-﻿using System.Net.Http;
+﻿using IdentityModel.Client;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using System.Net.Http;
 using System.Threading.Tasks;
-using IdentityModel.Client;
 
 namespace SSS.Api.Middware
 {

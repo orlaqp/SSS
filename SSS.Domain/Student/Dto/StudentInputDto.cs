@@ -13,6 +13,6 @@ namespace SSS.Domain.Student.Dto
 
         public int pagesize { set; get; }
 
-        public string order_by { set; get; } 
+        public string order_by { set; get; }
     }
 }

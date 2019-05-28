@@ -7,7 +7,7 @@ namespace SSS.Domain.CQRS.Trade.Validations
         public TradeUpdateValidation()
         {
             ValidateFirstTradeNo();
-            ValidateLastPrice(); 
+            ValidateLastPrice();
             ValidateLastTradeNo();
         }
     }

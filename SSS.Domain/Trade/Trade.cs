@@ -7,7 +7,7 @@ namespace SSS.Domain.Trade
     {
         public Trade(Guid id, string coin, double size, double First_Price, double? Last_Price, string side,
             int First_Trade_Status, int? Last_Trade_Status, string First_Trade_No, string Last_Trade_No,
-            DateTime First_Time, DateTime? Last_Time,int KTime)
+            DateTime First_Time, DateTime? Last_Time, int KTime)
         {
             this.Id = id;
             this.First_Trade_Status = First_Trade_Status;

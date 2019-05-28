@@ -1,15 +1,15 @@
-﻿using System;
-using MediatR;
-using Microsoft.Extensions.Logging; 
-using SSS.Domain.Seedwork.Bus; 
+﻿using MediatR;
+using Microsoft.Extensions.Logging;
+using SSS.Domain.CQRS.Student.Command.Commands;
+using SSS.Domain.CQRS.Student.Event.Events;
+using SSS.Domain.Seedwork.Bus;
+using SSS.Domain.Seedwork.Command;
 using SSS.Domain.Seedwork.Notifications;
 using SSS.Domain.Seedwork.UnitOfWork;
 using SSS.Infrastructure.Repository.Student;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using SSS.Domain.CQRS.Student.Command.Commands;
-using SSS.Domain.CQRS.Student.Event.Events;
-using SSS.Domain.Seedwork.Command;
 
 namespace SSS.Domain.CQRS.Student.Command.Handlers
 {

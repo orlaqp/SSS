@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using SSS.Domain.Seedwork.Bus; 
+using SSS.Domain.Seedwork.Bus;
 using SSS.Domain.Seedwork.Notifications;
 using SSS.Domain.Seedwork.UnitOfWork;
 

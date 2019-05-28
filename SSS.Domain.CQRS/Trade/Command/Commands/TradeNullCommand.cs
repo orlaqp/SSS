@@ -6,8 +6,8 @@ namespace SSS.Domain.CQRS.Trade.Command.Commands
     public class TradeNullCommand : TradeCommand
     {
         public TradeNullCommand(TradeInputDto input)
-        { 
-            this.last_price = input.first_price; 
+        {
+            this.last_price = input.first_price;
         }
 
         public override bool IsValid()

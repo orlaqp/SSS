@@ -1,6 +1,4 @@
-﻿using System;
-using System.Reflection;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SSS.Api.Bootstrap;
 using SSS.Api.Middware;
 using SSS.Api.Seedwork;
-using StackExchange.Profiling.Storage;
+using System.Reflection;
 
 namespace SSS.Api
 {
@@ -92,7 +90,7 @@ namespace SSS.Api
             services.AddApiVersion();
 
             services.AddMiniProfiler(options =>
-            { 
+            {
                 // (Optional) Path to use for profiler URLs, default is /mini-profiler-resources
                 options.RouteBasePath = "/profiler";
 
@@ -123,6 +121,9 @@ namespace SSS.Api
             //IdentityServer中间件
             app.UseMiddleware<IdentityServerMiddleware>();
 
+            //拦截Urls
+            app.UseMiddleware<UrlsMiddleware>();
+
             //Session缓存
             //app.UseSession();
 
@@ -150,7 +151,7 @@ namespace SSS.Api
             app.UseCors(builder => builder.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
 
             app.UseHttpsRedirection();
-             
+
             app.UseStaticFiles();
             app.UseMvc();
         }

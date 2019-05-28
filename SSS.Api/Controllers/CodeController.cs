@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using SSS.Api.Seedwork;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 
@@ -21,10 +24,10 @@ namespace SSS.Api.Controllers
         [HttpGet("index")]
         public ContentResult Index()
         {
-            string html = ""; 
-            string filepath = _env.ContentRootPath+ "\\codegenerator.html";
+            string html = "";
+            string filepath = _env.ContentRootPath + "\\codegenerator.html";
 
-            using (StreamReader sr=new StreamReader(filepath))
+            using (StreamReader sr = new StreamReader(filepath))
             {
                 html = sr.ReadToEnd();
             }
@@ -36,5 +39,20 @@ namespace SSS.Api.Controllers
                 Content = html
             };
         }
+
+        [HttpPost("createcode")] 
+        public IActionResult CreateCode()
+        {
+            var class_name = HttpContext.Request.Form["class_name"];
+            var fields = HttpContext.Request.Form["fields"];
+            var list = JsonConvert.DeserializeObject<List<Field>>(fields);
+            return Response(null);
+        }
+    } 
+
+    public class Field
+    {
+        public string field_name { set; get; }
+        public string field_type { set; get; }
     }
 }

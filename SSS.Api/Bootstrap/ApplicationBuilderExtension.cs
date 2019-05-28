@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using SSS.Api.Seedwork;
 using SSS.Infrastructure.Seedwork.Cache.Redis;
-using System; 
+using System;
 
 namespace SSS.Api.Bootstrap
 {
@@ -37,7 +37,7 @@ namespace SSS.Api.Bootstrap
             options(config);
             if (config == null)
                 config = new RedisOptions() { host = "localhost", port = 6379 };
-            
+
             return app;
         }
 

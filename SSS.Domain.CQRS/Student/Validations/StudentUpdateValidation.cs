@@ -1,4 +1,4 @@
-﻿using SSS.Domain.CQRS.Student.Command.Commands; 
+﻿using SSS.Domain.CQRS.Student.Command.Commands;
 
 namespace SSS.Domain.CQRS.Student.Validations
 {

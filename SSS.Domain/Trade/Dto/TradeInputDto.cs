@@ -6,9 +6,9 @@ namespace SSS.Domain.Trade.Dto
     {
         public Guid id { get; set; }
 
-        public string coin { set; get; } 
+        public string coin { set; get; }
 
-        public double size { set; get; } 
+        public double size { set; get; }
 
         public double last_price { set; get; }
         public double first_price { set; get; }
@@ -27,11 +27,11 @@ namespace SSS.Domain.Trade.Dto
         public string last_trade_no { set; get; }
 
         public int pageindex { set; get; }
-        
+
         public int ktime { set; get; }
 
         public int pagesize { set; get; }
 
-        public string order_by { set; get; } 
+        public string order_by { set; get; }
     }
 }

@@ -25,7 +25,7 @@ namespace SSS.Domain.CQRS.Trade.Event.Events
             this.id = trade.Id;
             this.coin = trade.Coin;
             this.trade_no = trade.Last_Trade_No;
-            this.trade_status =(int) trade.Last_Trade_Status;
+            this.trade_status = (int)trade.Last_Trade_Status;
             this.side = trade.Side;
             this.size = trade.Size;
             this.price = (double)trade.Last_Price;
