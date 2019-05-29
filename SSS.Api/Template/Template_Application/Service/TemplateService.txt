@@ -1,0 +1,32 @@
+﻿using AutoMapper;
+using Microsoft.Extensions.DependencyInjection;
+using SSS.Domain.CQRS.Template.Command.Commands;
+using SSS.Domain.Seedwork.Attribute;
+using SSS.Domain.Seedwork.Bus;
+using SSS.Domain.Template.Dto;
+using SSS.Infrastructure.Repository.Template;
+using System;
+
+namespace SSS.Application.Template
+{
+    [DIService(ServiceLifetime.Scoped, typeof(ITemplateService))]
+    public class TemplateService : ITemplateService
+    {
+        private readonly IMapper _mapper;
+        private readonly IMediatorHandler _bus;
+
+        private readonly ITemplateRepository _repository;
+        public TemplateService(IMapper mapper, IMediatorHandler bus, ITemplateRepository repository)
+        {
+            _mapper = mapper;
+            _bus = bus;
+            _repository = repository;
+        }
+        public void AddTemplate(TemplateInputDto input)
+        {
+            input.id = Guid.NewGuid();
+            var cmd = _mapper.Map<TemplateAddCommand>(input);
+            _bus.SendCommand(cmd);
+        }
+    }
+}

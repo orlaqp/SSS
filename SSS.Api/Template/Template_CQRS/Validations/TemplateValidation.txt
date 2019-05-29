@@ -1,0 +1,15 @@
+﻿using FluentValidation;
+using SSS.Domain.CQRS.Template.Command.Commands;
+using System;
+
+namespace SSS.Domain.CQRS.Template.Validations
+{
+    public abstract class TemplateValidation<T> : AbstractValidator<T> where T : TemplateCommand
+    {
+
+        protected void ValidateId()
+        {
+            RuleFor(c => c.id).NotEqual(Guid.Empty);
+        }
+    }
+}

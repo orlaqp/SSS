@@ -1,0 +1,15 @@
+﻿using Microsoft.Extensions.DependencyInjection;
+using SSS.Domain.Seedwork.Attribute;
+using SSS.Infrastructure.Seedwork.DbContext;
+using SSS.Infrastructure.Seedwork.Repository;
+
+namespace SSS.Infrastructure.Repository.Template
+{
+    [DIService(ServiceLifetime.Scoped, typeof(ITemplateRepository))]
+    public class TemplateRepository : Repository<SSS.Domain.Template.Template>, ITemplateRepository
+    {
+        public TemplateRepository(DbcontextBase context) : base(context)
+        {
+        }
+    }
+}

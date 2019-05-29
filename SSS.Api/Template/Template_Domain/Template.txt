@@ -1,0 +1,13 @@
+﻿using SSS.Domain.Seedwork.Model;
+using System;
+
+namespace SSS.Domain.Template
+{
+    public class Template : Entity
+    {
+        public Template(Guid id)
+        {
+            this.Id = id; 
+        } 
+    }
+}

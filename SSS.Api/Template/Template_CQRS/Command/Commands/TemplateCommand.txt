@@ -1,0 +1,9 @@
+﻿using System;
+
+namespace SSS.Domain.CQRS.Template.Command.Commands
+{
+    public abstract class TemplateCommand : SSS.Domain.Seedwork.Command.Command
+    {
+        public Guid id { set; get; }
+    }
+}

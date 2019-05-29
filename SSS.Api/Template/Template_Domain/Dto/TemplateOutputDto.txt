@@ -1,0 +1,9 @@
+﻿using System;
+
+namespace SSS.Domain.Template.Dto
+{
+    public class TemplateOutputDto
+    {
+        public Guid id { get; set; } 
+    }
+}

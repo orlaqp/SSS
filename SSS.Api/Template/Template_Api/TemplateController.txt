@@ -1,0 +1,43 @@
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using SSS.Api.Seedwork;
+using SSS.Application.Template;
+using SSS.Domain.Template.Dto;
+
+namespace SSS.Api.Controllers
+{
+    /// <summary>
+    /// TemplateController
+    /// </summary>
+    [Authorize]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [Produces("application/json")]
+    [ApiController]
+    public class TemplateController : ApiBaseController
+    {
+        private readonly ITemplateService _service;
+
+        /// <summary>
+        /// TemplateController
+        /// </summary>
+        /// <param name="service">ITemplateService</param>
+        public TemplateController(ITemplateService service)
+        {
+            _service = service;
+        }
+
+        /// <summary>
+        /// AddTemplate
+        /// </summary>
+        /// <param name="input">TemplateInputDto</param>
+        /// <returns></returns> 
+        [HttpPost("add")]
+        [AllowAnonymous]  //匿名访问
+        public IActionResult GetList([FromBody]TemplateInputDto input)
+        {
+            _service.AddTemplate(input);
+            return Response(input);
+        }
+    }
+}

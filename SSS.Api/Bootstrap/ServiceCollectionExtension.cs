@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SSS.Application.Seedwork.AutoMapper;
 using SSS.Application.Student.Mapper;
 using SSS.Domain.Seedwork.Attribute;
 using SSS.Infrastructure.Seedwork.Cache.Memcached;

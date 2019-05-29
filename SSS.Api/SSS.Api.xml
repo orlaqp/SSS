@@ -112,6 +112,36 @@
             <param name="AassemblyName">程序集名字</param>
             <param name="wherelambda">过滤类型的表达式</param>
         </member>
+        <member name="M:SSS.Api.Controllers.CodeController.Generator_Api(System.String)">
+            <summary>
+            5
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:SSS.Api.Controllers.CodeController.Generator_Application(System.String)">
+            <summary>
+            4
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:SSS.Api.Controllers.CodeController.Generator_CQRS(System.String)">
+            <summary>
+            3
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:SSS.Api.Controllers.CodeController.Generator_Domain(System.String)">
+            <summary>
+            1
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:SSS.Api.Controllers.CodeController.Generator_Infrastructure(System.String)">
+            <summary>
+            2
+            </summary>
+            <param name="name"></param>
+        </member>
         <member name="T:SSS.Api.Controllers.StudentController">
             <summary>
             StudentController
@@ -168,6 +198,24 @@
             AddTrade
             </summary>
             <param name="trade">TradeInputDto</param>
+            <returns></returns> 
+        </member>
+        <member name="T:SSS.Api.Controllers.UserInfoController">
+            <summary>
+            UserInfoController
+            </summary>
+        </member>
+        <member name="M:SSS.Api.Controllers.UserInfoController.#ctor(SSS.Application.UserInfo.IUserInfoService)">
+            <summary>
+            UserInfoController
+            </summary>
+            <param name="UserInfo">IUserInfoService</param>
+        </member>
+        <member name="M:SSS.Api.Controllers.UserInfoController.GetList(SSS.Domain.UserInfo.Dto.UserInfoInputDto)">
+            <summary>
+            AddUserInfo
+            </summary>
+            <param name="input">UserInfoInputDto</param>
             <returns></returns> 
         </member>
         <member name="T:SSS.Api.Startup">

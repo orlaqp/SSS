@@ -1,0 +1,16 @@
+﻿using AutoMapper;
+using SSS.Application.Template.AutoMapper;
+
+namespace SSS.Application.Template.Mapper
+{
+    public class TemplateRegisterMappings
+    {
+        public static void RegisterMappings()
+        {
+            new MapperConfiguration(cfg =>
+             {
+                 cfg.AddProfile(new TemplateMapper());
+             });
+        }
+    }
+}

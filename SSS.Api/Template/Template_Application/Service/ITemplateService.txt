@@ -1,0 +1,9 @@
+﻿using SSS.Domain.Template.Dto;
+
+namespace SSS.Application.Template
+{
+    public interface ITemplateService
+    {
+        void AddTemplate(TemplateInputDto input);
+    }
+}
