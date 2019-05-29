@@ -1,10 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using SSS.Domain.Seedwork.Attribute;
 using SSS.Infrastructure.Seedwork.DbContext;
 using SSS.Infrastructure.Seedwork.Repository;
 using System.Linq;
 
 namespace SSS.Infrastructure.Repository.Trade
 {
+    [DIService(ServiceLifetime.Scoped, typeof(ITradeRepository))]
     public class TradeRepository : Repository<SSS.Domain.Trade.Trade>, ITradeRepository
     {
         public TradeRepository(DbcontextBase context) : base(context)

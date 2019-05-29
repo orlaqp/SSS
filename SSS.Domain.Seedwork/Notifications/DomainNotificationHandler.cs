@@ -1,12 +1,14 @@
 ﻿using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+using SSS.Domain.Seedwork.Attribute;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-
 namespace SSS.Domain.Seedwork.Notifications
 {
+    [DIService(ServiceLifetime.Scoped, typeof(INotificationHandler<DomainNotification>))]
     public class DomainNotificationHandler : INotificationHandler<DomainNotification>
     {
         private List<DomainNotification> _notifications;

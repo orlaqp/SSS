@@ -3,6 +3,7 @@ using SSS.Domain.Trade.Dto;
 
 namespace SSS.Domain.CQRS.Trade.Command.Commands
 {
+
     public class TradeNullCommand : TradeCommand
     {
         public TradeNullCommand(TradeInputDto input)

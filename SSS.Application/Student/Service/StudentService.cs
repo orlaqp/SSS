@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.Extensions.DependencyInjection;
 using SSS.Domain.CQRS.Student.Command.Commands;
+using SSS.Domain.Seedwork.Attribute;
 using SSS.Domain.Seedwork.Bus;
 using SSS.Domain.Seedwork.Model;
 using SSS.Domain.Student.Dto;
@@ -11,6 +13,7 @@ using System.Linq;
 
 namespace SSS.Application.Student
 {
+    [DIService(ServiceLifetime.Scoped, typeof(IStudentService))]
     public class StudentService : IStudentService
     {
         private readonly IMapper _mapper;

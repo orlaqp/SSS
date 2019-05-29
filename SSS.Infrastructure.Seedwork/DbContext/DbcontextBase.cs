@@ -1,11 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SSS.Domain.Seedwork.Attribute;
 using SSS.Domain.Student;
 using SSS.Domain.Trade;
 
 namespace SSS.Infrastructure.Seedwork.DbContext
 {
+    [DIService(ServiceLifetime.Scoped, typeof(DbcontextBase))]
     public class DbcontextBase : Microsoft.EntityFrameworkCore.DbContext
     {
         private readonly IHostingEnvironment _env;

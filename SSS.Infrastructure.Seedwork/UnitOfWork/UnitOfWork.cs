@@ -1,8 +1,11 @@
-﻿using SSS.Domain.Seedwork.UnitOfWork;
+﻿using Microsoft.Extensions.DependencyInjection;
+using SSS.Domain.Seedwork.Attribute;
+using SSS.Domain.Seedwork.UnitOfWork;
 using SSS.Infrastructure.Seedwork.DbContext;
 
 namespace SSS.Infrastructure.Seedwork.UnitOfWork
 {
+    [DIService(ServiceLifetime.Scoped, typeof(IUnitOfWork))]
     public class UnitOfWork : IUnitOfWork
     {
         private readonly DbcontextBase _context;

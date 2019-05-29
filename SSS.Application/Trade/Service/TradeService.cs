@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SSS.Domain.CQRS.Trade.Command.Commands;
+using SSS.Domain.Seedwork.Attribute;
 using SSS.Domain.Seedwork.Bus;
 using SSS.Domain.Seedwork.Model;
 using SSS.Domain.Trade;
@@ -20,6 +22,7 @@ using System.Text;
 
 namespace SSS.Application.Trade
 {
+    [DIService(ServiceLifetime.Scoped, typeof(ITradeService))]
     public class TradeService : ITradeService
     {
         private readonly IMapper _mapper;

@@ -1,7 +1,9 @@
 ﻿using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SSS.Domain.CQRS.Student.Command.Commands;
 using SSS.Domain.CQRS.Student.Event.Events;
+using SSS.Domain.Seedwork.Attribute;
 using SSS.Domain.Seedwork.Bus;
 using SSS.Domain.Seedwork.Command;
 using SSS.Domain.Seedwork.Notifications;
@@ -13,6 +15,9 @@ using System.Threading.Tasks;
 
 namespace SSS.Domain.CQRS.Student.Command.Handlers
 {
+    [DIService(ServiceLifetime.Scoped,
+       typeof(IRequestHandler<StudentUpdateCommand, bool>),
+       typeof(IRequestHandler<StudentAddCommand, bool>))]
     /// <summary>
     /// StudentCommandHandler
     /// </summary>

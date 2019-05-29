@@ -83,6 +83,35 @@
             <param name="services"></param>
             <param name="options"></param>
         </member>
+        <member name="M:SSS.Api.Bootstrap.ServiceCollectionExtension.AutoRegisterService(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type)">
+            <summary>
+            自动注册服务
+            </summary>
+            <param name="services">注册服务的集合（向其中注册）</param>
+            <param name="ImplementationType">要注册的类型</param>
+        </member>
+        <member name="M:SSS.Api.Bootstrap.ServiceCollectionExtension.GetTypesByAssemblyName(System.String)">
+            <summary>
+            根据程序集的名字获取程序集中所有的类型集合
+            </summary>
+            <param name="AssemblyName">程序集名字</param>
+            <returns>类型集合</returns>
+        </member>
+        <member name="M:SSS.Api.Bootstrap.ServiceCollectionExtension.AutoRegisterServicesFromAssembly(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String)">
+            <summary>
+            将程序集中的所有符合条件的类型全部注册到 IServiceCollection 中
+            </summary>
+            <param name="services">IServiceCollection</param>
+            <param name="AassemblyName">程序集名字</param>
+        </member>
+        <member name="M:SSS.Api.Bootstrap.ServiceCollectionExtension.AutoRegisterServicesFromAssembly(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,System.Func{System.Type,System.Boolean})">
+            <summary>
+            将程序集中的所有符合条件的类型全部注册到 IServiceCollection 中
+            </summary>
+            <param name="services">IServiceCollection</param>
+            <param name="AassemblyName">程序集名字</param>
+            <param name="wherelambda">过滤类型的表达式</param>
+        </member>
         <member name="T:SSS.Api.Controllers.StudentController">
             <summary>
             StudentController

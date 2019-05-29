@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SSS.Api.Seedwork;
@@ -40,7 +39,7 @@ namespace SSS.Api.Controllers
             };
         }
 
-        [HttpPost("createcode")] 
+        [HttpPost("createcode")]
         public IActionResult CreateCode()
         {
             var class_name = HttpContext.Request.Form["class_name"];
@@ -48,7 +47,7 @@ namespace SSS.Api.Controllers
             var list = JsonConvert.DeserializeObject<List<Field>>(fields);
             return Response(null);
         }
-    } 
+    }
 
     public class Field
     {

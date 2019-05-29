@@ -1,7 +1,9 @@
 ﻿using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SSS.Domain.CQRS.Trade.Command.Commands;
 using SSS.Domain.CQRS.Trade.Event.Events;
+using SSS.Domain.Seedwork.Attribute;
 using SSS.Domain.Seedwork.Bus;
 using SSS.Domain.Seedwork.Command;
 using SSS.Domain.Seedwork.Notifications;
@@ -13,6 +15,10 @@ using System.Threading.Tasks;
 
 namespace SSS.Domain.CQRS.Trade.Command.Handlers
 {
+    [DIService(ServiceLifetime.Scoped,
+        typeof(IRequestHandler<TradeNullCommand, bool>),
+        typeof(IRequestHandler<TradeAddCommand, bool>),
+        typeof(IRequestHandler<TradeUpdateCommand, bool>))]
     /// <summary>
     /// TradeCommandHandler
     /// </summary>
