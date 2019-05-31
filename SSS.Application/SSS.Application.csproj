@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup> 
+    <ProjectReference Include="..\SSS.Application.Seedwork\SSS.Application.Seedwork.csproj" /> 
     <ProjectReference Include="..\SSS.Domain.CQRS\SSS.Domain.CQRS.csproj" />
   </ItemGroup>
 

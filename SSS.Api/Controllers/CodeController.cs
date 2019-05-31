@@ -51,64 +51,68 @@ namespace SSS.Api.Controllers
             Generator_Api("UserInfo");
             return Response(null);
         }
-        
-        /// <summary>
-        /// 5
-        /// </summary>
-        /// <param name="name"></param>
-        public void Generator_Api(string name)
-        {
-            var TemplateController_Read_Path = current_path + "\\Template\\Template_Api\\TemplateController.txt";
-            var TemplateController_Write_Path = current_path + $"\\Controllers\\{name}Controller.cs";
-
-            string TemplateController_Content = IO.ReadAllText(TemplateController_Read_Path);
-            TemplateController_Content=TemplateController_Content.Replace("Template", name);
-
-            IO.Save(TemplateController_Write_Path, TemplateController_Content);
-        }
 
         /// <summary>
-        /// 4
+        /// 1
         /// </summary>
         /// <param name="name"></param>
-        public void Generator_Application(string name)
+        private void Generator_Domain(string name)
         {
-            var TemplateMapper_Read_Path = current_path + "\\Template\\Template_Application\\Mapper\\TemplateMapper.txt";
-            var TemplateRegisterMappings_Read_Path = current_path + "\\Template\\Template_Application\\Mapper\\TemplateRegisterMappings.txt";
-            var ITemplateService_Read_Path = current_path + "\\Template\\Template_Application\\Service\\ITemplateService.txt";
-            var TemplateService_Read_Path = current_path + "\\Template\\Template_Application\\Service\\TemplateService.txt";
+            var TemplateInputDto_Read_Path = current_path + "\\Template\\Template_Domain\\Dto\\TemplateInputDto.txt";
+            var TemplateOutputDto_Read_Path = current_path + "\\Template\\Template_Domain\\Dto\\TemplateOutputDto.txt";
+            var Template_Read_Path = current_path + "\\Template\\Template_Domain\\Template.txt";
 
-            string TemplateMapper_Content = IO.ReadAllText(TemplateMapper_Read_Path);
-            TemplateMapper_Content=TemplateMapper_Content.Replace("Template", name);
+            string TemplateInputDto_Content = IO.ReadAllText(TemplateInputDto_Read_Path);
+            TemplateInputDto_Content = TemplateInputDto_Content.Replace("Template", name);
 
-            string TemplateRegisterMappings_Content = IO.ReadAllText(TemplateRegisterMappings_Read_Path);
-            TemplateRegisterMappings_Content=TemplateRegisterMappings_Content.Replace("Template", name);
+            string TemplateOutputDto_Content = IO.ReadAllText(TemplateOutputDto_Read_Path);
+            TemplateOutputDto_Content = TemplateOutputDto_Content.Replace("Template", name);
 
-            string ITemplateService_Content = IO.ReadAllText(ITemplateService_Read_Path);
-            ITemplateService_Content=ITemplateService_Content.Replace("Template", name);
-
-            string TemplateService_Content = IO.ReadAllText(TemplateService_Read_Path);
-            TemplateService_Content=TemplateService_Content.Replace("Template", name);
+            string Template_Content = IO.ReadAllText(Template_Read_Path);
+            Template_Content = Template_Content.Replace("Template", name);
 
             Directory.SetCurrentDirectory(Directory.GetParent(current_path).FullName);
             var parent_path = Directory.GetCurrentDirectory();
 
-            var TemplateMapper_Write_Path = parent_path + $"\\SSS.Application\\{name}\\Mapper\\{name}Mapper.cs";
-            var TemplateRegisterMappings_Write_Path = parent_path + $"\\SSS.Application\\{name}\\Mapper\\{name}RegisterMappings.cs";
-            var ITemplateService_Write_Path = parent_path + $"\\SSS.Application\\{name}\\Service\\I{name}Service.cs";
-            var TemplateService_Write_Path = parent_path + $"\\SSS.Application\\{name}\\Service\\{name}Service.cs";
+            var TemplateInputDto_Write_Path = parent_path + $"\\SSS.Domain\\{name}\\Dto\\{name}InputDto.cs";
+            var TemplateOutputDto_Write_Path = parent_path + $"\\SSS.Domain\\{name}\\Dto\\{name}OutputDto.cs";
+            var Template_Write_Path = parent_path + $"\\SSS.Domain\\{name}\\{name}.cs";
 
-            IO.Save(TemplateMapper_Write_Path, TemplateMapper_Content);
-            IO.Save(TemplateRegisterMappings_Write_Path, TemplateRegisterMappings_Content);
-            IO.Save(ITemplateService_Write_Path, ITemplateService_Content);
-            IO.Save(TemplateService_Write_Path, TemplateService_Content);
+            IO.Save(TemplateInputDto_Write_Path, TemplateInputDto_Content);
+            IO.Save(TemplateOutputDto_Write_Path, TemplateOutputDto_Content);
+            IO.Save(Template_Write_Path, Template_Content);
+        }
+
+        /// <summary>
+        /// 2
+        /// </summary>
+        /// <param name="name"></param>
+        private void Generator_Infrastructure(string name)
+        {
+            var ITemplateRepository_Read_Path = current_path + "\\Template\\Template_Infrastructure\\ITemplateRepository.txt";
+            var TemplateRepository_Read_Path = current_path + "\\Template\\Template_Infrastructure\\TemplateRepository.txt";
+
+            string ITemplateRepository_Content = IO.ReadAllText(ITemplateRepository_Read_Path);
+            ITemplateRepository_Content = ITemplateRepository_Content.Replace("Template", name);
+
+            string TemplateRepository_Content = IO.ReadAllText(TemplateRepository_Read_Path);
+            TemplateRepository_Content = TemplateRepository_Content.Replace("Template", name);
+
+            Directory.SetCurrentDirectory(Directory.GetParent(current_path).FullName);
+            var parent_path = Directory.GetCurrentDirectory();
+
+            var ITemplateRepository_Write_Path = parent_path + $"\\SSS.Infrastructure\\Repository\\{name}\\I{name}Repository.cs";
+            var TemplateRepository_Write_Path = parent_path + $"\\SSS.Infrastructure\\Repository\\{name}\\{name}Repository.cs";
+
+            IO.Save(ITemplateRepository_Write_Path, ITemplateRepository_Content);
+            IO.Save(TemplateRepository_Write_Path, TemplateRepository_Content);
         }
 
         /// <summary>
         /// 3
         /// </summary>
         /// <param name="name"></param>
-        public void Generator_CQRS(string name)
+        private void Generator_CQRS(string name)
         {
             var TemplateAddCommand_Read_Path = current_path + "\\Template\\Template_CQRS\\Command\\Commands\\TemplateAddCommand.txt";
             var TemplateCommand_Read_Path = current_path + "\\Template\\Template_CQRS\\Command\\Commands\\TemplateCommand.txt";
@@ -120,25 +124,25 @@ namespace SSS.Api.Controllers
 
 
             string TemplateAddCommand_Content = IO.ReadAllText(TemplateAddCommand_Read_Path);
-            TemplateAddCommand_Content=TemplateAddCommand_Content.Replace("Template", name);
+            TemplateAddCommand_Content = TemplateAddCommand_Content.Replace("Template", name);
 
             string TemplateCommand_Content = IO.ReadAllText(TemplateCommand_Read_Path);
-            TemplateCommand_Content=TemplateCommand_Content.Replace("Template", name);
+            TemplateCommand_Content = TemplateCommand_Content.Replace("Template", name);
 
             string TemplateCommandHandler_Content = IO.ReadAllText(TemplateCommandHandler_Read_Path);
-            TemplateCommandHandler_Content=TemplateCommandHandler_Content.Replace("Template", name);
+            TemplateCommandHandler_Content = TemplateCommandHandler_Content.Replace("Template", name);
 
             string TemplateAddEvent_Content = IO.ReadAllText(TemplateAddEvent_Read_Path);
-            TemplateAddEvent_Content=TemplateAddEvent_Content.Replace("Template", name);
+            TemplateAddEvent_Content = TemplateAddEvent_Content.Replace("Template", name);
 
             string TemplateAddEventHandler_Content = IO.ReadAllText(TemplateAddEventHandler_Read_Path);
-            TemplateAddEventHandler_Content=TemplateAddEventHandler_Content.Replace("Template", name);
+            TemplateAddEventHandler_Content = TemplateAddEventHandler_Content.Replace("Template", name);
 
             string TemplateAddValidation_Content = IO.ReadAllText(TemplateAddValidation_Read_Path);
-            TemplateAddValidation_Content=TemplateAddValidation_Content.Replace("Template", name);
+            TemplateAddValidation_Content = TemplateAddValidation_Content.Replace("Template", name);
 
             string TemplateValidation_Content = IO.ReadAllText(TemplateValidation_Read_Path);
-            TemplateValidation_Content=TemplateValidation_Content.Replace("Template", name);
+            TemplateValidation_Content = TemplateValidation_Content.Replace("Template", name);
 
             Directory.SetCurrentDirectory(Directory.GetParent(current_path).FullName);
             var parent_path = Directory.GetCurrentDirectory();
@@ -161,59 +165,55 @@ namespace SSS.Api.Controllers
         }
 
         /// <summary>
-        /// 1
+        /// 4
         /// </summary>
         /// <param name="name"></param>
-        public void Generator_Domain(string name)
-        { 
-            var TemplateInputDto_Read_Path = current_path + "\\Template\\Template_Domain\\Dto\\TemplateInputDto.txt";
-            var TemplateOutputDto_Read_Path = current_path + "\\Template\\Template_Domain\\Dto\\TemplateOutputDto.txt";
-            var Template_Read_Path = current_path + "\\Template\\Template_Domain\\Template.txt";
-             
-            string TemplateInputDto_Content = IO.ReadAllText(TemplateInputDto_Read_Path);
-            TemplateInputDto_Content = TemplateInputDto_Content.Replace("Template", name);
+        private void Generator_Application(string name)
+        {
+            var TemplateMapper_Read_Path = current_path + "\\Template\\Template_Application\\Mapper\\TemplateMapper.txt";
+            var TemplateRegisterMappings_Read_Path = current_path + "\\Template\\Template_Application\\Mapper\\TemplateRegisterMappings.txt";
+            var ITemplateService_Read_Path = current_path + "\\Template\\Template_Application\\Service\\ITemplateService.txt";
+            var TemplateService_Read_Path = current_path + "\\Template\\Template_Application\\Service\\TemplateService.txt";
 
-            string TemplateOutputDto_Content = IO.ReadAllText(TemplateOutputDto_Read_Path);
-            TemplateOutputDto_Content = TemplateOutputDto_Content.Replace("Template", name);
-             
-            string Template_Content = IO.ReadAllText(Template_Read_Path);
-            Template_Content = Template_Content.Replace("Template", name);
+            string TemplateMapper_Content = IO.ReadAllText(TemplateMapper_Read_Path);
+            TemplateMapper_Content = TemplateMapper_Content.Replace("Template", name);
+
+            string TemplateRegisterMappings_Content = IO.ReadAllText(TemplateRegisterMappings_Read_Path);
+            TemplateRegisterMappings_Content = TemplateRegisterMappings_Content.Replace("Template", name);
+
+            string ITemplateService_Content = IO.ReadAllText(ITemplateService_Read_Path);
+            ITemplateService_Content = ITemplateService_Content.Replace("Template", name);
+
+            string TemplateService_Content = IO.ReadAllText(TemplateService_Read_Path);
+            TemplateService_Content = TemplateService_Content.Replace("Template", name);
 
             Directory.SetCurrentDirectory(Directory.GetParent(current_path).FullName);
             var parent_path = Directory.GetCurrentDirectory();
 
-            var TemplateInputDto_Write_Path = parent_path + $"\\SSS.Domain\\{name}\\Dto\\{name}InputDto.cs";
-            var TemplateOutputDto_Write_Path = parent_path + $"\\SSS.Domain\\{name}\\Dto\\{name}OutputDto.cs";
-            var Template_Write_Path = parent_path + $"\\SSS.Domain\\{name}\\{name}.cs";
+            var TemplateMapper_Write_Path = parent_path + $"\\SSS.Application\\{name}\\Mapper\\{name}Mapper.cs";
+            var TemplateRegisterMappings_Write_Path = parent_path + $"\\SSS.Application\\{name}\\Mapper\\{name}RegisterMappings.cs";
+            var ITemplateService_Write_Path = parent_path + $"\\SSS.Application\\{name}\\Service\\I{name}Service.cs";
+            var TemplateService_Write_Path = parent_path + $"\\SSS.Application\\{name}\\Service\\{name}Service.cs";
 
-            IO.Save(TemplateInputDto_Write_Path, TemplateInputDto_Content);
-            IO.Save(TemplateOutputDto_Write_Path, TemplateOutputDto_Content);
-            IO.Save(Template_Write_Path, Template_Content); 
+            IO.Save(TemplateMapper_Write_Path, TemplateMapper_Content);
+            IO.Save(TemplateRegisterMappings_Write_Path, TemplateRegisterMappings_Content);
+            IO.Save(ITemplateService_Write_Path, ITemplateService_Content);
+            IO.Save(TemplateService_Write_Path, TemplateService_Content);
         }
 
         /// <summary>
-        /// 2
+        /// 5
         /// </summary>
         /// <param name="name"></param>
-        public void Generator_Infrastructure(string name)
+        private void Generator_Api(string name)
         {
-            var ITemplateRepository_Read_Path = current_path + "\\Template\\Template_Infrastructure\\ITemplateRepository.txt";
-            var TemplateRepository_Read_Path = current_path + "\\Template\\Template_Infrastructure\\TemplateRepository.txt";
+            var TemplateController_Read_Path = current_path + "\\Template\\Template_Api\\TemplateController.txt";
+            var TemplateController_Write_Path = current_path + $"\\Controllers\\{name}Controller.cs";
 
-            string ITemplateRepository_Content = IO.ReadAllText(ITemplateRepository_Read_Path);
-            ITemplateRepository_Content = ITemplateRepository_Content.Replace("Template", name);
-             
-            string TemplateRepository_Content = IO.ReadAllText(TemplateRepository_Read_Path);
-            TemplateRepository_Content = TemplateRepository_Content.Replace("Template", name);
+            string TemplateController_Content = IO.ReadAllText(TemplateController_Read_Path);
+            TemplateController_Content = TemplateController_Content.Replace("Template", name);
 
-            Directory.SetCurrentDirectory(Directory.GetParent(current_path).FullName);
-            var parent_path = Directory.GetCurrentDirectory();
-
-            var ITemplateRepository_Write_Path = parent_path + $"\\SSS.Infrastructure\\Repository\\{name}\\I{name}Repository.cs";
-            var TemplateRepository_Write_Path = parent_path + $"\\SSS.Infrastructure\\Repository\\{name}\\{name}Repository.cs";
-
-            IO.Save(ITemplateRepository_Write_Path, ITemplateRepository_Content);
-            IO.Save(TemplateRepository_Write_Path, TemplateRepository_Content);
+            IO.Save(TemplateController_Write_Path, TemplateController_Content);
         }
     }
 

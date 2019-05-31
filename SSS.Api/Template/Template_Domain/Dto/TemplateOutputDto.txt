@@ -1,9 +1,8 @@
-﻿using System;
+﻿using SSS.Domain.Seedwork.Model; 
 
 namespace SSS.Domain.Template.Dto
 {
-    public class TemplateOutputDto
-    {
-        public Guid id { get; set; } 
+    public class TemplateOutputDto : OutputDtoBase
+    { 
     }
 }

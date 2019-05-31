@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SSS.Application.Student.Mapper;
 using SSS.Domain.Seedwork.Attribute;
 using SSS.Infrastructure.Seedwork.Cache.Memcached;
 using SSS.Infrastructure.Seedwork.Cache.Redis;
@@ -32,6 +31,7 @@ namespace SSS.Api.Bootstrap
             services.AutoRegisterServicesFromAssembly("SSS.Domain.Seedwork");
 
             // Application
+            services.AutoRegisterServicesFromAssembly("SSS.Application.Seedwork");
             services.AutoRegisterServicesFromAssembly("SSS.Application");
 
             // Infra - Data 
@@ -52,8 +52,32 @@ namespace SSS.Api.Bootstrap
 
             services.AddAutoMapper();
 
-            StudentRegisterMappings.RegisterMappings();
-            TradeRegisterMappings.RegisterMappings();
+            var types = Assembly.Load("SSS.Application").GetTypes();
+
+            //获取所有标记RegisterMapperAttribute的类
+            Func<Attribute[], bool> IsRegisterMapperAttribute = o =>
+            {
+                foreach (Attribute a in o)
+                {
+                    if (a is RegisterMapperAttribute)
+                        return true;
+                }
+                return false;
+            };
+
+            var registermapper = types.Where(o =>
+            {
+                return IsRegisterMapperAttribute(System.Attribute.GetCustomAttributes(o, true));
+            }
+            );
+
+            //反射调用注册方法
+            foreach (var item in registermapper)
+            {
+                MethodInfo method = item.GetMethod("RegisterMappings");
+                object registerclass = Activator.CreateInstance(item);
+                method.Invoke(registerclass, null);
+            }
         }
 
         /// <summary>
@@ -184,21 +208,9 @@ namespace SSS.Api.Bootstrap
             }
 
         }
-        /// <summary>
-        /// 根据程序集的名字获取程序集中所有的类型集合
-        /// </summary>
-        /// <param name="AssemblyName">程序集名字</param>
-        /// <returns>类型集合</returns>
-        public static Type[] GetTypesByAssemblyName(String AssemblyName)
-        {
-            Assembly assembly = Assembly.Load(AssemblyName);
-            return assembly.GetTypes();
-        }
-
         #endregion
 
-
-        #region 将程序集中的所有符合条件的类型全部注册到 IServiceCollection 中 重载1
+        #region 将程序集中的所有符合条件的类型全部注册到 IServiceCollection中 
         /// <summary>
         /// 将程序集中的所有符合条件的类型全部注册到 IServiceCollection 中
         /// </summary>
@@ -208,12 +220,13 @@ namespace SSS.Api.Bootstrap
             string AassemblyName)
         {
             //根据程序集的名字 获取程序集中所有的类型
-            Type[] types = GetTypesByAssemblyName(AassemblyName);
+            Type[] types = Assembly.Load(AassemblyName).GetTypes();
+
             //过滤上述程序集 首先按照传进来的条件进行过滤 接着要求Type必须是类，而且不能是抽象类
-            IEnumerable<Type> _types = types.Where(t => t.IsClass && !t.IsAbstract);
-            foreach (var t in _types)
+            IEnumerable<Type> list = types.Where(t => t.IsClass && !t.IsAbstract);
+            foreach (var item in list)
             {
-                IEnumerable<Attribute> attrs = t.GetCustomAttributes();
+                IEnumerable<Attribute> attrs = item.GetCustomAttributes();
                 //遍历类的所有特性
                 foreach (var attr in attrs)
                 {
@@ -221,45 +234,12 @@ namespace SSS.Api.Bootstrap
                     //并跳出当前的循环 开始对下一个类进行循环
                     if (attr is DIServiceAttribute)
                     {
-                        services.AutoRegisterService(t);
+                        services.AutoRegisterService(item);
                         break;
                     }
                 }
             }
         }
-        #endregion
-
-
-        #region 将程序集中的所有符合条件的类型全部注册到 IServiceCollection 中 重载2
-        /// <summary>
-        /// 将程序集中的所有符合条件的类型全部注册到 IServiceCollection 中
-        /// </summary>
-        /// <param name="services">IServiceCollection</param>
-        /// <param name="AassemblyName">程序集名字</param>
-        /// <param name="wherelambda">过滤类型的表达式</param>
-        public static void AutoRegisterServicesFromAssembly(this IServiceCollection services,
-            string AassemblyName, Func<Type, bool> wherelambda)
-        {
-            //根据程序集的名字 获取程序集中所有的类型
-            Type[] types = GetTypesByAssemblyName(AassemblyName);
-            //过滤上述程序集 首先按照传进来的条件进行过滤 接着要求Type必须是类，而且不能是抽象类
-            IEnumerable<Type> _types = types.Where(wherelambda).Where(t => t.IsClass && !t.IsAbstract);
-            foreach (var t in _types)
-            {
-                IEnumerable<Attribute> attrs = t.GetCustomAttributes();
-                //遍历类的所有特性
-                foreach (var attr in attrs)
-                {
-                    //如果在其特性中发现特性是 UseDIAttribute 特性 就将这个类注册到DI容器中去
-                    //并跳出当前的循环 开始对下一个类进行循环
-                    if (attr is DIServiceAttribute)
-                    {
-                        services.AutoRegisterService(t);
-                        break;
-                    }
-                }
-            }
-        }
-        #endregion
+        #endregion 
     }
 }

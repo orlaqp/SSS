@@ -32,9 +32,9 @@ namespace SSS.Api.Controllers
         /// </summary>
         /// <param name="input">UserInfoInputDto</param>
         /// <returns></returns> 
-        [HttpPost("addtemplate")]
+        [HttpPost("add")]
         [AllowAnonymous]  //匿名访问
-        public IActionResult GetList([FromBody]UserInfoInputDto input)
+        public IActionResult AddUserInfo([FromBody]UserInfoInputDto input)
         {
             _service.AddUserInfo(input);
             return Response(input);

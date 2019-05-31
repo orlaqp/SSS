@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using SSS.Domain.Seedwork.Attribute;
 using SSS.Domain.Seedwork.Repository;
 using SSS.Infrastructure.Seedwork.DbContext;
 using System;
@@ -7,6 +9,7 @@ using System.Linq.Expressions;
 
 namespace SSS.Infrastructure.Seedwork.Repository
 {
+    [DIService(ServiceLifetime.Scoped, typeof(IRepository<>))]
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         protected readonly DbcontextBase Db;

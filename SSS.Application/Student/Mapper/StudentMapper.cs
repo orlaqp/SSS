@@ -14,7 +14,7 @@ namespace SSS.Application.Seedwork.AutoMapper
                .ConstructUsing(input => new StudentUpdateCommand(input));
 
             CreateMap<StudentInputDto, StudentAddCommand>()
-                .ConstructUsing(input => new StudentAddCommand(input)); 
+                .ConstructUsing(input => new StudentAddCommand(input));
         }
     }
 }

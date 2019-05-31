@@ -1,11 +1,10 @@
-﻿using System;
+﻿using SSS.Domain.Seedwork.Model;
+using System;
 
 namespace SSS.Domain.Trade.Dto
 {
-    public class TradeOutputDto
+    public class TradeOutputDto : OutputDtoBase
     {
-        public Guid id { get; set; }
-
         public string coin { set; get; }
 
         public double size { set; get; }

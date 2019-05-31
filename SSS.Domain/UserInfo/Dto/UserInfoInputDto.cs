@@ -1,15 +1,8 @@
-using System;
+using SSS.Domain.Seedwork.Model;
 
 namespace SSS.Domain.UserInfo.Dto
 {
-    public class UserInfoInputDto
+    public class UserInfoInputDto : InputDtoBase
     {
-        public Guid id { get; set; } 
-
-        public int pageindex { set; get; }
-
-        public int pagesize { set; get; }
-
-        public string order_by { set; get; }
     }
 }

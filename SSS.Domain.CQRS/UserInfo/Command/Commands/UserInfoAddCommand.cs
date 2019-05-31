@@ -7,7 +7,7 @@ namespace SSS.Domain.CQRS.UserInfo.Command.Commands
     {
         public UserInfoAddCommand(UserInfoInputDto input)
         {
-            this.id = input.id; 
+            this.id = input.id;
         }
 
         public override bool IsValid()

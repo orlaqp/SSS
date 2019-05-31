@@ -1,9 +1,8 @@
-using System;
+using SSS.Domain.Seedwork.Model;
 
 namespace SSS.Domain.UserInfo.Dto
 {
-    public class UserInfoOutputDto
+    public class UserInfoOutputDto : OutputDtoBase
     {
-        public Guid id { get; set; } 
     }
 }

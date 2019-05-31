@@ -7,7 +7,7 @@ namespace SSS.Domain.UserInfo
     {
         public UserInfo(Guid id)
         {
-            this.Id = id; 
-        } 
+            this.Id = id;
+        }
     }
 }

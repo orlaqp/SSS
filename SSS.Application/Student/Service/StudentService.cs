@@ -20,12 +20,14 @@ namespace SSS.Application.Student
         private readonly IMediatorHandler _bus;
 
         private readonly IStudentRepository _studentrepository;
+
         public StudentService(IMapper mapper, IMediatorHandler bus, IStudentRepository studentrepository)
         {
             _mapper = mapper;
             _bus = bus;
             _studentrepository = studentrepository;
         }
+
         public void AddStudent(StudentInputDto input)
         {
             input.id = Guid.NewGuid();

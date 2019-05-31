@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using SSS.Domain.CQRS.Student.Command.Commands;
 using SSS.Domain.CQRS.Trade.Command.Commands;
-using SSS.Domain.Student.Dto;
 using SSS.Domain.Trade.Dto;
 
 namespace SSS.Application.Seedwork.AutoMapper

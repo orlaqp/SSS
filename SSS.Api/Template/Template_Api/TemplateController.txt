@@ -34,7 +34,7 @@ namespace SSS.Api.Controllers
         /// <returns></returns> 
         [HttpPost("add")]
         [AllowAnonymous]  //匿名访问
-        public IActionResult GetList([FromBody]TemplateInputDto input)
+        public IActionResult AddTemplate([FromBody]TemplateInputDto input)
         {
             _service.AddTemplate(input);
             return Response(input);
