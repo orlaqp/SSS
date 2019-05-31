@@ -4,7 +4,7 @@ namespace SSS.Domain.CQRS.Student.Event.Events
 {
     public class StudentAddEvent : Seedwork.Events.Event
     {
-        public Guid id { set; get; }
+        public string id { set; get; }
 
         public string name { set; get; }
 

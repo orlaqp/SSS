@@ -20,9 +20,9 @@ namespace SSS.Domain.CQRS.Student.Event.Handlers
             _logger = (ILogger)HttpContextService.Current.RequestServices.GetService(typeof(ILogger<ApiBaseController>));
         }
 
-        public Task Handle(StudentUpdateEvent notification, CancellationToken cancellationToken)
+        public Task Handle(StudentUpdateEvent noticen, CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"StudentUpdateEventHandler {JsonConvert.SerializeObject(notification)}");
+            _logger.LogInformation($"StudentUpdateEventHandler {JsonConvert.SerializeObject(noticen)}");
             return Task.CompletedTask;
         }
     }

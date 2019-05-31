@@ -18,9 +18,9 @@ namespace SSS.Domain.CQRS.Template.Event.Handlers
             _logger = (ILogger)HttpContextService.Current.RequestServices.GetService(typeof(ILogger<ApiBaseController>));
         }
 
-        public Task Handle(TemplateAddEvent notification, CancellationToken cancellationToken)
+        public Task Handle(TemplateAddEvent noticen, CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"TemplateAddEventHandler {JsonConvert.SerializeObject(notification)}");
+            _logger.LogInformation($"TemplateAddEventHandler {JsonConvert.SerializeObject(noticen)}");
             return Task.CompletedTask;
         }
     }

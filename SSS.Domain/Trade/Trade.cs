@@ -5,7 +5,7 @@ namespace SSS.Domain.Trade
 {
     public class Trade : Entity
     {
-        public Trade(Guid id, string coin, double size, double First_Price, double? Last_Price, string side,
+        public Trade(string id, string coin, double size, double First_Price, double? Last_Price, string side,
             int First_Trade_Status, int? Last_Trade_Status, string First_Trade_No, string Last_Trade_No,
             DateTime First_Time, DateTime? Last_Time, int KTime)
         {

@@ -4,7 +4,7 @@ namespace SSS.Domain.CQRS.Trade.Event.Events
 {
     public class TradeUpdateEvent : Seedwork.Events.Event
     {
-        public Guid id { set; get; }
+        public string id { set; get; }
 
         public string coin { set; get; }
 

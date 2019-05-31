@@ -6,7 +6,7 @@ using SSS.Domain.CQRS.Trade.Event.Events;
 using SSS.Domain.Seedwork.Attribute;
 using SSS.Domain.Seedwork.Bus;
 using SSS.Domain.Seedwork.Command;
-using SSS.Domain.Seedwork.Notifications;
+using SSS.Domain.Seedwork.Notice;
 using SSS.Domain.Seedwork.UnitOfWork;
 using SSS.Infrastructure.Repository.Trade;
 using System;
@@ -35,9 +35,9 @@ namespace SSS.Domain.CQRS.Trade.Command.Handlers
         public TradeCommandHandler(ITradeRepository traderepository,
                                       IUnitOfWork uow,
                                       IMediatorHandler bus,
-                                      INotificationHandler<DomainNotification> notifications,
+                                      INotificationHandler<ErrorNotice> Notice,
                                       ILogger<TradeCommandHandler> logger
-                                      ) : base(uow, bus, notifications)
+                                      ) : base(uow, logger, bus, Notice)
         {
             _logger = logger;
             _traderepository = traderepository;

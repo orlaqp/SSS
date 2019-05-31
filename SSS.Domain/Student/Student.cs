@@ -5,7 +5,7 @@ namespace SSS.Domain.Student
 {
     public class Student : Entity
     {
-        public Student(Guid id, string name, int age)
+        public Student(string id, string name, int age)
         {
             this.Id = id;
             this.Name = name;

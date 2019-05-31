@@ -30,7 +30,7 @@ namespace SSS.Application.Student
 
         public void AddStudent(StudentInputDto input)
         {
-            input.id = Guid.NewGuid();
+            input.id = Guid.NewGuid().ToString();
             var cmd = _mapper.Map<StudentAddCommand>(input);
             _bus.SendCommand(cmd);
         }

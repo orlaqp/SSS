@@ -20,9 +20,9 @@ namespace SSS.Domain.CQRS.Trade.Event.Handlers
             _logger = (ILogger)HttpContextService.Current.RequestServices.GetService(typeof(ILogger<ApiBaseController>));
         }
 
-        public Task Handle(TradeAddEvent notification, CancellationToken cancellationToken)
+        public Task Handle(TradeAddEvent noticen, CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"TradeAddEventHandler {JsonConvert.SerializeObject(notification)}");
+            _logger.LogInformation($"TradeAddEventHandler {JsonConvert.SerializeObject(noticen)}");
             return Task.CompletedTask;
         }
     }

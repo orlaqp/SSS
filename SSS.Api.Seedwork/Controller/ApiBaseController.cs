@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SSS.Domain.Seedwork.Bus;
-using SSS.Domain.Seedwork.Notifications;
+using SSS.Domain.Seedwork.Notice;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,23 +11,23 @@ namespace SSS.Api.Seedwork
     public abstract class ApiBaseController : ControllerBase
     {
         private static ILogger _logger;
-        private static DomainNotificationHandler _notifications;
+        private static ErrorNoticeHandler _Notice;
         private static IMediatorHandler _mediator;
 
-        protected IEnumerable<DomainNotification> Notifications
+        protected IEnumerable<ErrorNotice> Notice
         {
-            get => _notifications.GetNotifications();
+            get => _Notice.GetNotice();
         }
 
         protected bool IsValidOperation()
         {
-            return (!_notifications.HasNotifications());
+            return (!_Notice.HasNotice());
         }
 
         protected new IActionResult Response(object data, bool status = true, string message = "", int code = 200)
         {
             _logger = (ILogger)HttpContextService.Current.RequestServices.GetService(typeof(ILogger<ApiBaseController>));
-            _notifications = (DomainNotificationHandler)HttpContextService.Current.RequestServices.GetService(typeof(INotificationHandler<DomainNotification>));
+            _Notice = (ErrorNoticeHandler)HttpContextService.Current.RequestServices.GetService(typeof(INotificationHandler<ErrorNotice>));
             _mediator = (IMediatorHandler)HttpContextService.Current.RequestServices.GetService(typeof(IMediatorHandler));
 
             if (IsValidOperation())
@@ -37,7 +37,7 @@ namespace SSS.Api.Seedwork
                 return Ok(new { status, data, message, code });
             }
             else
-                return BadRequest(new { status = false, data = "", message = Notifications.Select(n => n.Value), code = 400 });
+                return BadRequest(new { status = false, data = "", message = Notice.Select(n => n.Value), code = 400 });
             //return Content("无效");
         }
     }

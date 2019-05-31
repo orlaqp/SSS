@@ -26,7 +26,7 @@ namespace SSS.Infrastructure.Seedwork.Repository
             DbSet.Add(obj);
         }
 
-        public virtual TEntity Get(Guid id)
+        public virtual TEntity Get(string id)
         {
             return DbSet.Find(id);
         }
@@ -58,7 +58,7 @@ namespace SSS.Infrastructure.Seedwork.Repository
             var status = DbSet.Update(obj);
         }
 
-        public virtual void Remove(Guid id)
+        public virtual void Remove(string id)
         {
             DbSet.Remove(DbSet.Find(id));
         }

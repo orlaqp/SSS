@@ -24,7 +24,7 @@ namespace SSS.Application.UserInfo
         }
         public void AddUserInfo(UserInfoInputDto input)
         {
-            input.id = Guid.NewGuid();
+            input.id = Guid.NewGuid().ToString(); 
             var cmd = _mapper.Map<UserInfoAddCommand>(input);
             _bus.SendCommand(cmd);
         }

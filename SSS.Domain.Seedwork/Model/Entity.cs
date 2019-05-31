@@ -7,7 +7,7 @@ namespace SSS.Domain.Seedwork.Model
         /// <summary>
         /// 主键Id
         /// </summary>
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// 创建时间

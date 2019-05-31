@@ -23,7 +23,7 @@ namespace SSS.Infrastructure.Seedwork.DbContext
 
         public DbSet<Trade> Trade { get; set; }
 
-        public DbSet<UserInfo> UserInfo { get; set; }
+        public DbSet<UserInfo> userinfo { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -32,7 +32,8 @@ namespace SSS.Infrastructure.Seedwork.DbContext
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+            //optionsBuilder.UseSqlServer(config.GetConnectionString("MSSQLConnection")); 
+            optionsBuilder.UseMySQL(config.GetConnectionString("MYSQLConnection"));
         }
     }
 }

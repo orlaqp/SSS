@@ -4,7 +4,7 @@ namespace SSS.Domain.CQRS.Trade.Command.Commands
 {
     public abstract class TradeCommand : SSS.Domain.Seedwork.Command.Command
     {
-        public Guid id { set; get; }
+        public string id { set; get; }
 
         public string coin { get; set; }
 

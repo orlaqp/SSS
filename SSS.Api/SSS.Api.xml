@@ -90,45 +90,12 @@
             <param name="services">注册服务的集合（向其中注册）</param>
             <param name="ImplementationType">要注册的类型</param>
         </member>
-        <member name="M:SSS.Api.Bootstrap.ServiceCollectionExtension.GetTypesByAssemblyName(System.String)">
-            <summary>
-            根据程序集的名字获取程序集中所有的类型集合
-            </summary>
-            <param name="AssemblyName">程序集名字</param>
-            <returns>类型集合</returns>
-        </member>
         <member name="M:SSS.Api.Bootstrap.ServiceCollectionExtension.AutoRegisterServicesFromAssembly(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String)">
             <summary>
             将程序集中的所有符合条件的类型全部注册到 IServiceCollection 中
             </summary>
             <param name="services">IServiceCollection</param>
             <param name="AassemblyName">程序集名字</param>
-        </member>
-        <member name="M:SSS.Api.Bootstrap.ServiceCollectionExtension.AutoRegisterServicesFromAssembly(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,System.Func{System.Type,System.Boolean})">
-            <summary>
-            将程序集中的所有符合条件的类型全部注册到 IServiceCollection 中
-            </summary>
-            <param name="services">IServiceCollection</param>
-            <param name="AassemblyName">程序集名字</param>
-            <param name="wherelambda">过滤类型的表达式</param>
-        </member>
-        <member name="M:SSS.Api.Controllers.CodeController.Generator_Api(System.String)">
-            <summary>
-            5
-            </summary>
-            <param name="name"></param>
-        </member>
-        <member name="M:SSS.Api.Controllers.CodeController.Generator_Application(System.String)">
-            <summary>
-            4
-            </summary>
-            <param name="name"></param>
-        </member>
-        <member name="M:SSS.Api.Controllers.CodeController.Generator_CQRS(System.String)">
-            <summary>
-            3
-            </summary>
-            <param name="name"></param>
         </member>
         <member name="M:SSS.Api.Controllers.CodeController.Generator_Domain(System.String)">
             <summary>
@@ -139,6 +106,24 @@
         <member name="M:SSS.Api.Controllers.CodeController.Generator_Infrastructure(System.String)">
             <summary>
             2
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:SSS.Api.Controllers.CodeController.Generator_CQRS(System.String)">
+            <summary>
+            3
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:SSS.Api.Controllers.CodeController.Generator_Application(System.String)">
+            <summary>
+            4
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:SSS.Api.Controllers.CodeController.Generator_Api(System.String)">
+            <summary>
+            5
             </summary>
             <param name="name"></param>
         </member>
@@ -211,7 +196,7 @@
             </summary>
             <param name="UserInfo">IUserInfoService</param>
         </member>
-        <member name="M:SSS.Api.Controllers.UserInfoController.GetList(SSS.Domain.UserInfo.Dto.UserInfoInputDto)">
+        <member name="M:SSS.Api.Controllers.UserInfoController.AddUserInfo(SSS.Domain.UserInfo.Dto.UserInfoInputDto)">
             <summary>
             AddUserInfo
             </summary>

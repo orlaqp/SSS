@@ -9,7 +9,7 @@ namespace SSS.Domain.CQRS.Trade.Validations
 
         protected void ValidateId()
         {
-            RuleFor(c => c.id).NotEqual(Guid.Empty);
+            RuleFor(c => c.id).NotEmpty().WithMessage("请输入Id");
         }
 
         protected void ValidateCoin()

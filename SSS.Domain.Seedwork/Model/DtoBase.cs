@@ -4,7 +4,7 @@ namespace SSS.Domain.Seedwork.Model
 {
     public abstract class InputDtoBase
     {
-        public Guid id { get; set; }
+        public string id { get; set; }
 
         public int pageindex { set; get; }
 
@@ -15,6 +15,6 @@ namespace SSS.Domain.Seedwork.Model
 
     public abstract class OutputDtoBase
     {
-        public Guid id { get; set; }
+        public string id { get; set; }
     }
 }

@@ -78,7 +78,7 @@ namespace SSS.Application.Trade
                     return;
             }
 
-            input.id = Guid.NewGuid();
+            input.id = Guid.NewGuid().ToString();
             input.last_time = DateTime.Now;
             input.last_price = curruent_price;
             input.first_trade_no = order_list[0].first_trade_no;
@@ -239,7 +239,7 @@ namespace SSS.Application.Trade
                 return false;
             }
 
-            input.id = Guid.NewGuid();
+            input.id = Guid.NewGuid().ToString();
             input.first_trade_status = Convert.ToInt32(orderinfo.state);
             input.first_price = Convert.ToDouble(orderinfo.filled_notional);
             input.side = orderinfo.side;
