@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using SSS.Api.Seedwork;
+using Newtonsoft.Json; 
 using SSS.Domain.CQRS.Trade.Event.Events;
 using SSS.Domain.Seedwork.Attribute;
+using SSS.Infrastructure.Util;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,7 +17,7 @@ namespace SSS.Domain.CQRS.Trade.Event.Handlers
 
         public TradeAddEventHandler()
         {
-            _logger = (ILogger)HttpContextService.Current.RequestServices.GetService(typeof(ILogger<ApiBaseController>));
+            _logger = (ILogger)HttpContextService.Current.RequestServices.GetService(typeof(ILogger<TradeAddEventHandler>));
         }
 
         public Task Handle(TradeAddEvent noticen, CancellationToken cancellationToken)

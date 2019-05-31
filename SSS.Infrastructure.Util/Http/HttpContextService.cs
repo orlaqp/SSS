@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 
-namespace SSS.Api.Seedwork
+namespace SSS.Infrastructure.Util
 {
     public static class HttpContextService
     {

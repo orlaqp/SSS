@@ -1,8 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using SSS.Api.Seedwork;
+using Newtonsoft.Json; 
 using SSS.Domain.CQRS.Student.Event.Events;
 using SSS.Domain.Seedwork.Attribute;
 using System.Threading;
@@ -17,7 +16,7 @@ namespace SSS.Domain.CQRS.Student.Event.Handlers
 
         public StudentUpdateEventHandler()
         {
-            _logger = (ILogger)HttpContextService.Current.RequestServices.GetService(typeof(ILogger<ApiBaseController>));
+            _logger = (ILogger)SSS.Infrastructure.Util.HttpContextService.Current.RequestServices.GetService(typeof(ILogger<StudentUpdateEventHandler>));
         }
 
         public Task Handle(StudentUpdateEvent noticen, CancellationToken cancellationToken)

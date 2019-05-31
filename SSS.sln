@@ -33,6 +33,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSS.Api.IdentityServer", "S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSS.Api.IdentityClient", "SSS.Api.IdentityClient\SSS.Api.IdentityClient.csproj", "{CA110D3C-B428-4709-ABD4-0C07A2D032C4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSS.Infrastructure.Util", "SSS.Infrastructure.Util\SSS.Infrastructure.Util.csproj", "{8842D10E-320B-4519-B728-8AF082111A30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,10 @@ Global
 		{CA110D3C-B428-4709-ABD4-0C07A2D032C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA110D3C-B428-4709-ABD4-0C07A2D032C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA110D3C-B428-4709-ABD4-0C07A2D032C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8842D10E-320B-4519-B728-8AF082111A30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8842D10E-320B-4519-B728-8AF082111A30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8842D10E-320B-4519-B728-8AF082111A30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8842D10E-320B-4519-B728-8AF082111A30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,6 +105,7 @@ Global
 		{95D2B51C-C4A1-4FF3-B1E9-021289F9C801} = {16F30F74-E54E-4A73-BF18-1295941CD601}
 		{D20D58F6-E82D-49A4-8904-9360241C2CFC} = {A0555032-A407-4D7E-8066-939BA8F25573}
 		{CA110D3C-B428-4709-ABD4-0C07A2D032C4} = {A0555032-A407-4D7E-8066-939BA8F25573}
+		{8842D10E-320B-4519-B728-8AF082111A30} = {4854499D-7605-4D98-B8F4-173E869DA6F7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B79E580D-F10B-49C2-B263-451E0C32800C}

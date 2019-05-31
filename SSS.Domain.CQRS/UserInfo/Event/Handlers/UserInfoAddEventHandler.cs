@@ -1,8 +1,8 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using SSS.Api.Seedwork;
+using Newtonsoft.Json; 
 using SSS.Domain.CQRS.UserInfo.Event.Events;
+using SSS.Infrastructure.Util;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,7 +15,7 @@ namespace SSS.Domain.CQRS.UserInfo.Event.Handlers
 
         public UserInfoAddEventHandler()
         {
-            _logger = (ILogger)HttpContextService.Current.RequestServices.GetService(typeof(ILogger<ApiBaseController>));
+            _logger = (ILogger)HttpContextService.Current.RequestServices.GetService(typeof(ILogger<UserInfoAddEventHandler>));
         }
 
         public Task Handle(UserInfoAddEvent noticen, CancellationToken cancellationToken)

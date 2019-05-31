@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace SSS.Infrastructure.Seedwork.IO
+namespace SSS.Infrastructure.Util.IO
 {
     public static class IO
     {

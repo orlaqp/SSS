@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SSS.Domain.Seedwork\SSS.Domain.Seedwork.csproj" />
+    <ProjectReference Include="..\SSS.Infrastructure.Util\SSS.Infrastructure.Util.csproj" />
   </ItemGroup>
 
   <ItemGroup>
