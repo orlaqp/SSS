@@ -4,7 +4,7 @@ namespace SSS.Domain.UserInfo
 {
     public class UserInfo : Entity
     {
-        public UserInfo(string id, int uid, string phone, string PassWord, int? FirstId)
+        public UserInfo(string id, string uid, string phone, string PassWord, string FirstId)
         {
             this.Id = id;
             this.PassWord = PassWord;
@@ -36,7 +36,7 @@ namespace SSS.Domain.UserInfo
         /// <summary>
         /// 邀请码
         /// </summary>
-        public int Uid { set; get; }
+        public string Uid { set; get; }
 
         /// <summary>
         /// 佣金
@@ -51,17 +51,17 @@ namespace SSS.Domain.UserInfo
         /// <summary>
         /// 一级ID
         /// </summary>
-        public int? FirstId { set; get; }
+        public string FirstId { set; get; }
 
         /// <summary>
         /// 二级ID
         /// </summary>
-        public int? SecondId { set; get; }
+        public string SecondId { set; get; }
 
         /// <summary>
         /// 三级ID
         /// </summary>
-        public int? ThirdId { set; get; }
+        public string ThirdId { set; get; }
 
     }
 }

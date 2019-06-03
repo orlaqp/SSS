@@ -9,6 +9,7 @@ using SSS.Domain.Seedwork.Command;
 using SSS.Domain.Seedwork.Notice;
 using SSS.Domain.Seedwork.UnitOfWork;
 using SSS.Infrastructure.Repository.UserInfo;
+using SSS.Infrastructure.Util.ID;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -57,8 +58,16 @@ namespace SSS.Domain.CQRS.UserInfo.Command.Handlers
             model.IsDelete = 0;
             model.Earning = 0;
             model.Commission = 0;
-            model.FirstId = request.firstid;
-            model.Uid = 1234;
+
+            if (!string.IsNullOrWhiteSpace(request.firstid) && _repository.GetUserInfoByUid(request.firstid) == null)
+            {
+                Bus.RaiseEvent(new ErrorNotice(request.MsgType, "ÑûÇëÂë´íÎó£¡"));
+                return Task.FromResult(false);
+            }
+            else if(!string.IsNullOrWhiteSpace(request.firstid))
+                model.FirstId = request.firstid;
+      
+            model.Uid = RandomId.Instance().GetId();
 
             _repository.Add(model);
             if (!Commit())

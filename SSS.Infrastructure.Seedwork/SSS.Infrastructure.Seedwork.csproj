@@ -16,11 +16,8 @@
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.16" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="System.Reflection.TypeExtensions" Version="4.5.1" />
-    <PackageReference Include="StackExchange.Redis" Version="2.0.601" /> 
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="StackExchange.Redis" Version="2.0.601" />
     <ProjectReference Include="..\SSS.Domain\SSS.Domain.csproj" />
-  </ItemGroup>
+  </ItemGroup> 
 
 </Project>

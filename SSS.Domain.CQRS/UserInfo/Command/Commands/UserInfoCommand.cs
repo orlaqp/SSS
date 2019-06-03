@@ -6,14 +6,14 @@ namespace SSS.Domain.CQRS.UserInfo.Command.Commands
 
         public string phone { set; get; }
 
-        public int uid { set; get; }
+        public string uid { set; get; }
 
         public string password { set; get; }
 
-        public int firstid { set; get; }
+        public string firstid { set; get; }
 
-        public int secondid { set; get; }
+        public string secondid { set; get; }
 
-        public int thirdid { set; get; }
+        public string thirdid { set; get; }
     }
 }

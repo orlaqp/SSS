@@ -18,5 +18,10 @@ namespace SSS.Infrastructure.Repository.UserInfo
         {
             return DbSet.AsNoTracking().FirstOrDefault(x => x.Phone.Equals(phone));
         }
+
+        public Domain.UserInfo.UserInfo GetUserInfoByUid(string uid)
+        {
+            return DbSet.AsNoTracking().FirstOrDefault(x => x.Uid.Equals(uid));
+        }
     }
 }

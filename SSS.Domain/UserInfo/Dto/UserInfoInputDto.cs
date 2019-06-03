@@ -6,10 +6,10 @@ namespace SSS.Domain.UserInfo.Dto
     {
         public string phone { set; get; }
 
-        public int uid { set; get; }
+        public string uid { set; get; }
 
         public string password { set; get; }
 
-        public int firstid { set; get; }
+        public string firstid { set; get; }
     }
 }
