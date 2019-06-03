@@ -7,7 +7,7 @@ using SSS.Domain.UserInfo.Dto;
 using SSS.Infrastructure.Repository.UserInfo;
 using System;
 
-namespace SSS.Application.UserInfo
+namespace SSS.Application.UserInfo.Service
 {
     [DIService(ServiceLifetime.Scoped, typeof(IUserInfoService))]
     public class UserInfoService : IUserInfoService

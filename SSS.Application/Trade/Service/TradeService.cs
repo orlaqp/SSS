@@ -21,7 +21,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 
-namespace SSS.Application.Trade
+namespace SSS.Application.Trade.Service
 {
     [DIService(ServiceLifetime.Scoped, typeof(ITradeService))]
     public class TradeService : ITradeService
@@ -60,7 +60,7 @@ namespace SSS.Application.Trade
             var order_list = _traderepository.GetAll(x => x.First_Trade_Status == 1 && x.Coin.Equals(input.coin)).ProjectTo<TradeOutputDto>(_mapper.ConfigurationProvider).ToList();
 
             //平单
-            if (order_list != null && order_list.Count > 0)
+            if (order_list.Count > 0)
             {
                 //【3.如果有相同单子】判断并止盈止损位
                 if (ProfitOrLossPoint(order_list, input, curruent_price))
@@ -95,7 +95,7 @@ namespace SSS.Application.Trade
         /// <param name="curruent_price">当前价格</param>
         private bool ProfitOrLossPoint(List<TradeOutputDto> order_list, TradeInputDto input, double curruent_price)
         {
-            var current_order = order_list.Where(x => x.side.Equals(input.side)).FirstOrDefault();
+            var current_order = order_list.FirstOrDefault(x => x.side.Equals(input.side));
             if (current_order == null)
             {
                 _logger.LogInformation($"止盈止损判断 没有相同方向单子，继续下单");
@@ -160,7 +160,7 @@ namespace SSS.Application.Trade
         /// <param name="curruent_price">当前价格</param>
         public bool StopTrade(List<TradeOutputDto> order_list, TradeInputDto input, double curruent_price)
         {
-            var current_order = order_list.Where(x => !x.side.Equals(input.side)).FirstOrDefault();
+            var current_order = order_list.FirstOrDefault(x => !x.side.Equals(input.side));
             if (current_order == null)
             {
                 _logger.LogInformation($"检查订单是否满足平单要求，没有单子");

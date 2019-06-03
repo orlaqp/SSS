@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using Hangfire;
+using Hangfire.MySql.Core;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -102,6 +104,11 @@ namespace SSS.Api
                 options.TrackConnectionOpenClose = true;
             }).AddEntityFramework();
 
+            services.AddHangfire(config =>
+            {
+                config.UseStorage(new MySqlStorage(Configuration.GetConnectionString("MYSQLConnection_Job")));
+            });
+            services.AddHangfireServer();
         }
         /// <summary>
         /// Configure
@@ -114,6 +121,9 @@ namespace SSS.Api
                 app.UseDeveloperExceptionPage();
             else
                 app.UseHsts();
+
+            app.UseHangfireServer();
+            app.UseHangfireDashboard();
 
             ////认证中间件
             app.UseAuthentication();

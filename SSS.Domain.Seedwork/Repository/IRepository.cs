@@ -8,12 +8,14 @@ namespace SSS.Domain.Seedwork.Repository
     {
         void Add(TEntity obj);
         TEntity Get(string id);
+        TEntity Get(Expression<Func<TEntity, bool>> predicate);
         IQueryable<TEntity> GetAll();
         IQueryable<TEntity> GetAll(Expression<Func<TEntity, bool>> predicate);
         IQueryable<TEntity> GetPage(int index, int size, ref int count);
         IQueryable<TEntity> GetPage(int index, int size, Expression<Func<TEntity, bool>> predicate, ref int count);
         void Update(TEntity obj);
         void Remove(string id);
+        void Remove(Expression<Func<TEntity, bool>> predicate);
         int SaveChanges();
     }
 }

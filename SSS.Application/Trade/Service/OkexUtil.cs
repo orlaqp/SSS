@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SSS.Application.Trade
+namespace SSS.Application.Trade.Service
 {
     public class HttpInterceptor : DelegatingHandler
     {

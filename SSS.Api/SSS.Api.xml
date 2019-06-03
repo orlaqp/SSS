@@ -190,7 +190,7 @@
             UserInfoController
             </summary>
         </member>
-        <member name="M:SSS.Api.Controllers.UserInfoController.#ctor(SSS.Application.UserInfo.IUserInfoService)">
+        <member name="M:SSS.Api.Controllers.UserInfoController.#ctor(SSS.Application.UserInfo.Service.IUserInfoService)">
             <summary>
             UserInfoController
             </summary>

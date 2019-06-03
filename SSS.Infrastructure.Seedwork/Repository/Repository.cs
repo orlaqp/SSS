@@ -31,6 +31,11 @@ namespace SSS.Infrastructure.Seedwork.Repository
             return DbSet.Find(id);
         }
 
+        public virtual TEntity Get(Expression<Func<TEntity, bool>> predicate)
+        {
+            return DbSet.FirstOrDefault(predicate);
+        }
+
         public virtual IQueryable<TEntity> GetAll()
         {
             return DbSet;
@@ -60,7 +65,12 @@ namespace SSS.Infrastructure.Seedwork.Repository
 
         public virtual void Remove(string id)
         {
-            DbSet.Remove(DbSet.Find(id));
+            DbSet.Remove(Get(id));
+        }
+
+        public virtual void Remove(Expression<Func<TEntity, bool>> predicate)
+        {
+            DbSet.Remove(Get(predicate));
         }
 
         public int SaveChanges()

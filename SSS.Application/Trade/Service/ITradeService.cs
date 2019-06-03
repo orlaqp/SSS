@@ -2,7 +2,7 @@
 using SSS.Domain.Trade.Dto;
 using System.Collections.Generic;
 
-namespace SSS.Application.Trade
+namespace SSS.Application.Trade.Service
 {
     public interface ITradeService
     {

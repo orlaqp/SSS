@@ -16,7 +16,7 @@ namespace SSS.Infrastructure.Repository.UserInfo
 
         public Domain.UserInfo.UserInfo GetUserInfoByPhone(string phone)
         {
-            return DbSet.AsNoTracking().FirstOrDefault(x => x.Phone.Equals(phone));
+            return Get(x => x.Phone.Equals(phone));
         }
 
         public Domain.UserInfo.UserInfo GetUserInfoByUid(string uid)

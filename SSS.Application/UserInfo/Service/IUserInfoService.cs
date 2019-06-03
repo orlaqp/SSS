@@ -1,6 +1,6 @@
 using SSS.Domain.UserInfo.Dto;
 
-namespace SSS.Application.UserInfo
+namespace SSS.Application.UserInfo.Service
 {
     public interface IUserInfoService
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SSS.Api.Seedwork;
-using SSS.Application.Trade;
+using SSS.Application.Trade.Service;
 using SSS.Domain.Trade.Dto;
 
 namespace SSS.Api.Controllers
