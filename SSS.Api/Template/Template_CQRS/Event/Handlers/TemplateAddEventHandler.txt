@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using SSS.Infrastructure.Util.Json;
 using SSS.Api.Seedwork;
 using SSS.Domain.CQRS.Template.Event.Events;
 using System.Threading;
@@ -18,9 +19,9 @@ namespace SSS.Domain.CQRS.Template.Event.Handlers
             _logger = (ILogger)HttpContextService.Current.RequestServices.GetService(typeof(ILogger<ApiBaseController>));
         }
 
-        public Task Handle(TemplateAddEvent noticen, CancellationToken cancellationToken)
+        public Task Handle(TemplateAddEvent @event, CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"TemplateAddEventHandler {JsonConvert.SerializeObject(noticen)}");
+            _logger.LogInformation($"TemplateAddEventHandler {@event.ToJson()}");
             return Task.CompletedTask;
         }
     }

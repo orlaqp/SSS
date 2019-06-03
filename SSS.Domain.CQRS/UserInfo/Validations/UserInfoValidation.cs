@@ -1,6 +1,5 @@
 using FluentValidation;
 using SSS.Domain.CQRS.UserInfo.Command.Commands;
-using System;
 
 namespace SSS.Domain.CQRS.UserInfo.Validations
 {

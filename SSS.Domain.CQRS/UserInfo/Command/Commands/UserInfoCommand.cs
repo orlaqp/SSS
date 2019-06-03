@@ -1,5 +1,3 @@
-using System;
-
 namespace SSS.Domain.CQRS.UserInfo.Command.Commands
 {
     public abstract class UserInfoCommand : SSS.Domain.Seedwork.Command.Command
@@ -13,9 +11,9 @@ namespace SSS.Domain.CQRS.UserInfo.Command.Commands
         public string password { set; get; }
 
         public int firstid { set; get; }
-         
+
         public int secondid { set; get; }
-         
+
         public int thirdid { set; get; }
     }
 }

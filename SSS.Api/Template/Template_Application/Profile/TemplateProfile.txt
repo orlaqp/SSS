@@ -1,12 +1,11 @@
-﻿using AutoMapper;
-using SSS.Domain.CQRS.Template.Command.Commands;
+﻿using SSS.Domain.CQRS.Template.Command.Commands;
 using SSS.Domain.Template.Dto;
 
-namespace SSS.Application.Template.AutoMapper
+namespace SSS.Application.Template.Profile
 {
-    public class TemplateMapper : Profile
+    public class TemplateProfile : AutoMapper.Profile
     {
-        public TemplateMapper()
+        public TemplateProfile()
         {
             CreateMap<SSS.Domain.Template.Template, TemplateOutputDto>();
 

@@ -30,9 +30,9 @@ namespace SSS.Domain.CQRS.UserInfo.Command.Handlers
         public UserInfoCommandHandler(IUserInfoRepository repository,
                                       IUnitOfWork uow,
                                       IMediatorHandler bus,
-                                      INotificationHandler<ErrorNotice> notice,
+                                      INotificationHandler<ErrorNotice> @event,
                                       ILogger<UserInfoCommandHandler> logger
-                                      ) : base(uow, logger, bus, notice)
+                                      ) : base(uow, logger, bus, @event)
         {
             _logger = logger;
             _repository = repository;

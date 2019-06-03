@@ -4,9 +4,9 @@ namespace SSS.Infrastructure.Util.Json
 {
     public static class Json
     {
-        public static string ToJson(object obj)
+        public static string ToJson(this object obj)
         {
             return JsonConvert.SerializeObject(obj);
-        } 
+        }
     }
 }

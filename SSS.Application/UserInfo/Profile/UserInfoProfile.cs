@@ -1,12 +1,11 @@
-using AutoMapper;
 using SSS.Domain.CQRS.UserInfo.Command.Commands;
 using SSS.Domain.UserInfo.Dto;
 
-namespace SSS.Application.UserInfo.AutoMapper
+namespace SSS.Application.UserInfo.Profile
 {
-    public class UserInfoMapper : Profile
+    public class UserInfoProfile : AutoMapper.Profile
     {
-        public UserInfoMapper()
+        public UserInfoProfile()
         {
             CreateMap<SSS.Domain.UserInfo.UserInfo, UserInfoOutputDto>();
 

@@ -170,16 +170,12 @@ namespace SSS.Api.Controllers
         /// <param name="name"></param>
         private void Generator_Application(string name)
         {
-            var TemplateMapper_Read_Path = current_path + "\\Template\\Template_Application\\Mapper\\TemplateMapper.txt";
-            var TemplateRegisterMappings_Read_Path = current_path + "\\Template\\Template_Application\\Mapper\\TemplateRegisterMappings.txt";
+            var TemplateProfile_Read_Path = current_path + "\\Template\\Template_Application\\Profile\\TemplateProfile.txt";
             var ITemplateService_Read_Path = current_path + "\\Template\\Template_Application\\Service\\ITemplateService.txt";
             var TemplateService_Read_Path = current_path + "\\Template\\Template_Application\\Service\\TemplateService.txt";
 
-            string TemplateMapper_Content = IO.ReadAllText(TemplateMapper_Read_Path);
-            TemplateMapper_Content = TemplateMapper_Content.Replace("Template", name);
-
-            string TemplateRegisterMappings_Content = IO.ReadAllText(TemplateRegisterMappings_Read_Path);
-            TemplateRegisterMappings_Content = TemplateRegisterMappings_Content.Replace("Template", name);
+            string TemplateProfile_Content = IO.ReadAllText(TemplateProfile_Read_Path);
+            TemplateProfile_Content = TemplateProfile_Content.Replace("Template", name);
 
             string ITemplateService_Content = IO.ReadAllText(ITemplateService_Read_Path);
             ITemplateService_Content = ITemplateService_Content.Replace("Template", name);
@@ -190,13 +186,11 @@ namespace SSS.Api.Controllers
             Directory.SetCurrentDirectory(Directory.GetParent(current_path).FullName);
             var parent_path = Directory.GetCurrentDirectory();
 
-            var TemplateMapper_Write_Path = parent_path + $"\\SSS.Application\\{name}\\Mapper\\{name}Mapper.cs";
-            var TemplateRegisterMappings_Write_Path = parent_path + $"\\SSS.Application\\{name}\\Mapper\\{name}RegisterMappings.cs";
+            var TemplateProfile_Write_Path = parent_path + $"\\SSS.Application\\{name}\\Mapper\\{name}Mapper.cs";
             var ITemplateService_Write_Path = parent_path + $"\\SSS.Application\\{name}\\Service\\I{name}Service.cs";
             var TemplateService_Write_Path = parent_path + $"\\SSS.Application\\{name}\\Service\\{name}Service.cs";
 
-            IO.Save(TemplateMapper_Write_Path, TemplateMapper_Content);
-            IO.Save(TemplateRegisterMappings_Write_Path, TemplateRegisterMappings_Content);
+            IO.Save(TemplateProfile_Write_Path, TemplateProfile_Content);
             IO.Save(ITemplateService_Write_Path, ITemplateService_Content);
             IO.Save(TemplateService_Write_Path, TemplateService_Content);
         }

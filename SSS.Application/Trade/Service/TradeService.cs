@@ -13,6 +13,7 @@ using SSS.Domain.Trade.Dto;
 using SSS.Domain.Trade.Request;
 using SSS.Domain.Trade.Response;
 using SSS.Infrastructure.Repository.Trade;
+using SSS.Infrastructure.Util.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -84,7 +85,7 @@ namespace SSS.Application.Trade
             input.first_trade_no = order_list[0].first_trade_no;
             var null_cmd = _mapper.Map<TradeNullCommand>(input);
             _bus.SendCommand(null_cmd);
-            _logger.LogInformation($"无符合的交易规则  input:{JsonConvert.SerializeObject(input)}");
+            _logger.LogInformation($"无符合的交易规则  input:{input.ToJson()}");
         }
 
         /// <summary>
@@ -101,7 +102,7 @@ namespace SSS.Application.Trade
                 return false;
             }
 
-            _logger.LogInformation($"止盈止损判断 已有订单：{JsonConvert.SerializeObject(current_order)}");
+            _logger.LogInformation($"止盈止损判断 已有订单：{current_order.ToJson()}");
             if (current_order.side.Equals("buy"))
             {
                 //做多 盈利超过10%止盈
@@ -110,7 +111,7 @@ namespace SSS.Application.Trade
                     input.side = "sell";
                     input.last_price = curruent_price;
                     input.last_time = DateTime.Now;
-                    _logger.LogInformation($"止盈止损判断 做多止盈 {JsonConvert.SerializeObject(input)}");
+                    _logger.LogInformation($"止盈止损判断 做多止盈 {input.ToJson()}");
                     UpdateTrade(input);
                     return true;
                 }
@@ -120,7 +121,7 @@ namespace SSS.Application.Trade
                     input.side = "sell";
                     input.last_price = curruent_price;
                     input.last_time = DateTime.Now;
-                    _logger.LogInformation($"止盈止损判断 做多止损 {JsonConvert.SerializeObject(input)}");
+                    _logger.LogInformation($"止盈止损判断 做多止损 {input.ToJson()}");
                     UpdateTrade(input);
                     return true;
                 }
@@ -133,7 +134,7 @@ namespace SSS.Application.Trade
                     input.side = "buy";
                     input.last_price = curruent_price;
                     input.last_time = DateTime.Now;
-                    _logger.LogInformation($"止盈止损判断 做空止盈 {JsonConvert.SerializeObject(input)}");
+                    _logger.LogInformation($"止盈止损判断 做空止盈 {input.ToJson()}");
                     UpdateTrade(input);
                     return true;
                 }
@@ -143,12 +144,12 @@ namespace SSS.Application.Trade
                     input.side = "buy";
                     input.last_price = curruent_price;
                     input.last_time = DateTime.Now;
-                    _logger.LogInformation($"止盈止损判断 做空止损 {JsonConvert.SerializeObject(input)}");
+                    _logger.LogInformation($"止盈止损判断 做空止损 {input.ToJson()}");
                     UpdateTrade(input);
                     return true;
                 }
             }
-            _logger.LogInformation($"止盈止损判断 相同方向单子，没有且没有达到止盈止损需求 {JsonConvert.SerializeObject(current_order)}");
+            _logger.LogInformation($"止盈止损判断 相同方向单子，没有且没有达到止盈止损需求 {current_order.ToJson()}");
             return false;
         }
 
@@ -173,7 +174,7 @@ namespace SSS.Application.Trade
                 //如果是平空，市场价不能高于订单价
                 if (curruent_price > current_order.first_price)
                 {
-                    _logger.LogInformation($"检查订单是否满足平单要求，平空失败，价格太高 {JsonConvert.SerializeObject(current_order)}");
+                    _logger.LogInformation($"检查订单是否满足平单要求，平空失败，价格太高 {current_order.ToJson()}");
                     return false;
                 }
                 else
@@ -196,7 +197,7 @@ namespace SSS.Application.Trade
                 //如果是平多，市场价不能高于订单价
                 if (curruent_price < current_order.first_price)
                 {
-                    _logger.LogInformation($"检查订单是否满足平单要求，平多失败，价格太低 {JsonConvert.SerializeObject(current_order)}");
+                    _logger.LogInformation($"检查订单是否满足平单要求，平多失败，价格太低 {current_order.ToJson()}");
                     return false;
                 }
                 else
@@ -212,7 +213,7 @@ namespace SSS.Application.Trade
                     return true;
                 }
             }
-            _logger.LogInformation($"检查订单是否满足平单要求，异常单子,非buy、sell {JsonConvert.SerializeObject(current_order)}");
+            _logger.LogInformation($"检查订单是否满足平单要求，异常单子,非buy、sell {current_order.ToJson()}");
             return false;
         }
 
@@ -249,7 +250,7 @@ namespace SSS.Application.Trade
             //【3 增加一条订单】
             var add_cmd = _mapper.Map<TradeAddCommand>(input);
             _bus.SendCommand(add_cmd);
-            _logger.LogInformation($"开单  input:{JsonConvert.SerializeObject(input)}");
+            _logger.LogInformation($"开单  input:{input.ToJson()}");
             return true;
         }
 
@@ -282,7 +283,7 @@ namespace SSS.Application.Trade
             //【3 更新一条订单】
             var update_cmd = _mapper.Map<TradeUpdateCommand>(input);
             _bus.SendCommand(update_cmd);
-            _logger.LogInformation($"平单 input:{JsonConvert.SerializeObject(input)}");
+            _logger.LogInformation($"平单 input:{input.ToJson()}");
 
         }
 
@@ -292,7 +293,7 @@ namespace SSS.Application.Trade
             int count = 0;
 
             list = _traderepository.GetPage(input.pageindex, input.pagesize, ref count).ProjectTo<TradeOutputDto>(_mapper.ConfigurationProvider).ToList();
-            _logger.LogInformation($"GetListTrade Result {JsonConvert.SerializeObject(list)}");
+            _logger.LogInformation($"GetListTrade Result {list.ToJson()}");
 
             return new Pages<List<TradeOutputDto>>(list, count);
         }
@@ -394,7 +395,7 @@ namespace SSS.Application.Trade
                 list.Add(data);
             }
 
-            _logger.LogInformation($"KDataLine Result {JsonConvert.SerializeObject(list)}");
+            _logger.LogInformation($"KDataLine Result {list.ToJson()}");
 
             return list;
         }

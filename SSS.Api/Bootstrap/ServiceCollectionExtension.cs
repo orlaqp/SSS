@@ -50,34 +50,14 @@ namespace SSS.Api.Bootstrap
         {
             if (services == null) throw new ArgumentNullException(nameof(services));
 
+            Type[] types = Assembly.Load("SSS.Application").GetTypes().Where(t => t.BaseType != null && t.BaseType.Name.Equals("Profile")).ToArray();
+
+            Mapper.Initialize(cfg =>
+            {
+                cfg.AddProfiles(types);
+            });
+
             services.AddAutoMapper();
-
-            var types = Assembly.Load("SSS.Application").GetTypes();
-
-            //获取所有标记RegisterMapperAttribute的类
-            Func<Attribute[], bool> IsRegisterMapperAttribute = o =>
-            {
-                foreach (Attribute a in o)
-                {
-                    if (a is RegisterMapperAttribute)
-                        return true;
-                }
-                return false;
-            };
-
-            var registermapper = types.Where(o =>
-            {
-                return IsRegisterMapperAttribute(System.Attribute.GetCustomAttributes(o, true));
-            }
-            );
-
-            //反射调用注册方法
-            foreach (var item in registermapper)
-            {
-                MethodInfo method = item.GetMethod("RegisterMappings");
-                object registerclass = Activator.CreateInstance(item);
-                method.Invoke(registerclass, null);
-            }
         }
 
         /// <summary>

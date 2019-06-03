@@ -1,11 +1,10 @@
 using SSS.Domain.Seedwork.Model;
-using System;
 
 namespace SSS.Domain.UserInfo
 {
     public class UserInfo : Entity
     {
-        public UserInfo(string id, int uid,string phone, string PassWord, int? FirstId)
+        public UserInfo(string id, int uid, string phone, string PassWord, int? FirstId)
         {
             this.Id = id;
             this.PassWord = PassWord;

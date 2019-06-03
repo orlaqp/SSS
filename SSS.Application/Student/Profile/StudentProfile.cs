@@ -1,12 +1,11 @@
-﻿using AutoMapper;
-using SSS.Domain.CQRS.Student.Command.Commands;
+﻿using SSS.Domain.CQRS.Student.Command.Commands;
 using SSS.Domain.Student.Dto;
 
-namespace SSS.Application.Seedwork.AutoMapper
+namespace SSS.Application.Seedwork.Profile
 {
-    public class StudentMapper : Profile
+    public class StudentProfile : AutoMapper.Profile
     {
-        public StudentMapper()
+        public StudentProfile()
         {
             CreateMap<SSS.Domain.Student.Student, StudentOutputDto>();
 

@@ -1,12 +1,11 @@
-﻿using AutoMapper;
-using SSS.Domain.CQRS.Trade.Command.Commands;
+﻿using SSS.Domain.CQRS.Trade.Command.Commands;
 using SSS.Domain.Trade.Dto;
 
-namespace SSS.Application.Seedwork.AutoMapper
+namespace SSS.Application.Seedwork.Profile
 {
-    public class TradeMapper : Profile
+    public class TradeProfile : AutoMapper.Profile
     {
-        public TradeMapper()
+        public TradeProfile()
         {
             CreateMap<Domain.Trade.Trade, TradeOutputDto>();
 

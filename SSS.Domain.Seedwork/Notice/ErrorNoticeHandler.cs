@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using SSS.Domain.Seedwork.Attribute; 
+using SSS.Domain.Seedwork.Attribute;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;

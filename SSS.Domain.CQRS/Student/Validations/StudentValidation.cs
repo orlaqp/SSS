@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using SSS.Domain.CQRS.Student.Command.Commands;
-using System;
 
 namespace SSS.Domain.CQRS.Student.Validations
 {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SSS.Domain.CQRS.Student.Event.Events
+﻿namespace SSS.Domain.CQRS.Student.Event.Events
 {
     public class StudentAddEvent : Seedwork.Events.Event
     {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SSS.Domain.CQRS.Student.Command.Commands
+﻿namespace SSS.Domain.CQRS.Student.Command.Commands
 {
     public abstract class StudentCommand : SSS.Domain.Seedwork.Command.Command
     {

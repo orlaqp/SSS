@@ -1,5 +1,3 @@
-using System;
-
 namespace SSS.Domain.CQRS.UserInfo.Event.Events
 {
     public class UserInfoAddEvent : Seedwork.Events.Event

@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using SSS.Domain.CQRS.Trade.Command.Commands;
-using System;
 
 namespace SSS.Domain.CQRS.Trade.Validations
 {

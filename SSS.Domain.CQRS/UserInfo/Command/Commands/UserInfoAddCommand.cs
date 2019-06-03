@@ -4,7 +4,7 @@ using SSS.Domain.UserInfo.Dto;
 namespace SSS.Domain.CQRS.UserInfo.Command.Commands
 {
     public class UserInfoAddCommand : UserInfoCommand
-    { 
+    {
         public UserInfoAddCommand(UserInfoInputDto input)
         {
             this.id = input.id;
