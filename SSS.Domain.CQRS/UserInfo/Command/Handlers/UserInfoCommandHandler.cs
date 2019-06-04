@@ -70,8 +70,8 @@ namespace SSS.Domain.CQRS.UserInfo.Command.Handlers
             model.Uid = RandomId.Instance().GetId();
 
             _repository.Add(model);
-            if (!Commit()) 
-                return Task.FromResult(false); 
+            if (!Commit())
+                return Task.FromResult(false);
 
             _logger.LogInformation("UserInfoAddCommand Success");
             Bus.RaiseEvent(new UserInfoAddEvent(model));

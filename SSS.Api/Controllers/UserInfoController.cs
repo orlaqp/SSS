@@ -40,5 +40,31 @@ namespace SSS.Api.Controllers
             RecurringJob.AddOrUpdate(() => _service.AddUserInfo(input), Cron.MinuteInterval(1));
             return Response(input);
         }
+
+        /// <summary>
+        /// ListUserInfo
+        /// </summary>
+        /// <param name="input">UserInfoInputDto</param>
+        /// <returns></returns> 
+        [HttpGet("list")]
+        [AllowAnonymous]  //匿名访问
+        public IActionResult ListUser([FromQuery]UserInfoInputDto input)
+        {
+            object result = _service.GetListUser(input);
+            return Response(result);
+        }
+
+        /// <summary>
+        /// getbyphone
+        /// </summary>
+        /// <param name="input">UserInfoInputDto</param>
+        /// <returns></returns> 
+        [HttpGet("getbyphone")]
+        [AllowAnonymous]  //匿名访问
+        public IActionResult GetByPhone([FromQuery]UserInfoInputDto input)
+        {
+            object result = _service.GetByPhone(input);
+            return Response(result);
+        }
     }
 }
