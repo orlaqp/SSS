@@ -11,5 +11,9 @@
     <PackageReference Include="System.ComponentModel" Version="4.3.0" />
     <PackageReference Include="FluentValidation" Version="8.4.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SSS.Infrastructure.Util\SSS.Infrastructure.Util.csproj" />
+  </ItemGroup>
   
 </Project>

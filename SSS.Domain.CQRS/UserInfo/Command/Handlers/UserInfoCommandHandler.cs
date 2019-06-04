@@ -4,8 +4,8 @@ using Microsoft.Extensions.Logging;
 using SSS.Domain.CQRS.UserInfo.Command.Commands;
 using SSS.Domain.CQRS.UserInfo.Event.Events;
 using SSS.Domain.Seedwork.Attribute;
-using SSS.Domain.Seedwork.Bus;
 using SSS.Domain.Seedwork.Command;
+using SSS.Domain.Seedwork.EventBus;
 using SSS.Domain.Seedwork.Notice;
 using SSS.Domain.Seedwork.UnitOfWork;
 using SSS.Infrastructure.Repository.UserInfo;
@@ -25,12 +25,12 @@ namespace SSS.Domain.CQRS.UserInfo.Command.Handlers
          IRequestHandler<UserInfoAddCommand, bool>
     {
         private readonly IUserInfoRepository _repository;
-        private readonly IMediatorHandler Bus;
+        private readonly IEventBus Bus;
         private readonly ILogger _logger;
 
         public UserInfoCommandHandler(IUserInfoRepository repository,
                                       IUnitOfWork uow,
-                                      IMediatorHandler bus,
+                                      IEventBus bus,
                                       INotificationHandler<ErrorNotice> @event,
                                       ILogger<UserInfoCommandHandler> logger
                                       ) : base(uow, logger, bus, @event)
@@ -64,14 +64,14 @@ namespace SSS.Domain.CQRS.UserInfo.Command.Handlers
                 Bus.RaiseEvent(new ErrorNotice(request.MsgType, "ÑûÇëÂë´íÎó£¡"));
                 return Task.FromResult(false);
             }
-            else if(!string.IsNullOrWhiteSpace(request.firstid))
+            else if (!string.IsNullOrWhiteSpace(request.firstid))
                 model.FirstId = request.firstid;
-      
+
             model.Uid = RandomId.Instance().GetId();
 
             _repository.Add(model);
-            if (!Commit())
-                return Task.FromResult(false);
+            if (!Commit()) 
+                return Task.FromResult(false); 
 
             _logger.LogInformation("UserInfoAddCommand Success");
             Bus.RaiseEvent(new UserInfoAddEvent(model));

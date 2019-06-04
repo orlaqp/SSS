@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using SSS.Domain.Seedwork.Bus;
 using SSS.Domain.Seedwork.Notice;
 using SSS.Domain.Seedwork.UnitOfWork;
 using System;
@@ -10,11 +9,11 @@ namespace SSS.Domain.Seedwork.Command
     public class CommandHandler
     {
         private readonly IUnitOfWork _uow;
-        private readonly IMediatorHandler _bus;
+        private readonly EventBus.IEventBus _bus;
         private readonly ErrorNoticeHandler _Notice;
         private readonly ILogger _logger;
 
-        public CommandHandler(IUnitOfWork uow, ILogger<CommandHandler> logger, IMediatorHandler bus, INotificationHandler<ErrorNotice> Notice)
+        public CommandHandler(IUnitOfWork uow, ILogger<CommandHandler> logger, EventBus.IEventBus bus, INotificationHandler<ErrorNotice> Notice)
         {
             _uow = uow;
             _Notice = (ErrorNoticeHandler)Notice;

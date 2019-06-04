@@ -3,7 +3,7 @@ using AutoMapper.QueryableExtensions;
 using Microsoft.Extensions.DependencyInjection;
 using SSS.Domain.CQRS.Student.Command.Commands;
 using SSS.Domain.Seedwork.Attribute;
-using SSS.Domain.Seedwork.Bus;
+using SSS.Domain.Seedwork.EventBus;
 using SSS.Domain.Seedwork.Model;
 using SSS.Domain.Student.Dto;
 using SSS.Infrastructure.Repository.Student;
@@ -17,11 +17,11 @@ namespace SSS.Application.Student
     public class StudentService : IStudentService
     {
         private readonly IMapper _mapper;
-        private readonly IMediatorHandler _bus;
+        private readonly IEventBus _bus;
 
         private readonly IStudentRepository _studentrepository;
 
-        public StudentService(IMapper mapper, IMediatorHandler bus, IStudentRepository studentrepository)
+        public StudentService(IMapper mapper, IEventBus bus, IStudentRepository studentrepository)
         {
             _mapper = mapper;
             _bus = bus;

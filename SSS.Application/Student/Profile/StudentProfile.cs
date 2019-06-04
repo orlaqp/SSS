@@ -7,7 +7,7 @@ namespace SSS.Application.Seedwork.Profile
     {
         public StudentProfile()
         {
-            CreateMap<SSS.Domain.Student.Student, StudentOutputDto>();
+            CreateMap<Domain.Student.Student, StudentOutputDto>();
 
             CreateMap<StudentInputDto, StudentUpdateCommand>()
                .ConstructUsing(input => new StudentUpdateCommand(input));

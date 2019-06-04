@@ -25,12 +25,12 @@ namespace SSS.Domain.CQRS.Template.Command.Handlers
     {
 
         private readonly ITemplateRepository _repository;
-        private readonly IMediatorHandler Bus;
+        private readonly IEventBus Bus;
         private readonly ILogger _logger;
 
         public TemplateCommandHandler(ITemplateRepository repository,
                                       IUnitOfWork uow,
-                                      IMediatorHandler bus,
+                                      IEventBus bus,
                                       INotificationHandler<ErrorNotice> Notice,
                                       ILogger<TemplateCommandHandler> logger
                                       ) : base(uow, bus, Notice)

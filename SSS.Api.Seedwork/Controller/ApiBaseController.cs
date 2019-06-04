@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SSS.Domain.Seedwork.Bus;
+using SSS.Domain.Seedwork.EventBus;
 using SSS.Domain.Seedwork.Notice;
 using SSS.Infrastructure.Util;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ namespace SSS.Api.Seedwork
     {
         private static ILogger _logger;
         private static ErrorNoticeHandler _Notice;
-        private static IMediatorHandler _mediator;
+        private static IEventBus _mediator;
 
         protected IEnumerable<ErrorNotice> Notice
         {
@@ -29,7 +29,7 @@ namespace SSS.Api.Seedwork
         {
             _logger = (ILogger)HttpContextService.Current.RequestServices.GetService(typeof(ILogger<ApiBaseController>));
             _Notice = (ErrorNoticeHandler)HttpContextService.Current.RequestServices.GetService(typeof(INotificationHandler<ErrorNotice>));
-            _mediator = (IMediatorHandler)HttpContextService.Current.RequestServices.GetService(typeof(IMediatorHandler));
+            _mediator = (IEventBus)HttpContextService.Current.RequestServices.GetService(typeof(IEventBus));
 
             if (IsValidOperation())
             {

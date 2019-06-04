@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SSS.Domain.CQRS.Trade.Command.Commands;
 using SSS.Domain.Seedwork.Attribute;
-using SSS.Domain.Seedwork.Bus;
+using SSS.Domain.Seedwork.EventBus;
 using SSS.Domain.Seedwork.Model;
 using SSS.Domain.Trade;
 using SSS.Domain.Trade.Dto;
@@ -27,11 +27,11 @@ namespace SSS.Application.Trade.Service
     public class TradeService : ITradeService
     {
         private readonly IMapper _mapper;
-        private readonly IMediatorHandler _bus;
+        private readonly IEventBus _bus;
         private readonly ILogger _logger;
 
         private readonly ITradeRepository _traderepository;
-        public TradeService(ILogger<TradeService> logger, IMapper mapper, IMediatorHandler bus, ITradeRepository traderepository)
+        public TradeService(ILogger<TradeService> logger, IMapper mapper, IEventBus bus, ITradeRepository traderepository)
         {
             _mapper = mapper;
             _bus = bus;

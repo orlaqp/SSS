@@ -1,9 +1,9 @@
 ﻿using SSS.Domain.Seedwork.Events;
 using System.Threading.Tasks;
 
-namespace SSS.Domain.Seedwork.Bus
+namespace SSS.Domain.Seedwork.EventBus
 {
-    public interface IMediatorHandler
+    public interface IEventBus
     {
         Task SendCommand<T>(T command) where T : Command.Command;
         Task RaiseEvent<T>(T @event) where T : Event;

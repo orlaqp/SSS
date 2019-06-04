@@ -13,10 +13,10 @@ namespace SSS.Application.Template
     public class TemplateService : ITemplateService
     {
         private readonly IMapper _mapper;
-        private readonly IMediatorHandler _bus;
+        private readonly IEventBus _bus;
 
         private readonly ITemplateRepository _repository;
-        public TemplateService(IMapper mapper, IMediatorHandler bus, ITemplateRepository repository)
+        public TemplateService(IMapper mapper, IEventBus bus, ITemplateRepository repository)
         {
             _mapper = mapper;
             _bus = bus;

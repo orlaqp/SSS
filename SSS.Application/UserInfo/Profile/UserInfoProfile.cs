@@ -7,7 +7,7 @@ namespace SSS.Application.UserInfo.Profile
     {
         public UserInfoProfile()
         {
-            CreateMap<SSS.Domain.UserInfo.UserInfo, UserInfoOutputDto>();
+            CreateMap<Domain.UserInfo.UserInfo, UserInfoOutputDto>();
 
             CreateMap<UserInfoInputDto, UserInfoAddCommand>()
                 .ConstructUsing(input => new UserInfoAddCommand(input));

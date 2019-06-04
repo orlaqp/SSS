@@ -5,11 +5,11 @@ namespace SSS.Domain.Seedwork.Events
 {
     public abstract class Event : Message, INotification
     {
-        public DateTime Timestamp { get; private set; }
+        public DateTime CreateTime { get; private set; }
 
         protected Event()
         {
-            Timestamp = DateTime.Now;
+            CreateTime = DateTime.Now;
         }
     }
 }

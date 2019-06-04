@@ -2,7 +2,7 @@ using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using SSS.Domain.CQRS.UserInfo.Command.Commands;
 using SSS.Domain.Seedwork.Attribute;
-using SSS.Domain.Seedwork.Bus;
+using SSS.Domain.Seedwork.EventBus;
 using SSS.Domain.UserInfo.Dto;
 using SSS.Infrastructure.Repository.UserInfo;
 using System;
@@ -13,10 +13,10 @@ namespace SSS.Application.UserInfo.Service
     public class UserInfoService : IUserInfoService
     {
         private readonly IMapper _mapper;
-        private readonly IMediatorHandler _bus;
+        private readonly IEventBus _bus;
 
         private readonly IUserInfoRepository _repository;
-        public UserInfoService(IMapper mapper, IMediatorHandler bus, IUserInfoRepository repository)
+        public UserInfoService(IMapper mapper, IEventBus bus, IUserInfoRepository repository)
         {
             _mapper = mapper;
             _bus = bus;

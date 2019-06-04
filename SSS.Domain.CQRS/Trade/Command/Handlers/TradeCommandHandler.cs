@@ -4,8 +4,8 @@ using Microsoft.Extensions.Logging;
 using SSS.Domain.CQRS.Trade.Command.Commands;
 using SSS.Domain.CQRS.Trade.Event.Events;
 using SSS.Domain.Seedwork.Attribute;
-using SSS.Domain.Seedwork.Bus;
 using SSS.Domain.Seedwork.Command;
+using SSS.Domain.Seedwork.EventBus;
 using SSS.Domain.Seedwork.Notice;
 using SSS.Domain.Seedwork.UnitOfWork;
 using SSS.Infrastructure.Repository.Trade;
@@ -29,12 +29,12 @@ namespace SSS.Domain.CQRS.Trade.Command.Handlers
     {
 
         private readonly ITradeRepository _traderepository;
-        private readonly IMediatorHandler Bus;
+        private readonly IEventBus Bus;
         private readonly ILogger _logger;
 
         public TradeCommandHandler(ITradeRepository traderepository,
                                       IUnitOfWork uow,
-                                      IMediatorHandler bus,
+                                      IEventBus bus,
                                       INotificationHandler<ErrorNotice> Notice,
                                       ILogger<TradeCommandHandler> logger
                                       ) : base(uow, logger, bus, Notice)

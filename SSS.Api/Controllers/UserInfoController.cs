@@ -1,4 +1,3 @@
-using System;
 using Hangfire;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -38,7 +37,7 @@ namespace SSS.Api.Controllers
         [AllowAnonymous]  //匿名访问
         public IActionResult AddUserInfo([FromBody]UserInfoInputDto input)
         {
-            RecurringJob.AddOrUpdate(() => _service.AddUserInfo(input),Cron.MinuteInterval(1));
+            RecurringJob.AddOrUpdate(() => _service.AddUserInfo(input), Cron.MinuteInterval(1));
             return Response(input);
         }
     }
