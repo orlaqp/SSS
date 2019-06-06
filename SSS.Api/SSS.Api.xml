@@ -11,6 +11,13 @@
             <param name="app"></param>
             <returns></returns>
         </member>
+        <member name="M:SSS.Api.Bootstrap.ApplicationBuilderExtension.UseErrorHandling(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            异常返回
+            </summary>
+            <param name="builder"></param>
+            <returns></returns>
+        </member>
         <member name="M:SSS.Api.Bootstrap.ApplicationBuilderExtension.UseRedisCache(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action{SSS.Infrastructure.Seedwork.Cache.Redis.RedisOptions})">
             <summary>
             注入RedisCache

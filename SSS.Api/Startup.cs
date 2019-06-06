@@ -106,7 +106,7 @@ namespace SSS.Api
 
             services.AddHangfire(config =>
             {
-                config.UseStorage(new MySqlStorage(Configuration.GetConnectionString("MYSQLConnection_Job")));
+                config.UseStorage(new MySqlStorage(Configuration.GetConnectionString("MYSQLConnection")));
             });
             services.AddHangfireServer();
         }
@@ -121,6 +121,9 @@ namespace SSS.Api
                 app.UseDeveloperExceptionPage();
             else
                 app.UseHsts();
+
+            //异常拦截
+            app.UseApiException();
 
             app.UseHangfireServer();
             app.UseHangfireDashboard();

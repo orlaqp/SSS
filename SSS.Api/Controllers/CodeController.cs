@@ -5,7 +5,8 @@ using SSS.Api.Seedwork;
 using SSS.Infrastructure.Util.IO;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
+using System.Net; 
+using System.Runtime.InteropServices;
 
 namespace SSS.Api.Controllers
 {
@@ -27,7 +28,7 @@ namespace SSS.Api.Controllers
         public ContentResult Index()
         {
             string html = "";
-            string filepath = current_path + "\\codegenerator.html";
+            string filepath = RuntimeInformation.IsOSPlatform(OSPlatform.Linux)?current_path + "//codegenerator.html": current_path + "\\codegenerator.html";
 
             using (StreamReader sr = new StreamReader(filepath))
             {

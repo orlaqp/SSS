@@ -6,6 +6,7 @@ using SSS.Domain.Seedwork.Notice;
 using SSS.Infrastructure.Util;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 
 namespace SSS.Api.Seedwork
 {
@@ -40,6 +41,6 @@ namespace SSS.Api.Seedwork
             else
                 return BadRequest(new { status = false, data = "", message = Notice.Select(n => n.Value), code = 400 });
             //return Content("无效");
-        }
+        } 
     }
 }

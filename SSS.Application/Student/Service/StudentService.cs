@@ -46,6 +46,7 @@ namespace SSS.Application.Student
 
             if (input.pagesize == 0 && input.pagesize == 0)
             {
+                var temp = _studentrepository.GetAll();
                 list = _studentrepository.GetAll().ProjectTo<StudentOutputDto>(_mapper.ConfigurationProvider).ToList();
                 count = list.Count;
             }
