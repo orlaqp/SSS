@@ -20,7 +20,7 @@ namespace SSS.Domain.Seedwork.EventBus
         }
 
         public Task SendCommand<T>(T command) where T : Command.Command
-        {
+        { 
             return _mediator.Send(command);
         }
 

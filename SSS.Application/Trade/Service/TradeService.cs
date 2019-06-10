@@ -57,7 +57,7 @@ namespace SSS.Application.Trade.Service
                 input.side = "sell";
 
             //【2.查看是否持有单子】
-            var order_list = _traderepository.GetAll(x => x.First_Trade_Status == 1 && x.Coin.Equals(input.coin)).ProjectTo<TradeOutputDto>(_mapper.ConfigurationProvider).ToList();
+            var order_list = _traderepository.GetAll(x => (x.First_Trade_Status == 1 || x.First_Trade_Status == 2) && x.Coin.Equals(input.coin)).ProjectTo<TradeOutputDto>(_mapper.ConfigurationProvider).ToList();
 
             //平单
             if (order_list.Count > 0)
@@ -80,9 +80,9 @@ namespace SSS.Application.Trade.Service
             }
 
             input.id = Guid.NewGuid().ToString();
-            input.last_time = DateTime.Now;
-            input.last_price = curruent_price;
-            input.first_trade_no = order_list[0].first_trade_no;
+            //input.last_time = DateTime.Now;
+            //input.last_price = curruent_price;
+            input.first_trade_no = order_list.FirstOrDefault().first_trade_no;
             var null_cmd = _mapper.Map<TradeNullCommand>(input);
             _bus.SendCommand(null_cmd);
             _logger.LogInformation($"无符合的交易规则  input:{input.ToJson()}");
@@ -105,8 +105,8 @@ namespace SSS.Application.Trade.Service
             _logger.LogInformation($"止盈止损判断 已有订单：{current_order.ToJson()}");
             if (current_order.side.Equals("buy"))
             {
-                //做多 盈利超过10%止盈
-                if ((curruent_price - current_order.first_price) * 100 > 10)
+                //做多 盈利超过5%止盈
+                if (current_order.first_price / curruent_price > 1.05)
                 {
                     input.side = "sell";
                     input.last_price = curruent_price;
@@ -115,8 +115,8 @@ namespace SSS.Application.Trade.Service
                     UpdateTrade(input);
                     return true;
                 }
-                //做多 亏损超过10%止损
-                else if ((current_order.first_price - curruent_price) * 100 > 10)
+                //做多 亏损超过5%止损
+                else if (curruent_price / current_order.first_price < 0.95)
                 {
                     input.side = "sell";
                     input.last_price = curruent_price;
@@ -242,7 +242,7 @@ namespace SSS.Application.Trade.Service
 
             input.id = Guid.NewGuid().ToString();
             input.first_trade_status = Convert.ToInt32(orderinfo.state);
-            input.first_price = Convert.ToDouble(orderinfo.filled_notional);
+            input.first_price = Convert.ToDouble(orderinfo.price_avg);
             input.side = orderinfo.side;
             input.size = Convert.ToDouble(orderinfo.filled_size);
             input.first_time = Convert.ToDateTime(orderinfo.timestamp);
@@ -394,8 +394,6 @@ namespace SSS.Application.Trade.Service
                 data.volume = Convert.ToDouble(array[i][5]);
                 list.Add(data);
             }
-
-            _logger.LogInformation($"KDataLine Result {list.ToJson()}");
 
             return list;
         }

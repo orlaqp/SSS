@@ -11,7 +11,7 @@
             <param name="app"></param>
             <returns></returns>
         </member>
-        <member name="M:SSS.Api.Bootstrap.ApplicationBuilderExtension.UseErrorHandling(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+        <member name="M:SSS.Api.Bootstrap.ApplicationBuilderExtension.UseApiException(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
             <summary>
             异常返回
             </summary>

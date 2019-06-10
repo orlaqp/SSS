@@ -64,8 +64,9 @@ namespace SSS.Domain.CQRS.Trade.Command.Handlers
             {
                 _logger.LogInformation("TradeAddCommand Success");
                 Bus.RaiseEvent(new TradeAddEvent(trade));
+                return Task.FromResult(true);
             }
-            return Task.FromResult(true);
+            return Task.FromResult(false);
         }
 
         public Task<bool> Handle(TradeUpdateCommand request, CancellationToken cancellationToken)
@@ -93,8 +94,9 @@ namespace SSS.Domain.CQRS.Trade.Command.Handlers
             {
                 _logger.LogInformation("TradeUpdateCommand Success");
                 Bus.RaiseEvent(new TradeUpdateEvent(trade));
+                return Task.FromResult(true);
             }
-            return Task.FromResult(true);
+            return Task.FromResult(false);
         }
 
         public Task<bool> Handle(TradeNullCommand request, CancellationToken cancellationToken)

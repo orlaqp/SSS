@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SSS.Domain.CQRS.Trade.Event.Handlers
 {
-    [DIService(ServiceLifetime.Scoped, typeof(INotificationHandler<TradeAddEvent>))]
+    [DIService(ServiceLifetime.Scoped, typeof(INotificationHandler<TradeNullEvent>))]
     public class TradeNullEventHandler : INotificationHandler<TradeNullEvent>
     {
         private static ILogger _logger;

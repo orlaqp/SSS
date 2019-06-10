@@ -32,15 +32,17 @@ namespace SSS.Api.Seedwork
             _Notice = (ErrorNoticeHandler)HttpContextService.Current.RequestServices.GetService(typeof(INotificationHandler<ErrorNotice>));
             _mediator = (IEventBus)HttpContextService.Current.RequestServices.GetService(typeof(IEventBus));
 
+            if (!status)
+                return Accepted(new { status = status, data = "", message = "处理失败", code = 202 });
+
             if (IsValidOperation())
             {
                 if (data == null)
-                    return NotFound(new { status = false, data = "", message = "数据为空", code = 204 });
+                    return Accepted(new { status = false, data = "", message = "数据为空", code = 204 });
                 return Ok(new { status, data, message, code });
             }
             else
                 return BadRequest(new { status = false, data = "", message = Notice.Select(n => n.Value), code = 400 });
-            //return Content("无效");
-        } 
+        }
     }
 }
