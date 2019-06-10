@@ -46,8 +46,8 @@ namespace SSS.Api.Controllers
         [AllowAnonymous]  //匿名访问
         public IActionResult AddTrade([FromBody]TradeInputDto trade)
         {
-            //RecurringJob.AddOrUpdate(() => _trade.OperateTrade(trade), Cron.MinuteInterval(1)); 
-            _trade.OperateTrade(trade);
+            RecurringJob.AddOrUpdate(() => _trade.OperateTrade(trade), Cron.MinuteInterval(1)); 
+            //_trade.OperateTrade(trade);
             return Response(trade, trade.first_trade_status == 0 ? false : true);
         }
     }

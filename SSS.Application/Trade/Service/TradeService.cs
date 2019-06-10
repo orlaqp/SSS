@@ -116,7 +116,7 @@ namespace SSS.Application.Trade.Service
                     return true;
                 }
                 //做多 亏损超过5%止损
-                else if (curruent_price / current_order.first_price < 0.95)
+                else if (current_order.first_price / curruent_price < 0.95)
                 {
                     input.side = "sell";
                     input.last_price = curruent_price;
@@ -128,8 +128,8 @@ namespace SSS.Application.Trade.Service
             }
             else if (current_order.side.Equals("sell"))
             {
-                //做空 盈利超过10%止盈
-                if ((current_order.first_price - curruent_price) * 100 > 10)
+                //做空 盈利超过5%止盈
+                if (curruent_price / current_order.first_price < 0.95)
                 {
                     input.side = "buy";
                     input.last_price = curruent_price;
@@ -138,8 +138,8 @@ namespace SSS.Application.Trade.Service
                     UpdateTrade(input);
                     return true;
                 }
-                //做空 亏损超过10%止损
-                else if ((curruent_price - current_order.first_price) * 100 > 10)
+                //做空 亏损超过5%止损
+                else if (curruent_price / current_order.first_price > 1.05)
                 {
                     input.side = "buy";
                     input.last_price = curruent_price;
@@ -149,7 +149,7 @@ namespace SSS.Application.Trade.Service
                     return true;
                 }
             }
-            _logger.LogInformation($"止盈止损判断 相同方向单子，没有且没有达到止盈止损需求 {current_order.ToJson()}");
+            _logger.LogInformation($"止盈止损判断 相同方向单子，且没有达到止盈止损需求 {current_order.ToJson()}");
             return false;
         }
 
