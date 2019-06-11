@@ -3,13 +3,17 @@ using Hangfire.MySql.Core;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SSS.Api.Bootstrap;
 using SSS.Api.Middware;
 using SSS.Api.Seedwork;
 using SSS.Api.Seedwork.Filter;
+using SSS.Application.Trade.Service;
+using SSS.Infrastructure.Util.Hangfire;
 using System.Reflection;
 
 namespace SSS.Api
@@ -38,12 +42,16 @@ namespace SSS.Api
         /// </summary>
         /// <param name="services">IServiceCollection</param>
         public void ConfigureServices(IServiceCollection services)
-        {
+        {  
             services.AddMvc(options =>
             {
                 //全局Action Exception Result过滤器
                 options.Filters.Add<MvcFilter>();
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddSingleton(typeof(IControllerActivator), typeof(SSS.Api.Seedwork.Controller.BaseControllerActivator));
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             //设置授权 Api
             services.AddAuthorization();
@@ -108,6 +116,7 @@ namespace SSS.Api
             services.AddHangfire(config =>
             {
                 config.UseStorage(new MySqlStorage(Configuration.GetConnectionString("MYSQLConnection")));
+                config.UseRecurringJob(typeof(TradeService)); 
             });
             services.AddHangfireServer();
         }
@@ -130,7 +139,7 @@ namespace SSS.Api
             app.UseHangfireDashboard("/hangfire", new DashboardOptions()
             {
                 Authorization = new[] { new CustomAuthorizeFilter() }
-                
+
             });
 
             ////认证中间件

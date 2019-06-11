@@ -1,11 +1,15 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using System;
 
 namespace SSS.Infrastructure.Util
 {
     public static class HttpContextService
     {
         private static IHttpContextAccessor _accessor;
+
+        public static IServiceProvider ServiceProvider;
+
         public static HttpContext Current
         {
             get => _accessor.HttpContext;

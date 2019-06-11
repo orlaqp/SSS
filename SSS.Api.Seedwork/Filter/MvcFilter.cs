@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
-using SSS.Infrastructure.Util.Json;
 
 namespace SSS.Api.Seedwork
 {
@@ -42,7 +41,7 @@ namespace SSS.Api.Seedwork
         {
             _logger.LogError(new EventId(context.Exception.HResult),
              context.Exception,
-             context.Exception.Message); 
+             context.Exception.Message);
         }
 
         //5

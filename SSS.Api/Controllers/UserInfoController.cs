@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SSS.Api.Seedwork;
 using SSS.Application.UserInfo.Service;
 using SSS.Domain.UserInfo.Dto;
+using SSS.Infrastructure.Util.Attribute;
 
 namespace SSS.Api.Controllers
 {
@@ -17,16 +18,8 @@ namespace SSS.Api.Controllers
     [ApiController]
     public class UserInfoController : ApiBaseController
     {
+        [Autowired]
         private readonly IUserInfoService _service;
-
-        /// <summary>
-        /// UserInfoController
-        /// </summary>
-        /// <param name="UserInfo">IUserInfoService</param>
-        public UserInfoController(IUserInfoService service)
-        {
-            _service = service;
-        }
 
         /// <summary>
         /// AddUserInfo

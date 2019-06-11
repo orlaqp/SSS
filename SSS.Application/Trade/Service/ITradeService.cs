@@ -1,12 +1,14 @@
-﻿using SSS.Domain.Seedwork.Model;
+﻿using Hangfire.Server;
+using SSS.Domain.Seedwork.Model;
 using SSS.Domain.Trade.Dto;
+using SSS.Infrastructure.Util.Hangfire;
 using System.Collections.Generic;
 
 namespace SSS.Application.Trade.Service
 {
-    public interface ITradeService
+    public interface ITradeService  
     {
-        void OperateTrade(TradeInputDto input);
+        void OperateTrade(PerformContext context);
         Pages<List<TradeOutputDto>> GetListTrade(TradeInputDto input);
     }
 }

@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using SSS.Api.Seedwork;
 using SSS.Application.Trade.Service;
 using SSS.Domain.Trade.Dto;
+using SSS.Infrastructure.Util.Attribute;
+using System;
 
 namespace SSS.Api.Controllers
 {
@@ -17,12 +19,8 @@ namespace SSS.Api.Controllers
     [ApiController]
     public class TradeController : ApiBaseController
     {
-        private readonly ITradeService _trade;
-
-        public TradeController(ITradeService trade)
-        {
-            _trade = trade;
-        }
+        [Autowired]
+        private readonly ITradeService _trade; 
 
         /// <summary>
         /// GetList
@@ -35,20 +33,6 @@ namespace SSS.Api.Controllers
         {
             var result = _trade.GetListTrade(trade);
             return Response(result);
-        }
-
-        /// <summary>
-        /// AddTrade
-        /// </summary>
-        /// <param name="trade">TradeInputDto</param>
-        /// <returns></returns> 
-        [HttpPost("addtrade")]
-        [AllowAnonymous]  //匿名访问
-        public IActionResult AddTrade([FromBody]TradeInputDto trade)
-        {
-            RecurringJob.AddOrUpdate(() => _trade.OperateTrade(trade), Cron.MinuteInterval(1)); 
-            //_trade.OperateTrade(trade);
-            return Response(trade, trade.first_trade_status == 0 ? false : true);
-        }
+        } 
     }
 }

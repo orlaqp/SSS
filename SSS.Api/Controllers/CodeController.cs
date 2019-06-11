@@ -2,10 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SSS.Api.Seedwork;
+using SSS.Infrastructure.Util.Attribute;
 using SSS.Infrastructure.Util.IO;
 using System.Collections.Generic;
 using System.IO;
-using System.Net; 
+using System.Net;
 using System.Runtime.InteropServices;
 
 namespace SSS.Api.Controllers
@@ -15,20 +16,16 @@ namespace SSS.Api.Controllers
     [ApiController]
     public class CodeController : ApiBaseController
     {
+        [Autowired]
         private IHostingEnvironment _env;
-        private static string current_path;
 
-        public CodeController(IHostingEnvironment env)
-        {
-            _env = env;
-            current_path = _env.ContentRootPath;
-        }
+        private static string current_path; 
 
         [HttpGet("index")]
         public ContentResult Index()
         {
             string html = "";
-            string filepath = RuntimeInformation.IsOSPlatform(OSPlatform.Linux)?current_path + "//codegenerator.html": current_path + "\\codegenerator.html";
+            string filepath = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? current_path + "//codegenerator.html" : current_path + "\\codegenerator.html";
 
             using (StreamReader sr = new StreamReader(filepath))
             {

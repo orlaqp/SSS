@@ -90,20 +90,6 @@
             <param name="services"></param>
             <param name="options"></param>
         </member>
-        <member name="M:SSS.Api.Bootstrap.ServiceCollectionExtension.AutoRegisterService(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type)">
-            <summary>
-            自动注册服务
-            </summary>
-            <param name="services">注册服务的集合（向其中注册）</param>
-            <param name="ImplementationType">要注册的类型</param>
-        </member>
-        <member name="M:SSS.Api.Bootstrap.ServiceCollectionExtension.AutoRegisterServicesFromAssembly(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String)">
-            <summary>
-            将程序集中的所有符合条件的类型全部注册到 IServiceCollection 中
-            </summary>
-            <param name="services">IServiceCollection</param>
-            <param name="AassemblyName">程序集名字</param>
-        </member>
         <member name="M:SSS.Api.Controllers.CodeController.Generator_Domain(System.String)">
             <summary>
             1
@@ -138,12 +124,6 @@
             <summary>
             StudentController
             </summary>
-        </member>
-        <member name="M:SSS.Api.Controllers.StudentController.#ctor(SSS.Application.Student.IStudentService)">
-            <summary>
-            StudentController
-            </summary>
-            <param name="student">IStudentService</param>
         </member>
         <member name="M:SSS.Api.Controllers.StudentController.GetByName(SSS.Domain.Student.Dto.StudentInputDto)">
             <summary>
@@ -185,23 +165,10 @@
             <param name="trade">TradeInputDto</param>
             <returns></returns> 
         </member>
-        <member name="M:SSS.Api.Controllers.TradeController.AddTrade(SSS.Domain.Trade.Dto.TradeInputDto)">
-            <summary>
-            AddTrade
-            </summary>
-            <param name="trade">TradeInputDto</param>
-            <returns></returns> 
-        </member>
         <member name="T:SSS.Api.Controllers.UserInfoController">
             <summary>
             UserInfoController
             </summary>
-        </member>
-        <member name="M:SSS.Api.Controllers.UserInfoController.#ctor(SSS.Application.UserInfo.Service.IUserInfoService)">
-            <summary>
-            UserInfoController
-            </summary>
-            <param name="UserInfo">IUserInfoService</param>
         </member>
         <member name="M:SSS.Api.Controllers.UserInfoController.AddUserInfo(SSS.Domain.UserInfo.Dto.UserInfoInputDto)">
             <summary>

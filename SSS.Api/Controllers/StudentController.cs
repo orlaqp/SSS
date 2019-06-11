@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SSS.Api.Seedwork;
 using SSS.Application.Student;
 using SSS.Domain.Student.Dto;
+using SSS.Infrastructure.Util.Attribute;
 
 namespace SSS.Api.Controllers
 {
@@ -16,17 +17,9 @@ namespace SSS.Api.Controllers
     [ApiController]
     public class StudentController : ApiBaseController
     {
+        [Autowired]
         private readonly IStudentService _student;
-
-        /// <summary>
-        /// StudentController
-        /// </summary>
-        /// <param name="student">IStudentService</param>
-        public StudentController(IStudentService student)
-        {
-            _student = student;
-        }
-
+         
         /// <summary>
         /// GetByName
         /// </summary>

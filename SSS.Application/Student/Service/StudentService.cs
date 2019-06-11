@@ -7,6 +7,7 @@ using SSS.Domain.Seedwork.EventBus;
 using SSS.Domain.Seedwork.Model;
 using SSS.Domain.Student.Dto;
 using SSS.Infrastructure.Repository.Student;
+using SSS.Infrastructure.Util.Attribute;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,17 +17,14 @@ namespace SSS.Application.Student
     [DIService(ServiceLifetime.Scoped, typeof(IStudentService))]
     public class StudentService : IStudentService
     {
+        [Autowired]
         private readonly IMapper _mapper;
+
+        [Autowired]
         private readonly IEventBus _bus;
 
-        private readonly IStudentRepository _studentrepository;
-
-        public StudentService(IMapper mapper, IEventBus bus, IStudentRepository studentrepository)
-        {
-            _mapper = mapper;
-            _bus = bus;
-            _studentrepository = studentrepository;
-        }
+        [Autowired]
+        private readonly IStudentRepository _studentrepository; 
 
         public void AddStudent(StudentInputDto input)
         {
