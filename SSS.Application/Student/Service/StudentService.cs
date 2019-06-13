@@ -24,7 +24,7 @@ namespace SSS.Application.Student
         private readonly IEventBus _bus;
 
         [Autowired]
-        private readonly IStudentRepository _studentrepository; 
+        private readonly IStudentRepository _studentrepository;
 
         public void AddStudent(StudentInputDto input)
         {

@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Hangfire.Server;
-using Hangfire.States;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -15,7 +13,6 @@ using SSS.Domain.Trade.Dto;
 using SSS.Domain.Trade.Request;
 using SSS.Domain.Trade.Response;
 using SSS.Infrastructure.Repository.Trade;
-using SSS.Infrastructure.Util.Hangfire;
 using SSS.Infrastructure.Util.Json;
 using System;
 using System.Collections.Generic;
@@ -44,13 +41,9 @@ namespace SSS.Application.Trade.Service
 
         /// <summary>
         /// 下单接口
-        /// </summary>
-        /// <param name="context">PerformContext</param>
-        [RecurringJob("*/1 * * * *", "China Standard Time", EnqueuedState.DefaultQueue)]
-        public void OperateTrade(PerformContext context)
+        /// </summary> 
+        public void OperateTrade(TradeInputDto input)
         {
-
-            TradeInputDto input = new TradeInputDto();
             var kdata = GetKDataLine(input.coin, input.ktime, DateTime.Now);
             var ma_5 = GetMaPrice(input.coin, input.ktime, 5, kdata);
             var ma_10 = GetMaPrice(input.coin, input.ktime, 10, kdata);
@@ -88,7 +81,7 @@ namespace SSS.Application.Trade.Service
             input.id = Guid.NewGuid().ToString();
             //input.last_time = DateTime.Now;
             //input.last_price = curruent_price;
-            input.first_trade_no = order_list.FirstOrDefault()?.first_trade_no;
+            //input.first_trade_no = order_list.FirstOrDefault()?.first_trade_no;
             var null_cmd = _mapper.Map<TradeNullCommand>(input);
             _bus.SendCommand(null_cmd);
             _logger.LogInformation($"无符合的交易规则  input:{input.ToJson()}");

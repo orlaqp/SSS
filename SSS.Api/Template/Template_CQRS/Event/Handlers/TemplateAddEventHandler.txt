@@ -11,13 +11,8 @@ namespace SSS.Domain.CQRS.Template.Event.Handlers
 {
     [SSS.Domain.Seedwork.Attribute.DIService(Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped, typeof(INotificationHandler<TemplateAddEvent>))]
     public class TemplateAddEventHandler : INotificationHandler<TemplateAddEvent>
-    {
-        private static ILogger _logger;
-
-        public TemplateAddEventHandler()
-        {
-            _logger = (ILogger)HttpContextService.Current.RequestServices.GetService(typeof(ILogger<ApiBaseController>));
-        }
+    { 
+	   private static ILogger _logger = ApplicationLog.CreateLogger<TemplateAddEventHandler>();
 
         public Task Handle(TemplateAddEvent @event, CancellationToken cancellationToken)
         {

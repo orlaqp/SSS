@@ -15,11 +15,6 @@ namespace SSS.Domain.CQRS.Trade.Event.Handlers
     {
         private static ILogger _logger = ApplicationLog.CreateLogger<TradeNullEventHandler>();
 
-        public TradeNullEventHandler()
-        {
-
-        }
-
         public Task Handle(TradeNullEvent @event, CancellationToken cancellationToken)
         {
             _logger.LogInformation($"TradeNullEventHandler {@event.ToJson()}");

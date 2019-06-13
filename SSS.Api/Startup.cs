@@ -12,8 +12,6 @@ using SSS.Api.Bootstrap;
 using SSS.Api.Middware;
 using SSS.Api.Seedwork;
 using SSS.Api.Seedwork.Filter;
-using SSS.Application.Trade.Service;
-using SSS.Infrastructure.Util.Hangfire;
 using System.Reflection;
 
 namespace SSS.Api
@@ -42,7 +40,7 @@ namespace SSS.Api
         /// </summary>
         /// <param name="services">IServiceCollection</param>
         public void ConfigureServices(IServiceCollection services)
-        {  
+        {
             services.AddMvc(options =>
             {
                 //全局Action Exception Result过滤器
@@ -116,8 +114,8 @@ namespace SSS.Api
             services.AddHangfire(config =>
             {
                 config.UseStorage(new MySqlStorage(Configuration.GetConnectionString("MYSQLConnection")));
-                config.UseRecurringJob(typeof(TradeService)); 
             });
+
             services.AddHangfireServer();
         }
         /// <summary>
@@ -135,6 +133,7 @@ namespace SSS.Api
             //异常拦截
             app.UseApiException();
 
+            GlobalJobFilters.Filters.Add(new AutomaticRetryAttribute() { Attempts = 1 });
             app.UseHangfireServer();
             app.UseHangfireDashboard("/hangfire", new DashboardOptions()
             {

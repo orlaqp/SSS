@@ -19,7 +19,7 @@ namespace SSS.Api.Controllers
         [Autowired]
         private IHostingEnvironment _env;
 
-        private static string current_path; 
+        private static string current_path;
 
         [HttpGet("index")]
         public ContentResult Index()

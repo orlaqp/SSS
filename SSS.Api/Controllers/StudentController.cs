@@ -19,7 +19,7 @@ namespace SSS.Api.Controllers
     {
         [Autowired]
         private readonly IStudentService _student;
-         
+
         /// <summary>
         /// GetByName
         /// </summary>

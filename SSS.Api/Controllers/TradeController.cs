@@ -5,7 +5,6 @@ using SSS.Api.Seedwork;
 using SSS.Application.Trade.Service;
 using SSS.Domain.Trade.Dto;
 using SSS.Infrastructure.Util.Attribute;
-using System;
 
 namespace SSS.Api.Controllers
 {
@@ -19,8 +18,12 @@ namespace SSS.Api.Controllers
     [ApiController]
     public class TradeController : ApiBaseController
     {
-        [Autowired]
-        private readonly ITradeService _trade; 
+        private readonly ITradeService _trade;
+
+        public TradeController(ITradeService trade)
+        {
+            _trade = trade;
+        }
 
         /// <summary>
         /// GetList
@@ -29,10 +32,18 @@ namespace SSS.Api.Controllers
         /// <returns></returns> 
         [HttpGet("getlist")]
         [AllowAnonymous]  //匿名访问
-        public IActionResult GetList([FromQuery]TradeInputDto trade)
+        public IActionResult GetList([FromQuery]TradeInputDto input)
         {
-            var result = _trade.GetListTrade(trade);
+            var result = _trade.GetListTrade(input);
             return Response(result);
-        } 
+        }
+
+        [HttpGet("operatrade")]
+        [AllowAnonymous]  //匿名访问
+        public IActionResult OperaTrade([FromQuery]TradeInputDto input)
+        {
+            RecurringJob.AddOrUpdate(() => _trade.OperateTrade(input), Cron.MinuteInterval(1));
+            return Response(input);
+        }
     }
 }
